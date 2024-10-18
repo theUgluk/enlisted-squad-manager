@@ -65,7 +65,7 @@ export default [{
             argsIgnorePattern: "^_",
         }],
 
-        "@stylistic/indent": ["error", 4],
+        "@stylistic/indent": ["error", 2],
         "@stylistic/quotes": ["error", "double"],
         "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/lines-between-class-members": "off",
