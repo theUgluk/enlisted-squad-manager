@@ -1,0 +1,6 @@
+<p>overview works!</p>
+@for(squad of overviewFacade.squadList(); track squad.id) {
+  <div>Squad: {{ squad.id }}</div>
+}
+
+<button (click)="addSquad()">Add Squad</button>
