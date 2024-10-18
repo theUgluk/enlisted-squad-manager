@@ -1,11 +1,14 @@
 import { TestBed } from "@angular/core/testing";
+import { provideStore } from "@ngxs/store";
 
 import { AppComponent } from "./app.component";
+import { DefaultState } from "./state/store/default.state";
 
 describe("AppComponent", () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [AppComponent],
+            providers: [provideStore([DefaultState])],
         }).compileComponents();
     });
 
