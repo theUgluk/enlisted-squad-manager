@@ -19,7 +19,7 @@ export class OverviewFacadeService {
     });
   }
 
-  private updateSquadSignalList(squads: Squad[]): void {
+  public updateSquadSignalList(squads: Squad[]): void {
     let markForCheck = false;
     squads.map(squad => {
       if(!this.squadSignalList[squad.arrayIndex]) {
