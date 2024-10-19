@@ -1,5 +1,5 @@
-import {ISquad} from "../../models/squad.model";
+import {Squad} from "../../models/squad.model";
 
 export interface SquadStateModel {
-  squads: ISquad[];
+  squads: Squad[];
 }

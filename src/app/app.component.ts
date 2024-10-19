@@ -1,9 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { Store } from "@ngxs/store";
 
-import {OverviewComponent} from "./components/overview/overview.component";
-import { SoldierState } from "./state/store/soldier.state";
+import { OverviewComponent } from "./components/overview/overview.component";
 
 @Component({
   selector: "app-root",
@@ -13,16 +12,8 @@ import { SoldierState } from "./state/store/soldier.state";
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.scss",
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = "boilerplate";
 
-  constructor(private _store: Store) {
-  }
-
-  ngOnInit() {
-    this._store.select(SoldierState.getBoolean).subscribe((value) => {
-      // eslint-ignore no-console
-      console.log("Example state: ", value);
-    });
-  }
+  constructor() {}
 }
