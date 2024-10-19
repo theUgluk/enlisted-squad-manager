@@ -1,13 +1,15 @@
 import {AsyncPipe} from "@angular/common";
-import { Component } from "@angular/core";
+import {Component} from "@angular/core";
 
 import {OverviewFacadeService} from "../../services/overview-facade.service";
+import {SquadComponent} from "../squad/squad.component";
 
 @Component({
   selector: "app-overview",
   standalone: true,
   imports: [
-    AsyncPipe
+    AsyncPipe,
+    SquadComponent
   ],
   templateUrl: "./overview.component.html",
   styleUrl: "./overview.component.scss"

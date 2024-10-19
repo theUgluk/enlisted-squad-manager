@@ -1,5 +1,6 @@
 # TODO
-- testen voor state schrijven
+- testen voor dynamische signals schrijven
+- State testen schrijven
 
 
 # Boilerplate
