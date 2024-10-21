@@ -19,7 +19,7 @@ export class SquadComponent implements OnInit {
 
   public squadSignal!: WritableSignal<Squad>;
   ngOnInit() {
-    this.squadSignal = this.overviewFacade.squadSignalList[this.squadId() - 1];
+    this.squadSignal = <WritableSignal<Squad>>this.overviewFacade.squadSignalList.get(this.squadId());
   }
 
 }

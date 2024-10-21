@@ -1,6 +1,6 @@
 <p>overview works!</p>
-@for(squad of overviewFacade.squadList(); track squad.id) {
-  <app-squad [squadId]="squad.id"></app-squad>
+@for(squadId of overviewFacade.getSquadIds(); track squadId) {
+  <app-squad [squadId]="squadId"></app-squad>
 }
 
 <button (click)="addSquad()">Add Squad</button>
