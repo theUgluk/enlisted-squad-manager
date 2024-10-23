@@ -25,7 +25,6 @@ export class SoldierState {
 
   @Action(SoldierActions.AddSoldier)
   public setBoolean(ctx: StateContext<SoldierStateModel>, action: SoldierActions.AddSoldier) {
-    console.log("adding");
     ctx.setState({
       soldiers: [
         ...ctx.getState().soldiers,
