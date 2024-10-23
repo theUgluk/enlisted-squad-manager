@@ -1,4 +1,7 @@
 <div>
   Squad {{ squadSignal().id }}, hash: {{ squadSignal().hash }}
-  <button (click)="squadSignal().tickCount()">Tick</button>
+  @for(soldier of overviewFacade.soldierForSquad(squadSignal().id); track soldier.id){
+    <app-soldier [soldierId]="soldier.id"></app-soldier>
+  }
+  <button (click)="overviewFacade.addSoldier(squadSignal().id)">Add Soldier</button>
 </div>

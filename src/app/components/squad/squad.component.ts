@@ -3,12 +3,14 @@ import {Component, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Squad} from "../../models/squad.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
+import {SoldierComponent} from "../soldier/soldier.component";
 
 @Component({
   selector: "app-squad",
   standalone: true,
   imports: [
-    AsyncPipe
+    AsyncPipe,
+    SoldierComponent
   ],
   templateUrl: "./squad.component.html",
   styleUrl: "./squad.component.scss"
