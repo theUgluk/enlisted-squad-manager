@@ -12,6 +12,8 @@ import {SquadState} from "../state/store/squad.state";
   providedIn: "root"
 })
 export class OverviewFacadeService {
+  public selectedSquadId: WritableSignal<number> = signal(0);
+
   public squadList: WritableSignal<Map<number, Squad>> = signal(new Map<number, Squad>());
 
   public squadSignalList: Map<number, WritableSignal<Squad>> = new Map<number, WritableSignal<Squad>>();

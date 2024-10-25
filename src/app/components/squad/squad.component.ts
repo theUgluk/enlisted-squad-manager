@@ -24,4 +24,8 @@ export class SquadComponent implements OnInit {
     this.squadSignal = <WritableSignal<Squad>>this.overviewFacade.squadSignalList.get(this.squadId());
   }
 
+  public selectSquad(){
+    this.overviewFacade.selectedSquadId.set(this.squadId());
+  }
+
 }
