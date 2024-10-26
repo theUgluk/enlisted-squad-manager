@@ -90,16 +90,9 @@ export default [{
 
     rules: {
         "class-methods-use-this": "off",
-        "@angular-eslint/template/interactive-supports-focus": "off",
     },
-}, {
-  files: ["**/*.html"],
-  rules: {
-    "@angular-eslint/template/click-events-have-key-events": "off",
-  }
 }, ...compat.extends(
     "plugin:@angular-eslint/template/recommended",
-    "plugin:@angular-eslint/template/accessibility",
 ).map(config => ({
     ...config,
     files: ["**/*.html"],

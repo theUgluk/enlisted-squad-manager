@@ -5,7 +5,7 @@ import {NgxsModule, Store} from "@ngxs/store";
 import {Soldier} from "../models/soldier.model";
 import {Squad} from "../models/squad.model";
 import {SquadActions} from "../state/actions/squadActions";
-import {SoldierState} from "../state/store/soldier.state";
+import {SoldierState} from "../state/store/soldier.stat`e";
 import {SquadState} from "../state/store/squad.state";
 import { OverviewFacadeService } from "./overview-facade.service";
 
