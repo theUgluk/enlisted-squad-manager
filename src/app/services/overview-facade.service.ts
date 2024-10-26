@@ -34,6 +34,13 @@ export class OverviewFacadeService {
 
   public updateSquadSignalList(squads: Squad[]): void {
     let markForCheck = false;
+    const newSquadIds = squads.map((x) => x.id);
+    this.getSquadIds()
+      .filter((x) => !newSquadIds.includes(x))
+      .forEach((id) => {
+        this.squadList().delete(id);
+        this.squadSignalList.delete(id);
+      });
     squads.map(squad => {
       if(!this.squadSignalList.has(squad.id)) {
         this.squadSignalList.set(squad.id, signal(squad));

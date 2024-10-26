@@ -5,12 +5,9 @@ import {NgxsModule, Store} from "@ngxs/store";
 import {Soldier} from "../models/soldier.model";
 import {Squad} from "../models/squad.model";
 import {SquadActions} from "../state/actions/squadActions";
+import {SoldierState} from "../state/store/soldier.state";
 import {SquadState} from "../state/store/squad.state";
 import { OverviewFacadeService } from "./overview-facade.service";
-import AddSquad = SquadActions.AddSquad;
-import {SoldierActions} from "../state/actions/soldierActions";
-import AddSoldier = SoldierActions.AddSoldier;
-import {SoldierState} from "../state/store/soldier.state";
 
 describe("OverviewService", () => {
   let service: OverviewFacadeService;
@@ -97,9 +94,8 @@ describe("OverviewService", () => {
 
     // Assert
     expect(service.squadSignalList.get(1)).toBeDefined();
-    expect(service.squadSignalList.get(2)).toBeDefined();
+    expect(service.squadSignalList.get(2)).toBeUndefined();
     expect(service.squadSignalList.get(1)()).toEqual(updatedSquad);
-    expect(service.squadSignalList.get(2)()).toEqual(squads[1]);
   });
 
   // Handles empty squads array without errors
@@ -179,7 +175,7 @@ describe("OverviewService", () => {
     expect(service.squadSignalList.size).toBe(0);
   });
 
-  it("should update squadList correctly when only some squads change", () => {
+  it("should update squadList correctly when squads get removed", () => {
     // Arrange
     const storeMock = { select: vi.fn(() => ({ subscribe: vi.fn() })) };
     service = new OverviewFacadeService(storeMock as any);
@@ -187,12 +183,17 @@ describe("OverviewService", () => {
     service.updateSquadSignalList(initialSquads);
     const updatedSquads = [new Squad(1), new Squad(3)];
 
+    const result = new Map<number, Squad>();
+    result.set(1, new Squad(1));
+    result.set(3, new Squad(3));
+
     // Act
     service.updateSquadSignalList(updatedSquads);
 
     // Assert
-    expect(service.squadList()).toEqual(updatedSquads);
-  });    // Retrieve squad IDs and ensure they match the current squad list
+    expect(service.squadList()).toEqual(result);
+  });
+  // Retrieve squad IDs and ensure they match the current squad list
   it("should update squad signal list when new squads are retrieved", () => {
     // Arrange
     const storeMock = {
@@ -224,7 +225,7 @@ describe("OverviewService", () => {
         subscribe: vi.fn()
       })
     };
-    const service = new OverviewFacadeService(storeMock as any);
+    service = new OverviewFacadeService(storeMock as any);
     const squad = new Squad(1);
     const soldier = new Soldier(1, 1);
     service.squadList().set(1, squad);
@@ -244,7 +245,7 @@ describe("OverviewService", () => {
         subscribe: vi.fn()
       })
     };
-    const service = new OverviewFacadeService(storeMock as any);
+    service = new OverviewFacadeService(storeMock as any);
     const squad = new Squad(1);
     const soldier = new Soldier(1, 1);
     service.squadList().set(1, squad);
