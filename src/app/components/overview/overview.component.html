@@ -2,5 +2,6 @@
 @for(squadId of overviewFacade.getSquadIds(); track squadId) {
   <app-squad [squadId]="squadId"></app-squad>
 }
-
 <button (click)="addSquad()">Add Squad</button>
+<hr>
+<app-selected-squad></app-selected-squad>

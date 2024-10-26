@@ -1,0 +1,6 @@
+Selected squad: {{overviewFacade.selectedSquadId()}}
+@if(overviewFacade.selectedSquadId() > 0){
+  @for (soldier of overviewFacade.soldierForSquad(overviewFacade.selectedSquadId()); track soldier.id){
+    <br /><app-soldier [soldierId]="soldier.id"></app-soldier>
+  }
+}

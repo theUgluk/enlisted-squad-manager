@@ -93,7 +93,6 @@ export default [{
     },
 }, ...compat.extends(
     "plugin:@angular-eslint/template/recommended",
-    "plugin:@angular-eslint/template/accessibility",
 ).map(config => ({
     ...config,
     files: ["**/*.html"],

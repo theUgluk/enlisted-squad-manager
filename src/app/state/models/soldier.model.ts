@@ -1,3 +1,5 @@
+import {Soldier} from "../../models/soldier.model";
+
 export interface SoldierStateModel {
-  boolean: boolean;
+  soldiers: Soldier[];
 }

@@ -1,8 +1,10 @@
 export namespace SoldierActions {
-  export class SetBoolean {
-    static readonly type = "[Default] Set Boolean";
+  export class AddSoldier {
+    static readonly type = "[Default] Add Soldier";
+    squadId: number;
 
-    constructor(public boolean: boolean) {
+    constructor(squadId: number) {
+      this.squadId = squadId;
     }
   }
 }
