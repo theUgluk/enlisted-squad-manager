@@ -1,7 +1,7 @@
 # TODO
-- testen voor dynamische signals schrijven
-- State testen schrijven
-
+- Write tests for dynamic signals
+- Write tests for state
+- Write tests for squad deletion
 
 # Boilerplate
 

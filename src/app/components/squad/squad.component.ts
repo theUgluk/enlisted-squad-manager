@@ -27,5 +27,4 @@ export class SquadComponent implements OnInit {
   public selectSquad(){
     this.overviewFacade.selectedSquadId.set(this.squadId());
   }
-
 }
