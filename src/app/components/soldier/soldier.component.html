@@ -1,4 +1,6 @@
 <div>
-  Soldier: {{soldierId()}}, hash: {{ soldierSignal().hash }}
+  Soldier: {{soldierId()}}, hash: {{ soldierSignal().hash }}<br>
+  <button (click)="deleteSoldier(soldierId())">Delete soldier</button>
+  <br>
   <button (click)="soldierSignal().tickCount()">Tick</button>
 </div>

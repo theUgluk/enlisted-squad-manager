@@ -1,6 +1,7 @@
 import {signal} from "@angular/core";
 import { TestBed } from "@angular/core/testing";
 import {NgxsModule, Store} from "@ngxs/store";
+import {expect} from "vitest";
 
 import {Soldier} from "../models/soldier.model";
 import {Squad} from "../models/squad.model";
@@ -21,6 +22,7 @@ describe("OverviewService", () => {
     store = TestBed.inject(Store);
     store.reset({
       squad: [{id: 1}],
+      soldiers: [new Soldier(0, 1)]
     });
     service = TestBed.inject(OverviewFacadeService);
   });
@@ -286,5 +288,14 @@ describe("OverviewService", () => {
     expect(service.squadList().get(2)).toEqual(squad2);
     expect(service.soldierList.get(1)).toEqual(soldier1);
     expect(service.soldierList.get(2)).toEqual(soldier2);
+  });
+
+
+  // Test concurrent updates to squad and soldier lists
+  it("should delete soldier when it is removed from the state", () => {
+    service.updateSoldierSignalList([new Soldier(0, 1)]);
+    expect(service.soldierList.size).toBe(1);
+    service.updateSoldierSignalList([]);
+    expect(service.soldierList.size).toBe(0);
   });
 });

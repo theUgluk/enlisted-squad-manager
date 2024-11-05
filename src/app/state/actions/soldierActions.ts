@@ -7,4 +7,13 @@ export namespace SoldierActions {
       this.squadId = squadId;
     }
   }
+
+  export class DeleteSoldier {
+    static readonly type = "[Default] Delete Soldier";
+    soldierId: number;
+
+    constructor(soldierId: number){
+      this.soldierId = soldierId;
+    }
+  }
 }
