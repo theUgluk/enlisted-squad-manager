@@ -73,6 +73,10 @@ export class OverviewFacadeService {
     return Array.from(this.soldierList.keys());
   }
 
+  public deleteSoldier(soldierId: number){
+    this._store.dispatch(new SoldierActions.DeleteSoldier(soldierId));
+  }
+
   public soldierForSquad(squadId: number): Soldier[] {
     const soldiers: Soldier[] = [];
     this.getSoldierIds().forEach(soldierId => {
@@ -97,6 +101,14 @@ export class OverviewFacadeService {
         }
       }
     });
+
+    // Delete soldiers from maps if they are no longer in the state
+    const accurateSoldierIds = soldiers.map(el => el.id);
+    const soldierIdsToDelete = this.getSoldierIds().filter(soldierId => !accurateSoldierIds.includes(soldierId));
+    soldierIdsToDelete.forEach((soldierId) => {
+      this.soldierSignalList.delete(soldierId);
+      this.soldierList.delete(soldierId);
+    })
   }
 
   public addSquad(){

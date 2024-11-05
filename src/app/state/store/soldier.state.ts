@@ -10,6 +10,7 @@ import { SoldierStateModel } from "../models/soldier.model";
 @State<SoldierStateModel>({
   name: "soldier",
   defaults: {
+    maxSoldierId: 0,
     soldiers: [
       new Soldier(0, 1),
     ],
@@ -25,11 +26,27 @@ export class SoldierState {
 
   @Action(SoldierActions.AddSoldier)
   public setBoolean(ctx: StateContext<SoldierStateModel>, action: SoldierActions.AddSoldier) {
+    //
+    const newSoldierId = ctx.getState().maxSoldierId + 1;
     ctx.setState({
+      ...ctx.getState(),
+      maxSoldierId: newSoldierId,
       soldiers: [
         ...ctx.getState().soldiers,
-        new Soldier(ctx.getState().soldiers.length, action.squadId)
+        new Soldier(newSoldierId, action.squadId)
       ]
     });
+  }
+
+  @Action(SoldierActions.DeleteSoldier)
+  public deleteSoldier(ctx: StateContext<SoldierStateModel>, action: SoldierActions.DeleteSoldier) {
+    const soldiers = [...ctx.getState().soldiers];
+    const index = soldiers.findIndex(soldier => soldier.id === action.soldierId)
+    if(index > -1) {
+      ctx.setState({
+        ...ctx.getState(),
+        soldiers: soldiers.filter((soldier) => soldier.id !== action.soldierId)
+      });
+    }
   }
 }

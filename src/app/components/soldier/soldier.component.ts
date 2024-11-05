@@ -21,4 +21,7 @@ export class SoldierComponent implements OnInit {
   ngOnInit() {
     this.soldierSignal = <WritableSignal<Soldier>>this.overviewFacade.soldierSignalList.get(this.soldierId());
   }
+  public deleteSoldier(soldierId: number){
+    this.overviewFacade.deleteSoldier(soldierId);
+  }
 }
