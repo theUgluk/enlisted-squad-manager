@@ -7,10 +7,14 @@ import {Squad} from "../../models/squad.model";
 import {SquadActions} from "../actions/squadActions";
 import {SquadStateModel} from "../models/squad.model";
 import AddSquad = SquadActions.AddSquad;
+import DeleteSquad = SquadActions.DeleteSquad;
+import {SoldierActions} from "../actions/soldierActions";
+import DeleteSoldiersForSquad = SoldierActions.DeleteSoldiersForSquad;
 
 @State<SquadStateModel>({
   name: "squad",
   defaults: {
+    maxSquadId: 1,
     squads: [new Squad(1)],
   }
 })
@@ -25,6 +29,27 @@ export class SquadState {
   @Action(AddSquad)
   public addSquad(ctx: StateContext<SquadStateModel>) {
     const state = ctx.getState();
-    ctx.setState({ ...state, squads: [...state.squads, new Squad(state.squads.length + 1)]});
+    const newSquadId = state.maxSquadId + 1;
+    ctx.setState({
+      ...state,
+      maxSquadId: newSquadId,
+      squads: [
+        ...state.squads,
+        new Squad(newSquadId)
+      ]
+    });
+  }
+
+  @Action(DeleteSquad)
+  public DeleteSquad(ctx: StateContext<SquadStateModel>, action: SquadActions.DeleteSquad) {
+    const squads = [...ctx.getState().squads];
+    const index = squads.findIndex(squad => squad.id === action.squadId)
+    if(index > -1) {
+      ctx.setState({
+        ...ctx.getState(),
+        squads: squads.filter((squad) => squad.id !== action.squadId)
+      });
+    }
+    ctx.dispatch(new DeleteSoldiersForSquad(action.squadId))
   }
 }

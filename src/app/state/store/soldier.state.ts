@@ -4,7 +4,7 @@ import {
 } from "@ngxs/store";
 
 import {Soldier} from "../../models/soldier.model";
-import { SoldierActions } from "../actions/soldierActions";
+import {SoldierActions} from "../actions/soldierActions";
 import { SoldierStateModel } from "../models/soldier.model";
 
 @State<SoldierStateModel>({
@@ -49,4 +49,14 @@ export class SoldierState {
       });
     }
   }
+
+  @Action(SoldierActions.DeleteSoldiersForSquad)
+  public deleteSoldiersForSquad(ctx: StateContext<SoldierStateModel>, action: SoldierActions.DeleteSoldiersForSquad){
+    // Get all the soldiers for x squad => call deleteSoldier for each
+    const state = ctx.getState();
+    state.soldiers
+      .filter(soldier => soldier.squadId === action.squadId)
+      .forEach(soldier => ctx.dispatch(new SoldierActions.DeleteSoldier(soldier.id)))
+  }
 }
+

@@ -1,4 +1,5 @@
 <div style="border: 1px solid black" (click)="selectSquad()">
   Squad {{ squadSignal().id }}, hash: {{ squadSignal().hash }}
   <button (click)="overviewFacade.addSoldier(squadSignal().id)">Add Soldier</button>
+  <button (click)="overviewFacade.deleteSquad(squadSignal().id)">Delete Squad</button>
 </div>

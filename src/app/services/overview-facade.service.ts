@@ -118,4 +118,11 @@ export class OverviewFacadeService {
   public addSoldier(squadId: number): void {
     this._store.dispatch(new SoldierActions.AddSoldier(squadId));
   }
+
+  public deleteSquad(squadId: number): void {
+    if(this.selectedSquadId() === squadId){
+      this.selectedSquadId.set(0);
+    }
+    this._store.dispatch(new SquadActions.DeleteSquad(squadId));
+  }
 }
