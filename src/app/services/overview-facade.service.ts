@@ -118,4 +118,11 @@ export class OverviewFacadeService {
   public addSoldier(squadId: number): void {
     this._store.dispatch(new SoldierActions.AddSoldier(squadId));
   }
+
+  public changeSoldierType(soldierId: number, soldierTypeId: number){
+    this._store.dispatch(new SoldierActions.ChangeSoldierType(soldierId, soldierTypeId))
+  }
+  public changeSoldierTypeLevel(soldierId: number, soldierTypeLevel: number){
+    this._store.dispatch(new SoldierActions.ChangeSoldierTypeLevel(soldierId, soldierTypeLevel))
+  }
 }

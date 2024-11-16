@@ -49,4 +49,34 @@ export class SoldierState {
       });
     }
   }
+
+  @Action(SoldierActions.ChangeSoldierType)
+  public changeSoldierType(ctx: StateContext<SoldierStateModel>, action: SoldierActions.ChangeSoldierType){
+    ctx.setState({
+      ...ctx.getState(),
+      soldiers: [
+        ...ctx.getState().soldiers.map(soldier => {
+          if(soldier.id === action.soldierId){
+            soldier.setSoldierTypeId(action.soldierTypeId);
+          }
+          return soldier;
+        }),
+      ]
+    });
+  }
+
+  @Action(SoldierActions.ChangeSoldierTypeLevel)
+  public changeSoldierTypeLevel(ctx: StateContext<SoldierStateModel>, action: SoldierActions.ChangeSoldierTypeLevel){
+    ctx.setState({
+      ...ctx.getState(),
+      soldiers: [
+        ...ctx.getState().soldiers.map(soldier => {
+          if(soldier.id === action.soldierId){
+            soldier.setSoldierTypeLevel(action.soldierTypeLevel);
+          }
+          return soldier;
+        }),
+      ]
+    });
+  }
 }
