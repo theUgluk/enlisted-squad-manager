@@ -119,6 +119,13 @@ export class OverviewFacadeService {
     this._store.dispatch(new SoldierActions.AddSoldier(squadId));
   }
 
+  public deleteSquad(squadId: number): void {
+    if(this.selectedSquadId() === squadId){
+      this.selectedSquadId.set(0);
+    }
+    this._store.dispatch(new SquadActions.DeleteSquad(squadId));
+  }
+
   public changeSoldierType(soldierId: number, soldierTypeId: number){
     this._store.dispatch(new SoldierActions.ChangeSoldierType(soldierId, soldierTypeId))
   }

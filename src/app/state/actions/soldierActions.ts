@@ -17,6 +17,15 @@ export namespace SoldierActions {
     }
   }
 
+  export class DeleteSoldiersForSquad {
+    static readonly type = "[Default] Delete Soldiers for a given Squad";
+    public squadId: number;
+
+    constructor(squadId: number) {
+      this.squadId = squadId;
+    }
+  }
+
   export class ChangeSoldierType {
     static readonly type = "[Default] Change SoldierType";
     soldierId: number;
