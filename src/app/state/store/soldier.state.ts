@@ -88,4 +88,17 @@ export class SoldierState {
       ]
     });
   }
+
+
+  @Action(SoldierActions.SetSoldier)
+  public setSoldier(ctx: StateContext<SoldierStateModel>, action: SoldierActions.SetSoldier) {
+    ctx.setState({
+      ...ctx.getState(),
+      soldiers: [
+        ...ctx.getState().soldiers,
+        ...action.soldiers
+      ]
+    });
+  }
 }
+
