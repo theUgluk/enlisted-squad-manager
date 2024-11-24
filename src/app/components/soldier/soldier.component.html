@@ -1,6 +1,17 @@
 <div>
   Soldier: {{soldierId()}}, hash: {{ soldierSignal().hash }}<br>
-  <button (click)="deleteSoldier(soldierId())">Delete soldier</button>
+  <app-soldier-type-selector
+    [soldierTypeId]="soldierSignal().soldierTypeId"
+    [soldierTypeLevel]="soldierSignal().soldierTypeLevel"
+    (soldierTypeChange)="soldierTypeChange($event)"
+    (soldierTypeLevelChange)="soldierTypeLevelChange($event)"
+  ></app-soldier-type-selector>
   <br>
-  <button (click)="soldierSignal().tickCount()">Tick</button>
+  <button (click)="deleteSoldier(soldierId())">
+    Delete soldier
+  </button>
+  <br>
+  <button (click)="soldierSignal().tickCount()">
+    Tick
+  </button>
 </div>

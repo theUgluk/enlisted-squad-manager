@@ -3,16 +3,19 @@ import {Component, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Soldier} from "../../models/soldier.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
+import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selector.component";
 
 @Component({
   selector: "app-soldier",
   standalone: true,
   imports: [
-    AsyncPipe
+    AsyncPipe,
+    SoldierTypeSelectorComponent
   ],
   templateUrl: "./soldier.component.html",
   styleUrl: "./soldier.component.scss"
 })
+
 export class SoldierComponent implements OnInit {
   constructor(public overviewFacade: OverviewFacadeService) {}
   soldierId = input.required<number>();
@@ -23,5 +26,13 @@ export class SoldierComponent implements OnInit {
   }
   public deleteSoldier(soldierId: number){
     this.overviewFacade.deleteSoldier(soldierId);
+  }
+
+  public soldierTypeChange(value: number){
+    this.overviewFacade.changeSoldierType(this.soldierId(), value);
+  }
+
+  public soldierTypeLevelChange(value: number){
+    this.overviewFacade.changeSoldierTypeLevel(this.soldierId(), value);
   }
 }

@@ -125,4 +125,11 @@ export class OverviewFacadeService {
     }
     this._store.dispatch(new SquadActions.DeleteSquad(squadId));
   }
+
+  public changeSoldierType(soldierId: number, soldierTypeId: number){
+    this._store.dispatch(new SoldierActions.ChangeSoldierType(soldierId, soldierTypeId))
+  }
+  public changeSoldierTypeLevel(soldierId: number, soldierTypeLevel: number){
+    this._store.dispatch(new SoldierActions.ChangeSoldierTypeLevel(soldierId, soldierTypeLevel))
+  }
 }

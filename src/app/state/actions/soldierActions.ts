@@ -25,4 +25,26 @@ export namespace SoldierActions {
       this.squadId = squadId;
     }
   }
+
+  export class ChangeSoldierType {
+    static readonly type = "[Default] Change SoldierType";
+    soldierId: number;
+    soldierTypeId: number;
+
+    constructor(soldierId: number, soldierTypeId: number) {
+      this.soldierId = soldierId;
+      this.soldierTypeId = soldierTypeId;
+    }
+  }
+
+  export class ChangeSoldierTypeLevel {
+    static readonly type = "[Default] Change SoldierTypeLevel";
+    soldierId: number;
+    soldierTypeLevel: number;
+
+    constructor(soldierId: number, soldierTypeLevel: number) {
+      this.soldierId = soldierId;
+      this.soldierTypeLevel = soldierTypeLevel;
+    }
+  }
 }

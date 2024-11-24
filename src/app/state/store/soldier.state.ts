@@ -4,7 +4,7 @@ import {
 } from "@ngxs/store";
 
 import {Soldier} from "../../models/soldier.model";
-import {SoldierActions} from "../actions/soldierActions";
+import { SoldierActions } from "../actions/soldierActions";
 import { SoldierStateModel } from "../models/soldier.model";
 
 @State<SoldierStateModel>({
@@ -58,5 +58,34 @@ export class SoldierState {
       .filter(soldier => soldier.squadId === action.squadId)
       .forEach(soldier => ctx.dispatch(new SoldierActions.DeleteSoldier(soldier.id)))
   }
-}
 
+  @Action(SoldierActions.ChangeSoldierType)
+  public changeSoldierType(ctx: StateContext<SoldierStateModel>, action: SoldierActions.ChangeSoldierType){
+    ctx.setState({
+      ...ctx.getState(),
+      soldiers: [
+        ...ctx.getState().soldiers.map(soldier => {
+          if(soldier.id === action.soldierId){
+            soldier.setSoldierTypeId(action.soldierTypeId);
+          }
+          return soldier;
+        }),
+      ]
+    });
+  }
+
+  @Action(SoldierActions.ChangeSoldierTypeLevel)
+  public changeSoldierTypeLevel(ctx: StateContext<SoldierStateModel>, action: SoldierActions.ChangeSoldierTypeLevel){
+    ctx.setState({
+      ...ctx.getState(),
+      soldiers: [
+        ...ctx.getState().soldiers.map(soldier => {
+          if(soldier.id === action.soldierId){
+            soldier.setSoldierTypeLevel(action.soldierTypeLevel);
+          }
+          return soldier;
+        }),
+      ]
+    });
+  }
+}
