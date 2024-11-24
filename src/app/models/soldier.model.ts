@@ -1,9 +1,10 @@
+import Util from "../util";
+
 export class Soldier {
   public id: number;
   public squadId: number;
   public soldierTypeId = 13;
-  public soldierTypeLevel = 1;
-  private _count = 0;
+  public soldierTypeLevel =1;
   public hash = "";
 
   constructor(id: number, squadId: number, soldierTypeId?: number, soldierTypeLevel?: number) {
@@ -30,17 +31,13 @@ export class Soldier {
     this.calculateHash();
   }
 
-  public tickCount(){
-    this._count++;
-    this.calculateHash();
-  }
-
   private calculateHash(){
+    //	[##]	 [#]	  [#]		[##]     [#]    [#]
+    // squadId-classId-classLevel-[perkId-perkAmount]
     this.hash =
-      this.id.toString()
-      + this.soldierTypeId.toString()
-      + this.soldierTypeLevel.toString()
-      + this._count.toString();
+      Util.makeMinLength(this.squadId.toString(36), 2)
+      + Util.makeMinLength(this.soldierTypeId.toString(36), 1)
+      + Util.makeMinLength(this.soldierTypeLevel.toString(36), 1);
   }
 }
 

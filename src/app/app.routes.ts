@@ -1,3 +1,7 @@
 import { Routes } from "@angular/router";
 
-export const routes: Routes = [];
+import {OverviewComponent} from "./components/overview/overview.component";
+
+export const routes: Routes = [
+  { path: "**", component: OverviewComponent}
+];

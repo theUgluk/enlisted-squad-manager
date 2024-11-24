@@ -1,3 +1,5 @@
+import {Soldier} from "../../models/soldier.model";
+
 export namespace SoldierActions {
   export class AddSoldier {
     static readonly type = "[Default] Add Soldier";
@@ -47,4 +49,14 @@ export namespace SoldierActions {
       this.soldierTypeLevel = soldierTypeLevel;
     }
   }
+
+  export class SetSoldier {
+    static readonly type = "[Default] Set array of soldiers";
+    soldiers: Soldier[];
+
+    constructor(soldiers: Soldier[]) {
+      this.soldiers = soldiers;
+    }
+  }
+
 }
