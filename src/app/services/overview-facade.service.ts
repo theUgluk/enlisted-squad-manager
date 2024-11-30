@@ -7,6 +7,7 @@ import {SoldierActions} from "../state/actions/soldierActions";
 import {SquadActions} from "../state/actions/squadActions";
 import {SoldierState} from "../state/store/soldier.state";
 import {SquadState} from "../state/store/squad.state";
+import AddPerkToSoldier = SoldierActions.AddPerkToSoldier;
 
 @Injectable({
   providedIn: "root"
@@ -133,5 +134,16 @@ export class OverviewFacadeService {
   }
   public changeSoldierTypeLevel(soldierId: number, soldierTypeLevel: number){
     this._store.dispatch(new SoldierActions.ChangeSoldierTypeLevel(soldierId, soldierTypeLevel))
+  }
+
+  public addPerkToSoldier(perkId: number, soldierId: number){
+    this._store.dispatch(new AddPerkToSoldier(soldierId, perkId));
+  }
+
+  public addPerkToSelectedSoldier(perkId: number){
+    const soldierId = this.selectedSoldierId();
+    if(soldierId !== null){
+      this.addPerkToSoldier(perkId, soldierId);
+    }
   }
 }

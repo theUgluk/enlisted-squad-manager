@@ -59,4 +59,15 @@ export namespace SoldierActions {
     }
   }
 
+  export class AddPerkToSoldier {
+    static readonly type = "[Default] Add a perk point to a soldier";
+    soldierId: number;
+    perkId: number;
+
+    constructor(soldierId: number, perkId: number) {
+      this.soldierId = soldierId;
+      this.perkId = perkId;
+    }
+  }
+
 }

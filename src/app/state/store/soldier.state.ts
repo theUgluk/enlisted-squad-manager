@@ -3,6 +3,7 @@ import {
   Action, Selector, State, StateContext
 } from "@ngxs/store";
 
+import {perks} from "../../../data/perks";
 import {Soldier} from "../../models/soldier.model";
 import { SoldierActions } from "../actions/soldierActions";
 import { SoldierStateModel } from "../models/soldier.model";
@@ -88,7 +89,6 @@ export class SoldierState {
     });
   }
 
-
   @Action(SoldierActions.SetSoldier)
   public setSoldier(ctx: StateContext<SoldierStateModel>, action: SoldierActions.SetSoldier) {
     ctx.setState({
@@ -99,6 +99,27 @@ export class SoldierState {
         ...action.soldiers
       ]
     });
+  }
+
+  @Action(SoldierActions.AddPerkToSoldier)
+  public addPerkToSoldier(ctx: StateContext<SoldierStateModel>, action: SoldierActions.AddPerkToSoldier) {
+    //get soldier
+    const changedSoldier = ctx.getState().soldiers.find(soldier => soldier.id === action.soldierId);
+    const perk = perks.find(thisPerk => thisPerk.id === action.perkId);
+    if(changedSoldier && perk){
+      changedSoldier.addPerk(action.perkId);
+      ctx.setState({
+        ...ctx.getState(),
+        soldiers: [
+          ...ctx.getState().soldiers.map(soldier => {
+            if(soldier.id === action.soldierId){
+              return changedSoldier;
+            }
+            return soldier;
+          })
+        ]
+      });
+    }
   }
 }
 
