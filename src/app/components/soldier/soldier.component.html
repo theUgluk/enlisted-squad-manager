@@ -1,14 +1,21 @@
-<div (click)="selectSoldier()">
-  Soldier: {{soldierId()}}, hash: {{ soldierSignal().hash }}<br>
-  <app-soldier-type-selector
-    [soldierTypeId]="soldierSignal().soldierTypeId"
-    [soldierTypeLevel]="soldierSignal().soldierTypeLevel"
-    (soldierTypeChange)="soldierTypeChange($event)"
-    (soldierTypeLevelChange)="soldierTypeLevelChange($event)"
-  ></app-soldier-type-selector>
-  <br>
-  <button (click)="deleteSoldier(soldierId())">
-    Delete soldier
-  </button>
-  <br>
+<div class="flex flex-row border-black border-2 p-2 gap-2" (click)="selectSoldier()">
+<!--  Soldier: {{soldierId()}}, hash: {{ soldierSignal().hash }}-->
+  <div class="flex-col">
+    <div>
+    <app-soldier-type-selector
+      [soldierTypeId]="soldierSignal().soldierTypeId"
+      [soldierTypeLevel]="soldierSignal().soldierTypeLevel"
+      (soldierTypeChange)="soldierTypeChange($event)"
+      (soldierTypeLevelChange)="soldierTypeLevelChange($event)"
+    ></app-soldier-type-selector>
+    </div>
+    <div>
+      17 - 17 - 17
+    </div>
+  </div>
+  <div>
+    <button (click)="deleteSoldier(soldierId())">
+      x
+    </button>
+  </div>
 </div>
