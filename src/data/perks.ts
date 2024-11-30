@@ -9,6 +9,7 @@ export const perks: IPerk[] = [
   //Vitality
   {
     // Exclude tanker
+    id: 0,
     type: 1,
     cost: 16,
     maxLevel: 1,
@@ -18,6 +19,7 @@ export const perks: IPerk[] = [
   },
   {
     // Pilot only
+    id: 1,
     type: 1,
     cost: 16,
     maxLevel: 1,
@@ -27,6 +29,7 @@ export const perks: IPerk[] = [
   },
   {
     // Exclude tanker, pilot
+    id: 2,
     type: 1,
     cost: 2,
     maxLevel: 4,

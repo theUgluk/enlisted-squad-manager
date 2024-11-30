@@ -65,6 +65,17 @@ export class UrlService {
     }
     const soldierTypeId = parseInt(soldierHash.substring(2, 3), 36);
     const soldierTypeLevel = parseInt(soldierHash.substring(3, 4), 36);
-    return new Soldier(soldierId, squadId, soldierTypeId, soldierTypeLevel);
+    const perkHashes = soldierHash.substring(4);
+    const perks: {perkId: number, amount: number}[] = [];
+    perkHashes.match(/.{1,2}/g)?.forEach((hash: string) => {
+      const perkId = parseInt(hash.substring(0, 1), 36);
+      const perkAmount = parseInt(hash.substring(1), 36);
+      perks.push({
+        perkId: perkId,
+        amount: perkAmount
+      })
+    });
+
+    return new Soldier(soldierId, squadId, soldierTypeId, soldierTypeLevel, perks);
   }
 }
