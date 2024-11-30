@@ -2,6 +2,7 @@
 - Write tests for dynamic signals
 - Write tests for state
 - Write tests for squad deletion
+- Currently perks dont update if the soldier changes type
 
 # Boilerplate
 

@@ -1,0 +1,8 @@
+<p>
+  Perk overview shown for {{overviewFacade.selectedSoldierId()}}
+</p>
+@for(perk of possiblePerks(); track perk){
+  <p>
+    {{ perk.text }}
+  </p>
+}

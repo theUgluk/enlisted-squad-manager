@@ -2,6 +2,7 @@ import {AsyncPipe} from "@angular/common";
 import {Component} from "@angular/core";
 
 import {OverviewFacadeService} from "../../services/overview-facade.service";
+import {PerkOverviewComponent} from "../perk-overview/perk-overview.component";
 import {SelectedSquadComponent} from "../selected-squad/selected-squad.component";
 import {SquadComponent} from "../squad/squad.component";
 
@@ -11,7 +12,8 @@ import {SquadComponent} from "../squad/squad.component";
   imports: [
     AsyncPipe,
     SquadComponent,
-    SelectedSquadComponent
+    SelectedSquadComponent,
+    PerkOverviewComponent
   ],
   templateUrl: "./overview.component.html",
   styleUrl: "./overview.component.scss"

@@ -4,3 +4,8 @@
 <button (click)="addSquad()">Add Squad</button>
 <hr>
 <app-selected-squad></app-selected-squad>
+@if(overviewFacade.selectedSoldierId() !== null) {
+  <app-perk-overview
+    [selectedSoldierId]="overviewFacade.selectedSoldierId() || 0"
+  ></app-perk-overview>
+}

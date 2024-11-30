@@ -1,4 +1,4 @@
-<div>
+<div (click)="selectSoldier()">
   Soldier: {{soldierId()}}, hash: {{ soldierSignal().hash }}<br>
   <app-soldier-type-selector
     [soldierTypeId]="soldierSignal().soldierTypeId"
