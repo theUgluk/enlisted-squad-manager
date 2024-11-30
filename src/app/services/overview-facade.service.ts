@@ -3,7 +3,7 @@ import {Store} from "@ngxs/store";
 
 import {Soldier} from "../models/soldier.model";
 import {Squad} from "../models/squad.model";
-import { SoldierActions } from "../state/actions/soldierActions";
+import {SoldierActions} from "../state/actions/soldierActions";
 import {SquadActions} from "../state/actions/squadActions";
 import {SoldierState} from "../state/store/soldier.state";
 import {SquadState} from "../state/store/squad.state";
@@ -13,6 +13,8 @@ import {SquadState} from "../state/store/squad.state";
 })
 export class OverviewFacadeService {
   public selectedSquadId: WritableSignal<number> = signal(0);
+
+  public selectedSoldierId: WritableSignal<number | null> = signal(null);
 
   public squadList: WritableSignal<Map<number, Squad>> = signal(new Map<number, Squad>());
 

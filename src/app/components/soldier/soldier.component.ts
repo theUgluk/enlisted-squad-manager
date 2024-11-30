@@ -24,6 +24,7 @@ export class SoldierComponent implements OnInit {
   ngOnInit() {
     this.soldierSignal = <WritableSignal<Soldier>>this.overviewFacade.soldierSignalList.get(this.soldierId());
   }
+
   public deleteSoldier(soldierId: number){
     this.overviewFacade.deleteSoldier(soldierId);
   }
@@ -34,5 +35,9 @@ export class SoldierComponent implements OnInit {
 
   public soldierTypeLevelChange(value: number){
     this.overviewFacade.changeSoldierTypeLevel(this.soldierId(), value);
+  }
+
+  public selectSoldier(){
+    this.overviewFacade.selectedSoldierId.set(this.soldierId());
   }
 }
