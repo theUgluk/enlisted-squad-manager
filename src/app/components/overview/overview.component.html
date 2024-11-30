@@ -1,6 +1,13 @@
-@for(squadId of overviewFacade.getSquadIds(); track squadId) {
-  <app-squad [squadId]="squadId"></app-squad>
-}
-<button (click)="addSquad()">Add Squad</button>
-<hr>
-<app-selected-squad></app-selected-squad>
+<div class="flex flex-row">
+  <div class="basis-1/5">
+    @for(squadId of overviewFacade.getSquadIds(); track squadId) {
+      <app-squad
+        [squadId]="squadId"></app-squad>
+    }
+    <button (click)="addSquad()">Add Squad</button>
+  </div>
+  <hr>
+  <div class="basis-1/5">
+    <app-selected-squad></app-selected-squad>
+  </div>
+</div>
