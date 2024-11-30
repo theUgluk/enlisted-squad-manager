@@ -1,6 +1,10 @@
-Selected squad: {{overviewFacade.selectedSquadId()}}
-@if(overviewFacade.selectedSquadId() > 0){
-  @for (soldier of overviewFacade.soldierForSquad(overviewFacade.selectedSquadId()); track soldier.id){
-    <br /><app-soldier [soldierId]="soldier.id"></app-soldier>
+<div class="flex flex-col gap-2">
+  @if(overviewFacade.selectedSquadId() > 0){
+    @for (soldier of overviewFacade.soldierForSquad(overviewFacade.selectedSquadId()); track soldier.id){
+      <app-soldier class="hover:cursor-pointer hover:bg-gray-500" [soldierId]="soldier.id"></app-soldier>
+    }
   }
-}
+  <div (click)="createNewSoldier()">
+    Add soldier
+  </div>
+</div>

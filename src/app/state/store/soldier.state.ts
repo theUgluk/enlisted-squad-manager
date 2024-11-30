@@ -26,7 +26,6 @@ export class SoldierState {
 
   @Action(SoldierActions.AddSoldier)
   public setBoolean(ctx: StateContext<SoldierStateModel>, action: SoldierActions.AddSoldier) {
-    //
     const newSoldierId = ctx.getState().maxSoldierId + 1;
     ctx.setState({
       ...ctx.getState(),
@@ -94,6 +93,7 @@ export class SoldierState {
   public setSoldier(ctx: StateContext<SoldierStateModel>, action: SoldierActions.SetSoldier) {
     ctx.setState({
       ...ctx.getState(),
+      maxSoldierId: action.soldiers.length,
       soldiers: [
         ...ctx.getState().soldiers,
         ...action.soldiers

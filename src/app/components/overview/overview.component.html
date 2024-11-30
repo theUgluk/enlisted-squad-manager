@@ -1,18 +1,20 @@
-<div class="flex flex-row">
-  <div class="basis-1/5">
+<div class="flex flex-row m-4 gap-x-2">
+  <div class="flex flex-col basis-1/12 gap-y-3">
     @for(squadId of overviewFacade.getSquadIds(); track squadId) {
-      <app-squad
-        [squadId]="squadId"></app-squad>
+      <app-squad [squadId]="squadId"></app-squad>
     }
-    <button (click)="addSquad()">Add Squad</button>
+    <div class="border-2 border-black aspect-square place-content-center text-center text-6xl hover:cursor-pointer hover:bg-gray-500" (click)="addSquad()">
+        +
+    </div>
   </div>
-  <hr>
-  <div class="basis-1/5">
-    <app-selected-squad></app-selected-squad>
+  <div class="basis-1/6">
+    <app-selected-squad class="flex flex-grow"></app-selected-squad>
   </div>
-  @if(overviewFacade.selectedSoldierId() !== null) {
-    <app-perk-overview
-      [selectedSoldierId]="overviewFacade.selectedSoldierId() || 0"
-    ></app-perk-overview>
-  }
+  <div class="basis-3/4">
+    @if(overviewFacade.selectedSoldierId() !== null) {
+      <app-perk-overview
+        [selectedSoldierId]="overviewFacade.selectedSoldierId() || 0"
+      ></app-perk-overview>
+    }
+  </div>
 </div>
