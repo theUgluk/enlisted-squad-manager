@@ -121,5 +121,24 @@ export class SoldierState {
       });
     }
   }
+
+  @Action(SoldierActions.RemovePerkFromSoldier)
+  public removePerkFromSoldier(ctx: StateContext<SoldierStateModel>, action: SoldierActions.RemovePerkFromSoldier) {
+    const originalSoldier = ctx.getState().soldiers.find(soldier => soldier.id === action.soldierId);
+    if(originalSoldier) {
+      originalSoldier.removePerk(action.perkId);
+      ctx.setState({
+        ...ctx.getState(),
+        soldiers: [
+          ...ctx.getState().soldiers.map(soldier => {
+            if (soldier.id === action.soldierId) {
+              return originalSoldier;
+            }
+            return soldier;
+          })
+        ]
+      });
+    }
+  }
 }
 

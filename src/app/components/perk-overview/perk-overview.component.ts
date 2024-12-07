@@ -43,6 +43,10 @@ export class PerkOverviewComponent {
     this.overviewFacade.addPerkToSelectedSoldier(perkId);
   }
 
+  public perkRightClicked(perkId: number){
+    this.overviewFacade.removePerkFromSelectedSoldier(perkId);
+  }
+
   public selectedAmountForPerk(perkId: number): number{
     return this.overviewFacade.soldierList.get(this.selectedSoldierId())?.
       perks?.find(perk => perk.perkId === perkId)?.amount || 0;

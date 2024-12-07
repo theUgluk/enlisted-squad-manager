@@ -1,5 +1,6 @@
 import { perks } from "../../data/perks";
 import Util from "../util";
+import { soldierTypes } from "../../data/soldierTypes";
 
 export class Soldier {
   public id: number;
@@ -30,11 +31,44 @@ export class Soldier {
     this.calculateHash();
   }
 
-  // @todo set typeLevel to min level
+  //@TODO Make this better in the HTML
+  public getPerkPointsSpend(): {
+    mobility: number,
+    vitality: number,
+    weaponHandling: number,
+  }{
+    const values = {
+      mobility: 0,
+      vitality: 0,
+      weaponHandling: 0,
+    }
+    this.perks.forEach((soldierPerk) => {
+      const thisPerk = perks.find(perk => perk.id === soldierPerk.perkId);
+      if(thisPerk) {
+        switch (thisPerk.type) {
+          case 0:
+            values.mobility += thisPerk.cost * soldierPerk.amount;
+            break;
+          case 1:
+            values.vitality += thisPerk.cost * soldierPerk.amount;
+            break;
+          case 2:
+            values.weaponHandling += thisPerk.cost * soldierPerk.amount;
+            break;
+        }
+      }
+    })
+    return values;
+  }
+
   public setSoldierTypeId(id: number) {
     this.soldierTypeId = id;
-    this.setSoldierTypeLevel(1);
-    this.calculateHash();
+    const soldierType = soldierTypes.find(type => type.id === id);
+    if(soldierType){
+      this.setSoldierTypeLevel(soldierType.minLevel);
+      this.perks = [];
+      this.calculateHash();
+    }
   }
 
   public setSoldierTypeLevel(level: number) {
@@ -54,8 +88,20 @@ export class Soldier {
       this.perks = [...this.perks, {
         perkId: perkId,
         amount: 1
+      }];
+    }
+    this.calculateHash();
+  }
+
+  public removePerk(perkId: number){
+    const perkIndex = this.perks.findIndex((perk) => perk.perkId === perkId);
+    if(perkIndex > -1){
+      const localPerk = this.perks[perkIndex];
+      if(localPerk.amount <= 1){
+        this.perks.splice(perkIndex, 1);
+      } else {
+        this.perks[perkIndex].amount--;
       }
-      ];
     }
     this.calculateHash();
   }
