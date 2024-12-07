@@ -4,12 +4,14 @@ import { perks } from "../../../data/perks";
 import {IPerk} from "../../models/perk.model";
 import { OverviewFacadeService } from "../../services/overview-facade.service";
 import {PerkComponent} from "../perk/perk.component";
+import {SelectedPerkComponent} from "../selected-perk/selected-perk.component";
 
 @Component({
   selector: "app-perk-overview",
   standalone: true,
   imports: [
-    PerkComponent
+    PerkComponent,
+    SelectedPerkComponent
   ],
   templateUrl: "./perk-overview.component.html",
   styleUrl: "./perk-overview.component.scss"
@@ -30,7 +32,14 @@ export class PerkOverviewComponent {
 
   selectedSoldierId = input.required<number>();
 
+  selectedPerkId: WritableSignal<number | null> = signal(null);
+
   public possiblePerks: WritableSignal<IPerk[]> = signal([]);
+
+  public getPerksByType(type: number): IPerk[] {
+    const possiblePerks = this.possiblePerks();
+    return possiblePerks.filter(perk => perk.type === type);
+  }
 
   private getPossiblePerks(soldierTypeId: number): IPerk[] {
     return perks.filter(perk => {
@@ -39,15 +48,23 @@ export class PerkOverviewComponent {
     });
   }
 
-  public perkClicked(perkId: number){
-    this.overviewFacade.addPerkToSelectedSoldier(perkId);
+  public perkClicked(perkId: number | null){
+    if(perkId !== null) {
+      if (this.selectedPerkId() === null || this.selectedPerkId() !== perkId) {
+        this.selectedPerkId.set(perkId);
+      } else {
+        this.overviewFacade.addPerkToSelectedSoldier(perkId);
+      }
+    }
   }
 
-  public perkRightClicked(perkId: number){
-    this.overviewFacade.removePerkFromSelectedSoldier(perkId);
+  public perkRightClicked(perkId: number | null){
+    if(perkId !== null) {
+      this.overviewFacade.removePerkFromSelectedSoldier(perkId);
+    }
   }
 
-  public selectedAmountForPerk(perkId: number): number{
+  public selectedAmountForPerk(perkId: number | null): number{
     return this.overviewFacade.soldierList.get(this.selectedSoldierId())?.
       perks?.find(perk => perk.perkId === perkId)?.amount || 0;
   }

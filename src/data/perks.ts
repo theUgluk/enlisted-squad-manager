@@ -1,7 +1,8 @@
 /*
- * 0: Mobility
- * 1: Vitality
- * 2: Weapon Handling
+ * 0: Mobility (150/255/150)
+ * 1: Vitality (255/150/150)
+ * 2: Weapon Handling (255/255/150)
+ *
  */
 import {IPerk} from "../app/models/perk.model";
 
@@ -16,6 +17,7 @@ export const perks: IPerk[] = [
     step: 50,
     include: false,
     class: [],
+    icon: "faster_change_pose_speed_icon.svg",
   },
   {
     id: 4,
@@ -26,6 +28,7 @@ export const perks: IPerk[] = [
     step: 100,
     include: false,
     class: [],
+    icon: "faster_self_fire_putout_icon.svg",
   },
   {
     id: 5,
@@ -36,6 +39,7 @@ export const perks: IPerk[] = [
     step: 20,
     include: false,
     class: [],
+    icon: "crawl_crouch_speed_icon.svg",
   },
   //Vitality
   {
@@ -47,7 +51,8 @@ export const perks: IPerk[] = [
     text: (amount: number) => `+${amount * 35}% vitality`,
     step: 30,
     include: false,
-    class: [15]
+    class: [15],
+    icon: "perk_vitality.svg"
   },
   {
     // Pilot only
@@ -55,10 +60,12 @@ export const perks: IPerk[] = [
     type: 1,
     cost: 16,
     maxLevel: 1,
-    text: (amount: number) => `+${amount * 30}% value of endured maximum negative overloads, +${amount * 15}% value of endured maximum positive overloads`,
+    text: (amount: number) => `+${amount * 30}% value of endured maximum negative overloads,
+     +${amount * 15}% value of endured maximum positive overloads`,
     step: 30,
     include: true,
-    class: [5, 16]
+    class: [5, 16],
+    icon: "pilot_g_tolerance_icon.svg",
   },
   {
     // Exclude tanker, pilot
@@ -69,7 +76,8 @@ export const perks: IPerk[] = [
     text: (amount: number) => `+${amount * 20}% aim stability with firearms after receiving damage`,
     step: 20,
     include: false,
-    class: [15, 5, 16]
+    class: [15, 5, 16],
+    icon: "more_stability_when_hit_icon.svg",
   },
   // Weapon Handling
   {
@@ -81,16 +89,19 @@ export const perks: IPerk[] = [
     step: 50,
     include: false,
     class: [],
+    icon: "faster_change_weapon_icon.svg",
   },
   {
     id: 7,
     type: 2,
     cost: 1,
     maxLevel: 2,
-    text: (amount: number) => `+${amount * 7.5}% Speed of decreasing of the shot spread after quick turning, -${amount * 12.5}% Shot spread after quick turning`,
+    text: (amount: number) => `+${amount * 7.5}% Speed of decreasing of the shot spread after quick turning,
+     -${amount * 12.5}% Shot spread after quick turning`,
     step: 12.5,
     include: false,
     class: [],
+    icon: "less_shot_spread_after_turn_icon.svg",
   },
   {
     id: 8,
@@ -101,5 +112,6 @@ export const perks: IPerk[] = [
     step: 25,
     include: false,
     class: [],
+    icon: "melee_damage_icon.svg",
   }
 ];
