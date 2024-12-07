@@ -7,4 +7,5 @@ export interface IPerk {
   step: number;
   include: boolean;
   class: number[];
+  icon: string;
 }

@@ -1,11 +1,49 @@
-<p>
-  Perk overview shown for {{overviewFacade.selectedSoldierId()}}
-</p>
-@for(perk of possiblePerks(); track perk){
-  <app-perk
-    (perkClicked)="perkClicked($event)"
-    (perkRightClicked)="perkRightClicked(perk.id)"
-    [selectedAmountForPerk]="selectedAmountForPerk(perk.id)"
-    [perk]="perk"
-  ></app-perk>
-}
+<div class="flex flex-row">
+  <div class="w-3/4">
+    <p>
+      Perk overview shown for {{overviewFacade.selectedSoldierId()}}
+    </p>
+    <div class="flex flex-row">
+      <div class="w-1/3">
+        @for(mobilityPerk of getPerksByType(0); track mobilityPerk){
+          <app-perk
+            (perkClicked)="perkClicked($event)"
+            (perkRightClicked)="perkRightClicked(mobilityPerk.id)"
+            [selectedAmountForPerk]="selectedAmountForPerk(mobilityPerk.id)"
+            [perk]="mobilityPerk"
+          ></app-perk>
+        }
+      </div>
+      <div class="w-1/3">
+        @for(vitalityPerk of getPerksByType(1); track vitalityPerk){
+          <app-perk
+            (perkClicked)="perkClicked($event)"
+            (perkRightClicked)="perkRightClicked(vitalityPerk.id)"
+            [selectedAmountForPerk]="selectedAmountForPerk(vitalityPerk.id)"
+            [perk]="vitalityPerk"
+          ></app-perk>
+        }
+      </div>
+      <div class="w-1/3">
+        @for(weaponHandlingPerk of getPerksByType(2); track weaponHandlingPerk){
+          <app-perk
+            (perkClicked)="perkClicked($event)"
+            (perkRightClicked)="perkRightClicked(weaponHandlingPerk.id)"
+            [selectedAmountForPerk]="selectedAmountForPerk(weaponHandlingPerk.id)"
+            [perk]="weaponHandlingPerk"
+          ></app-perk>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="w-1/4">
+    @if(selectedPerkId() !== null) {
+      <app-selected-perk
+        [selectedPerkId]="selectedPerkId()"
+        [selectedAmountForPerk]="selectedAmountForPerk(selectedPerkId())"
+        (perkClicked)="perkClicked($event)"
+        (perkRightClicked)="perkRightClicked($event)"
+      ></app-selected-perk>
+    }
+  </div>
+</div>

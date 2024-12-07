@@ -1,0 +1,18 @@
+<p>
+  <img class="perk perk-{{selectedPerk()?.type}}" src="/assets/images/perks/{{selectedPerk()?.icon}}" />
+</p>
+<p>
+  {{ selectedPerk()?.text(selectedAmountForPerk()) }}
+</p>
+<p>
+  Cost: {{selectedPerk()?.cost}}
+</p>
+<button
+  [disabled]="selectedAmountForPerk() <= 0"
+  (click)="perkRightClicked.emit(selectedPerkId())"
+>
+  -1
+</button>
+<button (click)="perkClicked.emit(selectedPerkId())">
+  +1
+</button>

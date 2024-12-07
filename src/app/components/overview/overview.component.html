@@ -13,6 +13,7 @@
   <div class="basis-3/4">
     @if(overviewFacade.selectedSoldierId() !== null) {
       <app-perk-overview
+        class="flex-row"
         [selectedSoldierId]="overviewFacade.selectedSoldierId() || 0"
       ></app-perk-overview>
     }

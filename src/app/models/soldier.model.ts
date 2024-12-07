@@ -1,6 +1,6 @@
 import { perks } from "../../data/perks";
-import Util from "../util";
 import { soldierTypes } from "../../data/soldierTypes";
+import Util from "../util";
 
 export class Soldier {
   public id: number;
