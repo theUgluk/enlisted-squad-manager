@@ -8,6 +8,7 @@ import {SquadActions} from "../state/actions/squadActions";
 import {SoldierState} from "../state/store/soldier.state";
 import {SquadState} from "../state/store/squad.state";
 import AddPerkToSoldier = SoldierActions.AddPerkToSoldier;
+import RemovePerkFromSoldier = SoldierActions.RemovePerkFromSoldier;
 
 @Injectable({
   providedIn: "root"
@@ -138,6 +139,13 @@ export class OverviewFacadeService {
 
   public addPerkToSoldier(perkId: number, soldierId: number){
     this._store.dispatch(new AddPerkToSoldier(soldierId, perkId));
+  }
+
+  public removePerkFromSelectedSoldier(perkId: number){
+    const soldierId = this.selectedSoldierId();
+    if(soldierId !== null){
+      this._store.dispatch(new RemovePerkFromSoldier(soldierId, perkId));
+    }
   }
 
   public addPerkToSelectedSoldier(perkId: number){

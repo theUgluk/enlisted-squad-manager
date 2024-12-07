@@ -70,4 +70,15 @@ export namespace SoldierActions {
     }
   }
 
+  export class RemovePerkFromSoldier {
+    static readonly type = "[Default] Remove a perk point from a soldier";
+    soldierId: number;
+    perkId: number;
+
+    constructor(soldierId: number, perkId: number) {
+      this.soldierId = soldierId;
+      this.perkId = perkId;
+    }
+  }
+
 }

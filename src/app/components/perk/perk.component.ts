@@ -15,7 +15,15 @@ export class PerkComponent {
 
   @Output() perkClicked = new EventEmitter<number>();
 
+  @Output() perkRightClicked = new EventEmitter<number>();
+
   public click(){
     this.perkClicked.emit(this.perk().id);
   }
+
+  public rmb(event: MouseEvent){
+    event.preventDefault();
+    this.perkRightClicked.emit(this.perk().id);
+  }
+
 }

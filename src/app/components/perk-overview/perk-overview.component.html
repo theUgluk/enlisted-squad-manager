@@ -2,5 +2,10 @@
   Perk overview shown for {{overviewFacade.selectedSoldierId()}}
 </p>
 @for(perk of possiblePerks(); track perk){
-  <app-perk (perkClicked)="perkClicked($event)" [selectedAmountForPerk]="selectedAmountForPerk(perk.id)" [perk]="perk"></app-perk>
+  <app-perk
+    (perkClicked)="perkClicked($event)"
+    (perkRightClicked)="perkRightClicked(perk.id)"
+    [selectedAmountForPerk]="selectedAmountForPerk(perk.id)"
+    [perk]="perk"
+  ></app-perk>
 }

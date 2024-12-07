@@ -3,7 +3,8 @@ export interface IPerk {
   type: number;
   cost: number;
   maxLevel: number;
-  text: string;
+  text: (steps: number) => string;
+  step: number;
   include: boolean;
   class: number[];
 }
