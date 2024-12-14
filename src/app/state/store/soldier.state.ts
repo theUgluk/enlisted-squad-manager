@@ -67,6 +67,7 @@ export class SoldierState {
         ...ctx.getState().soldiers.map(soldier => {
           if(soldier.id === action.soldierId){
             soldier.setSoldierTypeId(action.soldierTypeId);
+            soldier.removeAllPerks();
           }
           return soldier;
         }),

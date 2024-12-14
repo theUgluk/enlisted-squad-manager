@@ -1,4 +1,4 @@
 <div (contextmenu)="rmb($event)" (click)="click()">
   <img class="perk perk-{{perk()?.type}}" src="/assets/images/perks/{{perk()?.icon}}" />
-  ({{selectedAmountForPerk()}}/{{perk().maxLevel}})
+  {{selectedAmountForPerk()}}/{{perk().maxLevel}}
 </div>
