@@ -18,6 +18,6 @@ export class SelectedSquadComponent {
   constructor(public overviewFacade: OverviewFacadeService) {}
 
   public createNewSoldier(){
-    this.overviewFacade.addSoldier(this.overviewFacade.selectedSquadId())
+    this.overviewFacade.addSoldier(this.overviewFacade.selectedSquadId());
   }
 }

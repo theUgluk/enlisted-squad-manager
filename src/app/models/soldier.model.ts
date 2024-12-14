@@ -114,10 +114,20 @@ export class Soldier {
       + Util.makeMinLength(this.soldierTypeId.toString(36), 1)
       + Util.makeMinLength(this.soldierTypeLevel.toString(36), 1);
 
+
+    this.hash =
+      Util.encodeNumber(this.squadId)
+      + Util.encodeNumber(this.soldierTypeId)
+      + Util.encodeNumber(this.soldierTypeLevel);
+
     this.perks.forEach(perk => {
-      this.hash += Util.makeMinLength(perk.perkId.toString(36), 1)
-      + Util.makeMinLength(perk.amount.toString(36), 1)
+      this.hash += Util.encodeNumber(perk.perkId)
+      + Util.encodeNumber(perk.amount)
     });
+  }
+
+  public removeAllPerks(){
+    this.perks = [];
   }
 }
 

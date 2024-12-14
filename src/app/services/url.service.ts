@@ -7,6 +7,7 @@ import {Soldier} from "../models/soldier.model";
 import {SoldierActions} from "../state/actions/soldierActions";
 import {SquadActions} from "../state/actions/squadActions";
 import {SoldierState} from "../state/store/soldier.state";
+import Util from "../util";
 
 @Injectable({
   providedIn: "root"
@@ -59,23 +60,22 @@ export class UrlService {
     // min of 4:
     const soldierId = this.id;
     this.id++;
-    const squadId = parseInt(soldierHash.substring(0, 2), 36);
+    const squadId = Util.decodeNumber(soldierHash.substring(0, 1));
     if(this.squadIds.indexOf(squadId) === -1){
       this.squadIds.push(squadId);
     }
-    const soldierTypeId = parseInt(soldierHash.substring(2, 3), 36);
-    const soldierTypeLevel = parseInt(soldierHash.substring(3, 4), 36);
-    const perkHashes = soldierHash.substring(4);
+    const soldierTypeId = Util.decodeNumber(soldierHash.substring(1, 2));
+    const soldierTypeLevel = Util.decodeNumber(soldierHash.substring(2, 3));
+    const perkHashes = soldierHash.substring(3);
     const perks: {perkId: number, amount: number}[] = [];
     perkHashes.match(/.{1,2}/g)?.forEach((hash: string) => {
-      const perkId = parseInt(hash.substring(0, 1), 36);
-      const perkAmount = parseInt(hash.substring(1), 36);
+      const perkId = Util.decodeNumber(hash.substring(0, 1));
+      const perkAmount = Util.decodeNumber(hash.substring(1));
       perks.push({
         perkId: perkId,
         amount: perkAmount
       })
     });
-
     return new Soldier(soldierId, squadId, soldierTypeId, soldierTypeLevel, perks);
   }
 }

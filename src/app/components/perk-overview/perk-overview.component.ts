@@ -32,6 +32,7 @@ export class PerkOverviewComponent {
 
   selectedSoldierId = input.required<number>();
 
+
   selectedPerkId: WritableSignal<number | null> = signal(null);
 
   public possiblePerks: WritableSignal<IPerk[]> = signal([]);
