@@ -238,7 +238,7 @@ export const perks: IPerk[] = [
     step: 30,
     include: false,
     class: [15],
-    icon: "perk_vitality.svg"
+    icon: "hp_boost_icon.svg"
   },
   {
     // Pilot only

@@ -1,3 +1,7 @@
-.perk-container app-perk {
-  width: 30%;
+.perk-container {
+  background-color: rgb(56, 66, 77);
+  padding: 1rem;
+  app-perk {
+    width: 30%;
+  }
 }
