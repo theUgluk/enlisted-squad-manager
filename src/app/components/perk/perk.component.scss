@@ -1,7 +1,6 @@
 :host {
   cursor: pointer;
   aspect-ratio: 1;
-
   .perk-main {
     background-color: rgb(19, 24, 31);
     border-radius: 5px;
@@ -15,6 +14,33 @@
           background-color: rgb(250, 250, 250);
           color: black;
         }
+      }
+    }
+    &.perk-0.selected.perked {
+      &:hover {
+        background-color: rgb(150, 255, 150);
+      }
+      border-color: rgb(150, 255, 150);
+      .perk-inner, .perk-inner .perk-amount .perk-amount-text {
+        background-color: rgb(150, 255, 150);
+      }
+    }
+    &.perk-1.selected.perked {
+      &:hover {
+        background-color: rgb(255, 150, 150);
+      }
+      border-color: rgb(255, 150, 150);
+      .perk-inner, .perk-inner .perk-amount .perk-amount-text {
+        background-color: rgb(255, 150, 150);
+      }
+    }
+    &.perk-2.selected.perked {
+      &:hover {
+        background-color: rgb(255, 255, 150);
+      }
+      border-color: rgb(255, 255, 150);
+      .perk-inner, .perk-inner .perk-amount .perk-amount-text {
+        background-color: rgb(255, 255, 150);
       }
     }
     .perk-inner {
@@ -46,12 +72,12 @@
         padding: 1px 10px;
       }
     }
-    &.perked &.selected {
-
-    }
     &.unperked {
       img.perk {
         filter: brightness(0) saturate(100%) invert(60%) sepia(1%) saturate(1737%) hue-rotate(169deg) brightness(87%) contrast(77%);
+      }
+      &:hover img.perk {
+        filter: brightness(0) saturate(100%) invert(18%) sepia(13%) saturate(739%) hue-rotate(174deg) brightness(97%) contrast(89%);
       }
     }
     &.selected {

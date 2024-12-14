@@ -1,7 +1,7 @@
-<div (contextmenu)="rmb($event)" (click)="click()" class="perk-main {{extraClasses}}">
+<div (contextmenu)="rmb($event)" (click)="click()" class="perk-main perk-{{perk()?.type}} {{extraClasses}}">
   <div class="perk-inner">
     <div class="perk-icon">
-      <img class="perk perk-{{perk()?.type}}" src="/assets/images/perks/{{perk()?.icon}}" />
+      <img class="perk" src="/assets/images/perks/{{perk()?.icon}}" />
     </div>
     <div class="perk-amount">
       <span class="perk-amount-text">
