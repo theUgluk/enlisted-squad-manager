@@ -37,7 +37,6 @@ describe("OverviewService", () => {
 
     // Act
     service.addSquad();
-
     // Assert
     expect(dispatchSpy).toHaveBeenCalledWith(new SquadActions.AddSquad());
   });
