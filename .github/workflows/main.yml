@@ -1,0 +1,7 @@
+name: build-and-lint
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - run: npm install
