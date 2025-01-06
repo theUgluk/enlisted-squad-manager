@@ -6,5 +6,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm install
-      - run: npm lint
-      - run: npm test
+      - run: npm run-script lint
+      - run: npm run-script test
