@@ -1,18 +1,24 @@
-<p>
-  <img class="perk perk-{{selectedPerk()?.type}}" src="/assets/images/perks/{{selectedPerk()?.icon}}" />
-</p>
-<p>
-  {{ selectedPerk()?.text(selectedAmountForPerk()) }}
-</p>
-<p>
-  Cost: {{selectedPerk()?.cost}}
-</p>
-<button
-  [disabled]="selectedAmountForPerk() <= 0"
-  (click)="perkRightClicked.emit(selectedPerkId())"
->
-  -1
-</button>
-<button (click)="perkClicked.emit(selectedPerkId())">
-  +1
-</button>
+<div class="flex items-center flex-col">
+  <div>
+    <app-perk
+      [selectedAmountForPerk]="selectedAmountForPerk()"
+      [perk]="selectedPerk()"
+      [isSelected]="true"
+     ></app-perk>
+    {{ selectedPerk()?.text(selectedAmountForPerk()) }}
+  </div>
+  <div>
+    Cost: {{selectedPerk()?.cost}}
+  </div>
+  <div>
+    <button
+      [disabled]="selectedAmountForPerk() <= 0"
+      (click)="perkRightClicked.emit(selectedPerkId())"
+    >
+      -1
+    </button>
+    <button (click)="perkClicked.emit(selectedPerkId())">
+      +1
+    </button>
+  </div>
+</div>

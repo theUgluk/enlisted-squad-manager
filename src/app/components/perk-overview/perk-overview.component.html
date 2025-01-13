@@ -4,39 +4,23 @@
       Perk overview shown for {{overviewFacade.selectedSoldierId()}}
     </p>
     <div class="flex gap-x-2 flex-row">
-      <div class="perk-container gap-y-10 w-1/3 flex-wrap flex justify-between">
-        @for(mobilityPerk of getPerksByType(0); track mobilityPerk){
-          <app-perk
-            [isSelected]="mobilityPerk.id === selectedPerkId()"
-            (perkClicked)="perkClicked($event)"
-            (perkRightClicked)="perkRightClicked(mobilityPerk.id)"
-            [selectedAmountForPerk]="selectedAmountForPerk(mobilityPerk.id)"
-            [perk]="mobilityPerk"
-          ></app-perk>
-        }
-      </div>
-      <div class="perk-container gap-y-10 w-1/3 flex-wrap flex justify-between">
-        @for(vitalityPerk of getPerksByType(1); track vitalityPerk){
-          <app-perk
-            [isSelected]="vitalityPerk.id === selectedPerkId()"
-            (perkClicked)="perkClicked($event)"
-            (perkRightClicked)="perkRightClicked(vitalityPerk.id)"
-            [selectedAmountForPerk]="selectedAmountForPerk(vitalityPerk.id)"
-            [perk]="vitalityPerk"
-          ></app-perk>
-        }
-      </div>
-      <div class="perk-container gap-y-10 w-1/3 flex-wrap flex justify-between">
-        @for(weaponHandlingPerk of getPerksByType(2); track weaponHandlingPerk){
-          <app-perk
-            [isSelected]="weaponHandlingPerk.id === selectedPerkId()"
-            (perkClicked)="perkClicked($event)"
-            (perkRightClicked)="perkRightClicked(weaponHandlingPerk.id)"
-            [selectedAmountForPerk]="selectedAmountForPerk(weaponHandlingPerk.id)"
-            [perk]="weaponHandlingPerk"
-          ></app-perk>
-        }
-      </div>
+      @for(perkType of perkTypeArray; track perkType){
+        <div class="perk-container flex w-1/3 gap-y-10 flex-col items-stretch">
+          @for(level of levelsArray; track level) {
+            <div class="flex flex-row gap-y-10 gap-x-2 flex-wrap justify-center items-center">
+              @for(mobilityPerk of getPerksByTypeAndLevel(perkType, level); track mobilityPerk) {
+                <app-perk
+                  [isSelected]="mobilityPerk.id === selectedPerkId()"
+                  (perkClicked)="perkClicked($event)"
+                  (perkRightClicked)="perkRightClicked(mobilityPerk.id)"
+                  [selectedAmountForPerk]="selectedAmountForPerk(mobilityPerk.id)"
+                  [perk]="mobilityPerk"
+                ></app-perk>
+              }
+            </div>
+          }
+        </div>
+      }
     </div>
   </div>
   <div class="w-1/6">
