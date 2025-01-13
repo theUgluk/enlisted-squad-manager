@@ -8,4 +8,5 @@ export interface IPerk {
   include: boolean;
   class: number[];
   icon: string;
+  level: number;
 }

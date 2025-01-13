@@ -13,6 +13,7 @@
     include: true,
     class: [9],
     icon: "",
+    level: 1,
   },
  */
 import {IPerk} from "../app/models/perk.model";
@@ -29,6 +30,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "faster_change_pose_speed_icon.svg",
+    level: 1,
   },
   {
     id: 4,
@@ -40,6 +42,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "faster_self_fire_putout_icon.svg",
+    level: 1,
   },
   {
     id: 5,
@@ -51,6 +54,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "crawl_crouch_speed_icon.svg",
+    level: 1,
   },
   {
     // Medic only
@@ -63,6 +67,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [9],
     icon: "heal_speed_target_icon.svg",
+    level: 1,
   },
   {
     id: 10,
@@ -74,6 +79,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "jump_height_icon.svg",
+    level: 1,
   },
   {
     id: 11,
@@ -85,6 +91,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "run_speed_icon.svg",
+    level: 2,
   },
   {
     // @todo para's
@@ -92,11 +99,12 @@ export const perks: IPerk[] = [
     type: 0,
     cost: 2,
     maxLevel: 3,
-    text: (amount: number) => `-${amount * 20}%  Damage when hard landing with a parachute` ,
+    text: (amount: number) => `-${amount * 20}% Damage when hard landing with a parachute` ,
     step: 20,
     include: true,
     class: [5, 16],
-    icon: ".svg",
+    icon: "less_fall_dmg_icon.svg",
+    level: 1,
   },
   {
     id: 13,
@@ -108,6 +116,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "climb_speed_icon.svg",
+    level: 2,
   },
   {
     id: 14,
@@ -119,6 +128,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "heal_speed_icon.svg",
+    level: 2,
   },
   {
     id: 15,
@@ -128,8 +138,9 @@ export const perks: IPerk[] = [
     text: (amount: number) => `+${amount * 10}% Weapon aim speed`,
     step: 10,
     include: false,
-    class: [],
+    class: [5, 16],
     icon: "faster_aim_speed_icon.svg",
+    level: 2,
   },
   {
     id: 16,
@@ -141,6 +152,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [4],
     icon: "faster_building_speed_icon.svg",
+    level: 2,
   },
   {
     // apc, tankers, pilots, rider
@@ -153,6 +165,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [1, 5, 12, 15, 16],
     icon: "seat_change_speed_icon.svg",
+    level: 1,
   },
   {
     // apc, tankers, rider
@@ -165,10 +178,11 @@ export const perks: IPerk[] = [
     include: true,
     class: [1, 12, 15],
     icon: "driving_speed_stability_icon.svg",
+    level: 1,
   },
   {
     // apc, tankers, rider
-    id: 35,
+    id: 40,
     type: 0,
     cost: 2,
     maxLevel: 4,
@@ -177,9 +191,10 @@ export const perks: IPerk[] = [
     include: true,
     class: [1, 12, 15],
     icon: "driving_breaking_icon.svg",
+    level: 1,
   },
   {
-    // apc, tankers, rider
+    // tankers, rider
     id: 36,
     type: 0,
     cost: 1,
@@ -187,8 +202,9 @@ export const perks: IPerk[] = [
     text: (amount: number) => `+${6 * amount}% Speed of extinguishing the vehicle`,
     step: 6,
     include: true,
-    class: [1, 12, 15],
+    class: [12, 15],
     icon: "extinguish_time_icon.svg",
+    level: 2,
   },
   {
     // apc, tankers, rider
@@ -201,6 +217,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [1, 12, 15],
     icon: "driving_quality_icon.svg",
+    level: 2,
   },
   {
     // apc, tankers, rider
@@ -213,6 +230,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [1, 12, 15],
     icon: "repair_speed_icon.svg",
+    level: 2,
   },
   {
     // tankers
@@ -225,8 +243,22 @@ export const perks: IPerk[] = [
     step: 0,
     include: true,
     class: [15],
-    icon: "reload_reaction.svg",
-  }, //@todo continue here
+    icon: "reload_reaction_icon.svg",
+    level: 3,
+  },
+  {
+    // pilots
+    id: 45,
+    type: 0,
+    cost: 14,
+    maxLevel: 1,
+    text: (amount: number) => `-${100 * amount}% Effect of head-swinging during sharp maneuvers`,
+    step: 100,
+    include: true,
+    class: [5, 16],
+    icon: "pilot_head_stabilisation_icon.svg",
+    level: 3,
+  },
   //Vitality
   {
     // Exclude tanker
@@ -238,7 +270,8 @@ export const perks: IPerk[] = [
     step: 30,
     include: false,
     class: [15],
-    icon: "hp_boost_icon.svg"
+    icon: "hp_boost_icon.svg",
+    level: 3,
   },
   {
     // Pilot only
@@ -252,6 +285,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [5, 16],
     icon: "pilot_g_tolerance_icon.svg",
+    level: 3,
   },
   {
     // Exclude tanker, pilot
@@ -264,6 +298,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [15, 5, 16],
     icon: "more_stability_when_hit_icon.svg",
+    level: 2,
   },
   {
     id: 17,
@@ -275,6 +310,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "longer_hold_breath_cd_icon.svg",
+    level: 1,
   },
   {
     id: 18,
@@ -287,6 +323,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "less_camera_shake_on_explosions_icon.svg",
+    level: 1,
   },
   {
     id: 19,
@@ -299,6 +336,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "hp_regeneration_icon.svg",
+    level: 1,
   },
   {
     // medic only
@@ -311,6 +349,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [9],
     icon: "medic_more_medpacks_icon.svg",
+    level: 1,
   },
   {
     id: 21,
@@ -322,6 +361,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "stamina_boost_icon.svg",
+    level: 2,
   },
   {
     id: 22,
@@ -333,6 +373,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "hp_boost_icon.svg",
+    level: 2,
   },
   {
     id: 23,
@@ -344,6 +385,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [4],
     icon: "more_building_materials_icon.svg",
+    level: 2,
   },
   {
     id: 24,
@@ -355,6 +397,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [9],
     icon: "heal_effectivity_target_icon.svg",
+    level: 2,
   },
   {
     id: 25,
@@ -366,6 +409,46 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "more_stability_when_hit_icon.svg",
+    level: 2,
+  },
+  // pilot
+  {
+    id: 46,
+    type: 1,
+    cost: 1,
+    maxLevel: 1,
+    text: (amount: number) => `+${20 * amount}% Flight stamina regeneration speed`,
+    step: 20,
+    include: true,
+    class: [5, 16],
+    icon: "pilot_stamina_regeneration_icon.svg",
+    level: 1,
+  },
+  // pilot
+  {
+    id: 47,
+    type: 1,
+    cost: 3,
+    maxLevel: 2,
+    text: (amount: number) => `+${10 * amount}% Power of control loss after the blackout`,
+    step: 10,
+    include: true,
+    class: [5, 16],
+    icon: "pilot_willpower_icon.svg",
+    level: 2,
+  },
+  // pilots
+  {
+    id: 48,
+    type: 1,
+    cost: 3,
+    maxLevel: 2,
+    text: (amount: number) => `+${7 * amount}% Flight stamina`,
+    step: 7,
+    include: true,
+    class: [5, 16],
+    icon: "pilot_stamina_boost_icon.svg",
+    level: 2,
   },
   // Weapon Handling
   {
@@ -378,6 +461,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "faster_change_weapon_icon.svg",
+    level: 1,
   },
   {
     id: 7,
@@ -390,6 +474,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "less_shot_spread_after_turn_icon.svg",
+    level: 1,
   },
   {
     id: 8,
@@ -401,6 +486,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "melee_damage_icon.svg",
+    level: 1,
   },
   {
     id: 26,
@@ -412,6 +498,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "longer_grenade_throw_icon.svg",
+    level: 1,
   },
   {
     id: 27,
@@ -423,9 +510,10 @@ export const perks: IPerk[] = [
     include: true,
     class: [9],
     icon: "longer_grenade_throw_icon.svg",
+    level: 1,
   },
   {
-    id: 27,
+    id: 41,
     type: 2,
     cost: 4,
     maxLevel: 2,
@@ -434,6 +522,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [10],
     icon: "more_ammo_secondary_icon.svg",
+    level: 2,
   },
   {
     id: 28,
@@ -445,6 +534,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "faster_reload_icon.svg",
+    level: 2,
   },
   {
     id: 29,
@@ -456,6 +546,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [6],
     icon: "more_flamethrower_fuel_icon.svg",
+    level: 2,
   },
   {
     id: 30,
@@ -468,6 +559,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "downed_boost_icon.svg",
+    level: 2,
   },
   {
     id: 31,
@@ -479,6 +571,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "faster_bolt_action_icon.svg",
+    level: 2,
   },
   {
     id: 32,
@@ -490,6 +583,7 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "less_recoil_icon.svg",
+    level: 2,
   },
   {
     id: 33,
@@ -501,5 +595,83 @@ export const perks: IPerk[] = [
     include: false,
     class: [],
     icon: "more_predictable_recoil_icon.svg",
+    level: 3,
+  },
+  // Tanker
+  {
+    id: 41,
+    type: 2,
+    cost: 3,
+    maxLevel: 2,
+    text: (amount: number) => `+${50 * amount}% To the number of uses of the repair kit`,
+    step: 50,
+    include: true,
+    class: [1, 15],
+    icon: "repairkit_economy_usage_icon.svg",
+    level: 1,
+  },
+  // Tanker
+  {
+    id: 42,
+    type: 2,
+    cost: 5,
+    maxLevel: 2,
+    text: (amount: number) => `+${10 * amount} Modules durability restored after repair`,
+    step: 10,
+    include: true,
+    class: [1, 15],
+    icon: "repair_quality_icon.svg",
+    level: 2,
+  },
+  // Tanker
+  {
+    id: 43,
+    type: 2,
+    cost: 16,
+    maxLevel: 1,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    text: (amount: number) => `Improved targeting skills of a tank gun (Gunner Perk)`,
+    step: 1,
+    include: true,
+    class: [15],
+    icon: "accurate_guidance_icon.svg",
+    level: 3,
+  },
+  // Tanker
+  {
+    id: 44,
+    type: 2,
+    cost: 16,
+    maxLevel: 1,
+    text: (amount: number) => `+${20 * amount}% Tank gun reload speed (Loader Perk, value doesn't stack)`,
+    step: 20,
+    include: true,
+    class: [15],
+    icon: "faster_reload_tankgun_icon.svg",
+    level: 3,
+  },
+  {
+    id: 49,
+    type: 2,
+    cost: 2,
+    maxLevel: 4,
+    text: (amount: number) => `+${7.5 * amount}% Angle of focused and peripheral vision`,
+    step: 7.5,
+    include: true,
+    class: [5, 16],
+    icon: "pilot_awareness_icon.svg",
+    level: 2,
+  },
+  {
+    id: 50,
+    type: 2,
+    cost: 15,
+    maxLevel: 1,
+    text: (amount: number) => `+${50 * amount}% Enemy aircraft detection range`,
+    step: 50,
+    include: true,
+    class: [5, 16],
+    icon: "pilot_keen_vision_icon.svg",
+    level: 3,
   },
 ];
