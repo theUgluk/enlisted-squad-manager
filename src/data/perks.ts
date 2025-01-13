@@ -630,7 +630,7 @@ export const perks: IPerk[] = [
     cost: 16,
     maxLevel: 1,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    text: (amount: number) => `Improved targeting skills of a tank gun (Gunner Perk)`,
+    text: (amount: number) => "Improved targeting skills of a tank gun (Gunner Perk)",
     step: 1,
     include: true,
     class: [15],
