@@ -1,0 +1,24 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.perk-icon {
+  margin: 5px 0;
+}
+
+button {
+  margin: auto;
+  border: 1px solid white;
+  height: 2rem;
+  aspect-ratio: 1/1;
+  &:hover {
+    background-color: lightgray;
+    color: black;
+  }
+  &:disabled {
+    background-color: lightgray;
+    cursor: inherit;
+    color: inherit;
+  }
+}

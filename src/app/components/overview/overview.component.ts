@@ -1,4 +1,3 @@
-import {AsyncPipe} from "@angular/common";
 import {Component} from "@angular/core";
 
 import {OverviewFacadeService} from "../../services/overview-facade.service";
@@ -10,7 +9,6 @@ import {SquadComponent} from "../squad/squad.component";
   selector: "app-overview",
   standalone: true,
   imports: [
-    AsyncPipe,
     SquadComponent,
     SelectedSquadComponent,
     PerkOverviewComponent
