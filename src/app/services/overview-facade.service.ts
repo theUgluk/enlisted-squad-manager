@@ -131,6 +131,7 @@ export class OverviewFacadeService {
   }
 
   public changeSoldierType(soldierId: number, soldierTypeId: number){
+    this.selectedSoldierId.set(null);
     this._store.dispatch(new SoldierActions.ChangeSoldierType(soldierId, soldierTypeId));
   }
   public changeSoldierTypeLevel(soldierId: number, soldierTypeLevel: number){

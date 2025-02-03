@@ -674,4 +674,16 @@ export const perks: IPerk[] = [
     icon: "pilot_keen_vision_icon.svg",
     level: 3,
   },
+  {
+    id: 51,
+    type: 0,
+    cost: 16,
+    maxLevel: 1,
+    text: (amount: number) => `+${15 * amount}% Sprint speed`,
+    step: 15,
+    include: false,
+    class: [],
+    icon: "sprint_speed_icon.svg",
+    level: 3,
+  }
 ];

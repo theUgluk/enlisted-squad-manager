@@ -30,11 +30,20 @@ export class PerkOverviewComponent {
     });
   }
 
+  // Create an array so our HTML has a collection to loop over
+  public levelsArray: number[] = [1, 2, 3];
+
+  public perkTypeArray: number[] = [0, 1, 2];
+
   selectedSoldierId = input.required<number>();
 
   selectedPerkId: WritableSignal<number | null> = signal(null);
 
   public possiblePerks: WritableSignal<IPerk[]> = signal([]);
+
+  public getPerksByTypeAndLevel(type: number, level: number): IPerk[] {
+    return this.getPerksByType(type).filter(perk => perk.level === level);
+  }
 
   public getPerksByType(type: number): IPerk[] {
     const possiblePerks = this.possiblePerks();
