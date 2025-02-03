@@ -3,16 +3,20 @@ import {Store} from "@ngxs/store";
 
 import {Soldier} from "../models/soldier.model";
 import {Squad} from "../models/squad.model";
-import { SoldierActions } from "../state/actions/soldierActions";
+import {SoldierActions} from "../state/actions/soldierActions";
 import {SquadActions} from "../state/actions/squadActions";
 import {SoldierState} from "../state/store/soldier.state";
 import {SquadState} from "../state/store/squad.state";
+import AddPerkToSoldier = SoldierActions.AddPerkToSoldier;
+import RemovePerkFromSoldier = SoldierActions.RemovePerkFromSoldier;
 
 @Injectable({
   providedIn: "root"
 })
 export class OverviewFacadeService {
   public selectedSquadId: WritableSignal<number> = signal(0);
+
+  public selectedSoldierId: WritableSignal<number | null> = signal(null);
 
   public squadList: WritableSignal<Map<number, Squad>> = signal(new Map<number, Squad>());
 
@@ -124,5 +128,31 @@ export class OverviewFacadeService {
       this.selectedSquadId.set(0);
     }
     this._store.dispatch(new SquadActions.DeleteSquad(squadId));
+  }
+
+  public changeSoldierType(soldierId: number, soldierTypeId: number){
+    this.selectedSoldierId.set(null);
+    this._store.dispatch(new SoldierActions.ChangeSoldierType(soldierId, soldierTypeId));
+  }
+  public changeSoldierTypeLevel(soldierId: number, soldierTypeLevel: number){
+    this._store.dispatch(new SoldierActions.ChangeSoldierTypeLevel(soldierId, soldierTypeLevel))
+  }
+
+  public addPerkToSoldier(perkId: number, soldierId: number){
+    this._store.dispatch(new AddPerkToSoldier(soldierId, perkId));
+  }
+
+  public removePerkFromSelectedSoldier(perkId: number){
+    const soldierId = this.selectedSoldierId();
+    if(soldierId !== null){
+      this._store.dispatch(new RemovePerkFromSoldier(soldierId, perkId));
+    }
+  }
+
+  public addPerkToSelectedSoldier(perkId: number){
+    const soldierId = this.selectedSoldierId();
+    if(soldierId !== null){
+      this.addPerkToSoldier(perkId, soldierId);
+    }
   }
 }

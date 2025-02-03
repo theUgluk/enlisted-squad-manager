@@ -16,5 +16,8 @@ import {SoldierComponent} from "../soldier/soldier.component";
 })
 export class SelectedSquadComponent {
   constructor(public overviewFacade: OverviewFacadeService) {}
-  // squadId = input.required<number>();
+
+  public createNewSoldier(){
+    this.overviewFacade.addSoldier(this.overviewFacade.selectedSquadId());
+  }
 }

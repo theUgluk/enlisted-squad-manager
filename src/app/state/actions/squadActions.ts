@@ -11,4 +11,13 @@ export namespace SquadActions {
       this.squadId = squadId;
     }
   }
+
+  export class SetSquad {
+    static readonly type = "[Default] Set Squad";
+    public squadId: number;
+
+    constructor(squadId: number){
+      this.squadId = squadId;
+    }
+  }
 }

@@ -1,0 +1,36 @@
+<div class="flex flex-row">
+  <div class="w-5/6">
+    <p>
+      Perk overview shown for {{overviewFacade.selectedSoldierId()}}
+    </p>
+    <div class="grid grid-cols-3 gap-4">
+      @for(perkType of perkTypeArray; track perkType){
+        <div class="perk-container grid-cols-1 gap-4">
+          @for(level of levelsArray; track level) {
+            <div class="grid grid-cols-3 gap-4 grid-rows-[repeat(3,_80px)] h-48">
+              @for(mobilityPerk of getPerksByTypeAndLevel(perkType, level); track mobilityPerk) {
+                <app-perk
+                  [isSelected]="mobilityPerk.id === selectedPerkId()"
+                  (perkClicked)="perkClicked($event)"
+                  (perkRightClicked)="perkRightClicked(mobilityPerk.id)"
+                  [selectedAmountForPerk]="selectedAmountForPerk(mobilityPerk.id)"
+                  [perk]="mobilityPerk"
+                ></app-perk>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+  <div class="w-1/6">
+    @if(selectedPerkId() !== null) {
+      <app-selected-perk
+        [selectedPerkId]="selectedPerkId()"
+        [selectedAmountForPerk]="selectedAmountForPerk(selectedPerkId())"
+        (perkClicked)="perkClicked($event)"
+        (perkRightClicked)="perkRightClicked($event)"
+      ></app-selected-perk>
+    }
+  </div>
+</div>

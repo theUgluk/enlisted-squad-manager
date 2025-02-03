@@ -3,8 +3,9 @@ import {
   Action, Selector, State, StateContext
 } from "@ngxs/store";
 
+import {perks} from "../../../data/perks";
 import {Soldier} from "../../models/soldier.model";
-import {SoldierActions} from "../actions/soldierActions";
+import { SoldierActions } from "../actions/soldierActions";
 import { SoldierStateModel } from "../models/soldier.model";
 
 @State<SoldierStateModel>({
@@ -26,7 +27,6 @@ export class SoldierState {
 
   @Action(SoldierActions.AddSoldier)
   public setBoolean(ctx: StateContext<SoldierStateModel>, action: SoldierActions.AddSoldier) {
-    //
     const newSoldierId = ctx.getState().maxSoldierId + 1;
     ctx.setState({
       ...ctx.getState(),
@@ -57,6 +57,89 @@ export class SoldierState {
     state.soldiers
       .filter(soldier => soldier.squadId === action.squadId)
       .forEach(soldier => ctx.dispatch(new SoldierActions.DeleteSoldier(soldier.id)))
+  }
+
+  @Action(SoldierActions.ChangeSoldierType)
+  public changeSoldierType(ctx: StateContext<SoldierStateModel>, action: SoldierActions.ChangeSoldierType){
+    ctx.setState({
+      ...ctx.getState(),
+      soldiers: [
+        ...ctx.getState().soldiers.map(soldier => {
+          if(soldier.id === action.soldierId){
+            soldier.setSoldierTypeId(action.soldierTypeId);
+            soldier.removeAllPerks();
+          }
+          return soldier;
+        }),
+      ]
+    });
+  }
+
+  @Action(SoldierActions.ChangeSoldierTypeLevel)
+  public changeSoldierTypeLevel(ctx: StateContext<SoldierStateModel>, action: SoldierActions.ChangeSoldierTypeLevel){
+    ctx.setState({
+      ...ctx.getState(),
+      soldiers: [
+        ...ctx.getState().soldiers.map(soldier => {
+          if(soldier.id === action.soldierId){
+            soldier.setSoldierTypeLevel(action.soldierTypeLevel);
+          }
+          return soldier;
+        }),
+      ]
+    });
+  }
+
+  @Action(SoldierActions.SetSoldier)
+  public setSoldier(ctx: StateContext<SoldierStateModel>, action: SoldierActions.SetSoldier) {
+    ctx.setState({
+      ...ctx.getState(),
+      maxSoldierId: action.soldiers.length,
+      soldiers: [
+        ...ctx.getState().soldiers,
+        ...action.soldiers
+      ]
+    });
+  }
+
+  @Action(SoldierActions.AddPerkToSoldier)
+  public addPerkToSoldier(ctx: StateContext<SoldierStateModel>, action: SoldierActions.AddPerkToSoldier) {
+    //get soldier
+    const changedSoldier = ctx.getState().soldiers.find(soldier => soldier.id === action.soldierId);
+    const perk = perks.find(thisPerk => thisPerk.id === action.perkId);
+    if(changedSoldier && perk){
+      changedSoldier.addPerk(action.perkId);
+      ctx.setState({
+        ...ctx.getState(),
+        soldiers: [
+          ...ctx.getState().soldiers.map(soldier => {
+            if(soldier.id === action.soldierId){
+              return changedSoldier;
+            }
+            return soldier;
+          })
+        ]
+      });
+    }
+  }
+
+  @Action(SoldierActions.RemovePerkFromSoldier)
+  public removePerkFromSoldier(ctx: StateContext<SoldierStateModel>, action: SoldierActions.RemovePerkFromSoldier) {
+    const originalSoldier = ctx.getState().soldiers.find(soldier => soldier.id === action.soldierId);
+    if(originalSoldier) {
+      originalSoldier.removePerk(action.perkId);
+      ctx.setState({
+        ...ctx.getState(),
+        soldiers: [
+          ...ctx.getState().soldiers.map(soldier => {
+            if (soldier.id === action.soldierId) {
+              return originalSoldier;
+            }
+            return soldier;
+          })
+        ]
+      });
+    }
   }
 }
 

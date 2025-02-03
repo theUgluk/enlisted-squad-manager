@@ -1,5 +1,7 @@
-<div style="border: 1px solid black" (click)="selectSquad()">
-  Squad {{ squadSignal().id }}, hash: {{ squadSignal().hash }}
-  <button (click)="overviewFacade.addSoldier(squadSignal().id)">Add Soldier</button>
+<div class="aspect-square border-2 border-black p-1 hover:cursor-pointer hover:bg-gray-500" (click)="selectSquad()">
+  Squad {{ squadSignal().id }}
+  @if(overviewFacade.selectedSquadId() === squadSignal().id){
+    Selected
+  }
   <button (click)="overviewFacade.deleteSquad(squadSignal().id)">Delete Squad</button>
 </div>

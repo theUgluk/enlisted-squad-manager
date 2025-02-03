@@ -10,6 +10,7 @@ import AddSquad = SquadActions.AddSquad;
 import DeleteSquad = SquadActions.DeleteSquad;
 import {SoldierActions} from "../actions/soldierActions";
 import DeleteSoldiersForSquad = SoldierActions.DeleteSoldiersForSquad;
+import SetSquad = SquadActions.SetSquad;
 
 @State<SquadStateModel>({
   name: "squad",
@@ -51,5 +52,15 @@ export class SquadState {
       });
     }
     ctx.dispatch(new DeleteSoldiersForSquad(action.squadId))
+  }
+  @Action(SetSquad)
+  public setSquad(ctx: StateContext<SquadStateModel>, action: SetSquad) {
+    ctx.setState({
+      ...ctx.getState(),
+      squads: [
+        ...ctx.getState().squads,
+        new Squad(action.squadId)
+      ]
+    })
   }
 }

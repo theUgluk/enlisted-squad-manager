@@ -1,0 +1,17 @@
+<div class="flex-row">
+  <select [value]="soldierTypeId()" (click)="$event.stopPropagation()" (change)="changeSoldierType($event)">
+    @for(soldierType of soldierTypes; track soldierType.id){
+      <option [selected]="selectedSoldierType()?.id === soldierType.id" [value]="soldierType.id">
+        {{soldierType.name}}
+      </option>
+    }
+  </select>
+
+  <select [value]="soldierTypeLevel()" (click)="$event.stopPropagation()" (change)="changeSoldierTypeLevel($event)">
+    @for(level of createLevelsArray(selectedSoldierType()?.minLevel,selectedSoldierType()?.maxLevel); track level){
+      <option [selected]="soldierTypeLevel() === level" [value]="level">
+        {{ level }}
+      </option>
+    }
+  </select>
+</div>

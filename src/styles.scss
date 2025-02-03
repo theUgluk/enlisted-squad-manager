@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// https://codepen.io/sosuke/pen/Pjoqqp
+.perk-0 {
+  img.perk {
+    filter: brightness(0) saturate(100%) invert(78%) sepia(49%) saturate(364%) hue-rotate(67deg) brightness(104%) contrast(103%);
+  }
+}
+.perk-1 {
+  img.perk {
+    filter: brightness(0) saturate(100%) invert(69%) sepia(42%) saturate(863%) hue-rotate(307deg) brightness(107%) contrast(109%);
+  }
+}
+.perk-2 {
+  img.perk {
+    filter: brightness(0) saturate(100%) invert(90%) sepia(44%) saturate(428%) hue-rotate(355deg) brightness(108%) contrast(103%);
+  }
+}
+
+body {
+  background-color: rgb(19, 24, 31);
+  color: #fff;
+}
+
+img {
+  background-color: unset;
+}

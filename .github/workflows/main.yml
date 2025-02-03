@@ -1,0 +1,10 @@
+name: build-and-lint
+on: [pull_request]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install
+      - run: npm run-script lint
+      - run: npm run-script test

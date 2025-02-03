@@ -1,0 +1,43 @@
+<div class="flex items-center flex-col mt-5 h-full">
+  <div class="perk-icon">
+    <app-perk
+      [selectedAmountForPerk]="selectedAmountForPerk()"
+      [perk]="selectedPerk()"
+      [isSelected]="false"
+     ></app-perk>
+    <!-- current bonus -->
+    @if( selectedAmountForPerk() > 0){
+      <div class="perk-text pt-5">
+        {{ selectedPerk()?.text(selectedAmountForPerk()) }}
+      </div>
+    }
+    <!-- next level -->
+    @if(selectedAmountForPerk() + 1 <= selectedPerk().maxLevel){
+      <div class="perk-text pt-5">
+        <div>
+          Next level:
+        </div>
+        {{ selectedPerk()?.text(selectedAmountForPerk() + 1) }}
+      </div>
+    }
+  </div>
+  <div>
+    Cost: {{selectedPerk()?.cost}}
+  </div>
+  <div class="w-full flex justify-center bottom-0">
+    <button
+      class="p-1"
+      [disabled]="selectedAmountForPerk() <= 0"
+      (click)="perkRightClicked.emit(selectedPerkId())"
+    >
+      -1
+    </button>
+    <button
+      [disabled]="selectedAmountForPerk() >= selectedPerk().maxLevel"
+      class="p-1"
+      (click)="perkClicked.emit(selectedPerkId())"
+    >
+      +1
+    </button>
+  </div>
+</div>

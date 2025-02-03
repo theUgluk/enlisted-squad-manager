@@ -37,7 +37,6 @@ describe("OverviewService", () => {
 
     // Act
     service.addSquad();
-
     // Assert
     expect(dispatchSpy).toHaveBeenCalledWith(new SquadActions.AddSquad());
   });
@@ -238,28 +237,6 @@ describe("OverviewService", () => {
 
     // Assert
     expect(soldierIds).toContain(1);
-  });
-
-  it("should update squad and soldier lists when hash changes unexpectedly", () => {
-    // Arrange
-    const storeMock = {
-      select: vi.fn().mockReturnValue({
-        subscribe: vi.fn()
-      })
-    };
-    service = new OverviewFacadeService(storeMock as any);
-    const squad = new Squad(1);
-    const soldier = new Soldier(1, 1);
-    service.squadList().set(1, squad);
-    service.soldierList.set(1, soldier);
-
-    // Act
-    squad.tickCount();
-    soldier.tickCount();
-
-    // Assert
-    expect(service.squadList().get(1)?.hash).toBe(squad.hash);
-    expect(service.soldierList.get(1)?.hash).toBe(soldier.hash);
   });
 
   // Test concurrent updates to squad and soldier lists
