@@ -1,8 +1,8 @@
 # TODO
-- Write tests for dynamic signals
-- Write tests for state
-- Write tests for squad deletion
-- Currently perks dont update if the soldier changes type
+- Make list of tests I want + check which ones already have been made
+  - Write tests for dynamic signals
+  - Write tests for state
+  - Write tests for squad deletion
 - Squads are shown in the order of url instead of order of ID (http://localhost:4200/0211-01d1 => squad 2 will be first)
 
 # Boilerplate
