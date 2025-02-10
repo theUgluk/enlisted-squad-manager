@@ -2,6 +2,7 @@ import { Component, effect, input, signal, WritableSignal } from "@angular/core"
 
 import { perks } from "../../../data/perks";
 import {IPerk} from "../../models/perk.model";
+import {Soldier} from "../../models/soldier.model";
 import { OverviewFacadeService } from "../../services/overview-facade.service";
 import {PerkComponent} from "../perk/perk.component";
 import {SelectedPerkComponent} from "../selected-perk/selected-perk.component";
@@ -18,10 +19,13 @@ import {SelectedPerkComponent} from "../selected-perk/selected-perk.component";
 })
 export class PerkOverviewComponent {
 
+  public soldierSignal = signal<Soldier | null>(null);
+
   constructor(public overviewFacade: OverviewFacadeService) {
     effect(() => {
       const soldierSignal = this.overviewFacade.soldierSignalList.get(this.selectedSoldierId());
       if(soldierSignal) {
+        this.soldierSignal.set(soldierSignal());
         this.maxMobility.set(soldierSignal().maxMobility);
         this.maxVitality.set(soldierSignal().maxVitality);
         this.maxHandling.set(soldierSignal().maxHandling);

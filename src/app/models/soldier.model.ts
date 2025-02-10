@@ -38,7 +38,8 @@ export class Soldier {
   }
 
   private calculateMaxPerkPoints(){
-    const perkPoints: perkPointsPerSoldierType = <perkPointsPerSoldierType>this.getSoldierType().perkPoints.get(this.soldierTypeLevel);
+    const perkPoints: perkPointsPerSoldierType = <perkPointsPerSoldierType>this.getSoldierType().perkPoints
+      .get(this.soldierTypeLevel);
     this.maxVitality = perkPoints.vitality + 12;
     this.maxHandling = perkPoints.handling + 12;
     this.maxMobility = perkPoints.mobility + 12;
@@ -76,9 +77,9 @@ export class Soldier {
 
   public setSoldierTypeId(id: number) {
     this.soldierTypeId = id;
-    const soldierType = soldierTypes.find(type => type.id === id);
-    if(soldierType){
-      this.setSoldierTypeLevel(soldierType.minLevel);
+    const foundType = soldierTypes.find(type => type.id === id);
+    if(foundType){
+      this.setSoldierTypeLevel(foundType.minLevel);
       this.perks = [];
       this.calculateMaxPerkPoints();
       this.calculateHash();
