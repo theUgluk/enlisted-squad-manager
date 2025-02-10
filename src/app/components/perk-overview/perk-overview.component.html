@@ -1,9 +1,18 @@
 <div class="flex flex-row">
   <div class="w-5/6">
     <p>
-      Perk overview shown for {{overviewFacade.selectedSoldierId()}}
+      Perk overview shown for {{overviewFacade.selectedSoldierId()}}<br />
     </p>
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-4 perk-header">
+        <div>
+          {{maxMobility()}}
+        </div>
+        <div>
+          Vitality: {{maxVitality()}}
+        </div>
+        <div>
+          Weapon Handling: {{maxHandling()}}
+        </div>
       @for(perkType of perkTypeArray; track perkType){
         <div class="perk-container grid-cols-1 gap-4">
           @for(level of levelsArray; track level) {

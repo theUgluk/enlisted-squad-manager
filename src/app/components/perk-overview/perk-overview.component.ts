@@ -22,6 +22,9 @@ export class PerkOverviewComponent {
     effect(() => {
       const soldierSignal = this.overviewFacade.soldierSignalList.get(this.selectedSoldierId());
       if(soldierSignal) {
+        this.maxMobility.set(soldierSignal().maxMobility);
+        this.maxVitality.set(soldierSignal().maxVitality);
+        this.maxHandling.set(soldierSignal().maxHandling);
         this.possiblePerks.set(this.getPossiblePerks(soldierSignal().soldierTypeId));
       }
     },
@@ -29,6 +32,10 @@ export class PerkOverviewComponent {
       allowSignalWrites: true,
     });
   }
+
+  public maxMobility = signal(0);
+  public maxVitality = signal(0);
+  public maxHandling = signal(0);
 
   // Create an array so our HTML has a collection to loop over
   public levelsArray: number[] = [1, 2, 3];
@@ -77,5 +84,4 @@ export class PerkOverviewComponent {
     return this.overviewFacade.soldierList.get(this.selectedSoldierId())?.
       perks?.find(perk => perk.perkId === perkId)?.amount || 0;
   }
-
 }
