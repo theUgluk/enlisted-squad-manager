@@ -1,36 +1,60 @@
-<div class="flex flex-row">
-  <div class="w-5/6">
-    <p>
-      Perk overview shown for {{overviewFacade.selectedSoldierId()}}
-    </p>
-    <div class="grid grid-cols-3 gap-4">
-      @for(perkType of perkTypeArray; track perkType){
-        <div class="perk-container grid-cols-1 gap-4">
-          @for(level of levelsArray; track level) {
-            <div class="grid grid-cols-3 gap-4 grid-rows-[repeat(3,_80px)] h-48">
-              @for(mobilityPerk of getPerksByTypeAndLevel(perkType, level); track mobilityPerk) {
-                <app-perk
-                  [isSelected]="mobilityPerk.id === selectedPerkId()"
-                  (perkClicked)="perkClicked($event)"
-                  (perkRightClicked)="perkRightClicked(mobilityPerk.id)"
-                  [selectedAmountForPerk]="selectedAmountForPerk(mobilityPerk.id)"
-                  [perk]="mobilityPerk"
-                ></app-perk>
-              }
-            </div>
-          }
+@if(soldierSignal()){
+  <div class="flex flex-row">
+    <div class="w-5/6">
+      <div class="grid grid-cols-3 gap-4">
+        <div class="perk-0 perk-header">
+          <img class="perk" src="/assets/images/perks/perk_speed.svg" />
+          <div class="title">
+            MOBILITY
+            <span class="amountMobility">{{maxMobility()}}</span>
+          </div>
+          {{soldierSignal()?.getPerkPointsSpend()?.mobility}}@if(soldierSignal()?.getPerkPointsSpend()?.mobility === maxMobility()){*}
         </div>
+        <div class="perk-1 perk-header">
+          <img class="perk" src="/assets/images/perks/perk_vitality.svg" />
+          <div class="title">
+            VITALITY
+            <span class="amountVitality">{{maxVitality()}}</span>
+          </div>
+          {{soldierSignal()?.getPerkPointsSpend()?.vitality}}@if(soldierSignal()?.getPerkPointsSpend()?.vitality === maxVitality()){*}
+        </div>
+        <div class="perk-2 perk-header">
+          <img class="perk" src="/assets/images/perks/perk_battleskill.svg" />
+          <div class="title">
+            WEAPON
+            <span class="amountHandling">{{maxHandling()}}</span>
+          </div>
+          {{soldierSignal()?.getPerkPointsSpend()?.weaponHandling}}@if(soldierSignal()?.getPerkPointsSpend()?.weaponHandling === maxHandling()){*}
+        </div>
+        @for(perkType of perkTypeArray; track perkType){
+          <div class="perk-container grid-cols-1 gap-4">
+            @for(level of levelsArray; track level) {
+              <div class="grid grid-cols-3 gap-4 grid-rows-[repeat(3,_80px)] h-48">
+                @for(mobilityPerk of getPerksByTypeAndLevel(perkType, level); track
+                mobilityPerk) {
+                  <app-perk
+                    [isSelected]="mobilityPerk.id === selectedPerkId()"
+                    (perkClicked)="perkClicked($event)"
+                    (perkRightClicked)="perkRightClicked(mobilityPerk.id)"
+                    [selectedAmountForPerk]="selectedAmountForPerk(mobilityPerk.id)"
+                    [perk]="mobilityPerk"
+                  ></app-perk>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+    <div class="w-1/6">
+      @if(selectedPerkId() !== null) {
+        <app-selected-perk
+          [selectedPerkId]="selectedPerkId()"
+          [selectedAmountForPerk]="selectedAmountForPerk(selectedPerkId())"
+          (perkClicked)="perkClicked($event)"
+          (perkRightClicked)="perkRightClicked($event)"
+        ></app-selected-perk>
       }
     </div>
   </div>
-  <div class="w-1/6">
-    @if(selectedPerkId() !== null) {
-      <app-selected-perk
-        [selectedPerkId]="selectedPerkId()"
-        [selectedAmountForPerk]="selectedAmountForPerk(selectedPerkId())"
-        (perkClicked)="perkClicked($event)"
-        (perkRightClicked)="perkRightClicked($event)"
-      ></app-selected-perk>
-    }
-  </div>
-</div>
+}
