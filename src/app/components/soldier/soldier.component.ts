@@ -2,14 +2,12 @@ import {Component, input, OnInit, WritableSignal} from "@angular/core";
 import {Soldier} from "../../models/soldier.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
 import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selector.component";
-import {NgClass} from "@angular/common";
 
 @Component({
   selector: "app-soldier",
   standalone: true,
   imports: [
     SoldierTypeSelectorComponent,
-    NgClass
   ],
   templateUrl: "./soldier.component.html",
   styleUrl: "./soldier.component.scss"
