@@ -1,8 +1,8 @@
 import {Location} from "@angular/common";
 import { Injectable } from "@angular/core";
 import {Store} from "@ngxs/store";
+import * as JSLZString from "lz-string";
 import {BehaviorSubject} from "rxjs";
-import * as JSLZString from 'lz-string';
 
 import {Soldier} from "../models/soldier.model";
 import {SoldierActions} from "../state/actions/soldierActions";
@@ -40,7 +40,9 @@ export class UrlService {
   }
 
   public initialLoad(){
-    const uri = JSLZString.decompressFromEncodedURIComponent(this.location.path().substring(1, this.location.path().length));
+    const uri = JSLZString.decompressFromEncodedURIComponent(
+      this.location.path().substring(1, this.location.path().length)
+    );
     if(uri && uri.length > 0) {
       const soldierHashes = uri.split("-")
       // remove the version number
