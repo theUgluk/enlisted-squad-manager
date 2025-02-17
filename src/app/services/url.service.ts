@@ -1,6 +1,7 @@
 import {Location} from "@angular/common";
 import { Injectable } from "@angular/core";
 import {Store} from "@ngxs/store";
+import * as JSLZString from "lz-string";
 import {BehaviorSubject} from "rxjs";
 
 import {Soldier} from "../models/soldier.model";
@@ -21,15 +22,17 @@ export class UrlService {
 
   public initialLoaded = new BehaviorSubject<boolean>(false);
 
+  private version = 1;
+
   constructor(private store: Store, private location: Location) {
     this.initialLoaded.subscribe(loaded => {
       if (loaded) {
         this.store.select(SoldierState.getSoldiers).subscribe(soldiers => {
-          this._url = "";
+          this._url = `${this.version}-`;
           soldiers.forEach(soldier => {
             this._url += soldier.hash + "-";
           })
-          this._url = this._url.substring(0, this._url.length - 1);
+          this._url = JSLZString.compressToEncodedURIComponent(this._url.substring(0, this._url.length - 1));
           this.location.replaceState("/" + this._url);
         });
       }
@@ -37,9 +40,13 @@ export class UrlService {
   }
 
   public initialLoad(){
-    const uri = this.location.path().substring(1, this.location.path().length);
+    const uri = JSLZString.decompressFromEncodedURIComponent(
+      this.location.path().substring(1, this.location.path().length)
+    );
     if(uri && uri.length > 0) {
       const soldierHashes = uri.split("-")
+      // remove the version number
+      soldierHashes.shift();
       const soldiers: Soldier[] = []
       if (soldierHashes && soldierHashes.length > 0) {
         this.store.dispatch(new SquadActions.DeleteSquad(1)).subscribe(() => {

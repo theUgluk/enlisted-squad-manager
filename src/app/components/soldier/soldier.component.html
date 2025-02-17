@@ -1,5 +1,4 @@
 <div class="flex flex-row border-black border-2 p-2 gap-2" (click)="selectSoldier()">
-<!--  Soldier: {{soldierId()}}, hash: {{ soldierSignal().hash }}-->
   <div class="flex-col">
     <div>
     <app-soldier-type-selector
@@ -10,7 +9,38 @@
     ></app-soldier-type-selector>
     </div>
     <div>
-      {{soldierSignal().getPerkPointsSpend().mobility}} - {{soldierSignal().getPerkPointsSpend().vitality}} - {{soldierSignal().getPerkPointsSpend().weaponHandling}}
+      <span
+        [class.under]="isPerkPointsLowerThanMax('mobility')"
+        [class.equal]="isPerkPointsEqualToMax('mobility')"
+        [class.higher]="isPerkPointsHigherThanMax('mobility')"
+      >
+        {{soldierSignal().getPerkPointsSpend().mobility}}
+        @if(isPerkPointsEqualToMax('mobility')){
+          *
+        }
+      </span>
+      -
+      <span
+        [class.under]="isPerkPointsLowerThanMax('vitality')"
+        [class.equal]="isPerkPointsEqualToMax('vitality')"
+        [class.higher]="isPerkPointsHigherThanMax('vitality')"
+      >
+        {{soldierSignal().getPerkPointsSpend().vitality}}
+        @if(isPerkPointsEqualToMax('vitality')){
+          *
+        }
+      </span>
+      -
+      <span
+        [class.under]="isPerkPointsLowerThanMax('handling')"
+        [class.equal]="isPerkPointsEqualToMax('handling')"
+        [class.higher]="isPerkPointsHigherThanMax('handling')"
+      >
+        {{soldierSignal().getPerkPointsSpend().weaponHandling}}
+        @if(isPerkPointsEqualToMax('handling')){
+          *
+        }
+      </span>
     </div>
   </div>
   <div>

@@ -1,6 +1,8 @@
 import { perks } from "../../data/perks";
 import { soldierTypes } from "../../data/soldierTypes";
 import Util from "../util";
+import {soldierType} from "./class.model";
+import {perkPointsPerSoldierType} from "./perk-points-per-soldiertype.model";
 
 export class Soldier {
   public id: number;
@@ -9,6 +11,9 @@ export class Soldier {
   public soldierTypeLevel =1;
   public hash = "";
   public perks: {perkId: number, amount: number}[] = [];
+  public maxMobility = 0;
+  public maxVitality = 0;
+  public maxHandling = 0;
 
   constructor(
     id: number,
@@ -28,7 +33,16 @@ export class Soldier {
     if(perksToAdd){
       this.perks = perksToAdd;
     }
+    this.calculateMaxPerkPoints();
     this.calculateHash();
+  }
+
+  private calculateMaxPerkPoints(){
+    const perkPoints: perkPointsPerSoldierType = <perkPointsPerSoldierType>this.getSoldierType().perkPoints
+      .get(this.soldierTypeLevel);
+    this.maxVitality = perkPoints.vitality + 12;
+    this.maxHandling = perkPoints.handling + 12;
+    this.maxMobility = perkPoints.mobility + 12;
   }
 
   //@TODO Make this better in the HTML
@@ -63,16 +77,18 @@ export class Soldier {
 
   public setSoldierTypeId(id: number) {
     this.soldierTypeId = id;
-    const soldierType = soldierTypes.find(type => type.id === id);
-    if(soldierType){
-      this.setSoldierTypeLevel(soldierType.minLevel);
+    const foundType = soldierTypes.find(type => type.id === id);
+    if(foundType){
+      this.setSoldierTypeLevel(foundType.minLevel);
       this.perks = [];
+      this.calculateMaxPerkPoints();
       this.calculateHash();
     }
   }
 
   public setSoldierTypeLevel(level: number) {
     this.soldierTypeLevel = level;
+    this.calculateMaxPerkPoints();
     this.calculateHash();
   }
 
@@ -91,6 +107,10 @@ export class Soldier {
       }];
     }
     this.calculateHash();
+  }
+
+  public getSoldierType(): soldierType {
+    return <soldierType>soldierTypes.find(type => type.id === this.soldierTypeId);
   }
 
   public removePerk(perkId: number){

@@ -1,8 +1,45 @@
 # TODO
-- Make list of tests I want + check which ones already have been made
-  - Write tests for dynamic signals
-  - Write tests for state
-  - Write tests for squad deletion
+- Default perks 
+- Encoding URL
+
+## Layout
+- 
+
+## Functions
+- Update the soldier selector => new dropdown
+
+## Tests
+### Write tests for dynamic signals
+### Write tests for state
+#### SoldierState
+##### AddSoldier
+- Check if soldier gets added
+- Check if type is rifleman
+- Check if squad is correct
+- Check if soldierId is correct
+#### DeleteSoldier
+- Check if soldier gets deleted
+- Check if no other soldiers are deleted
+#### DeleteSoldierForSquad 
+- Check if all soldiers from squad are deleted
+- Check if any other soldiers are deleted
+#### ChangeSoldierType
+- Check if soldier type has changed
+- Check if all other soldiers are unchanged
+### SquadState
+#### AddSquad
+- Check if a new squad is created
+- Check if other squads are unchanged
+- Check if squadId is correct
+#### DeleteSquad
+- Check if squad is deleted
+- Check if deleteSoldierForSquad is called
+- Check if other squads are unchanged
+#### SetSquad
+- Check if squad is added
+- Check if squadId is correct
+## Nice-to-haves
+- Update perks when changing soldier type
 - Squads are shown in the order of url instead of order of ID (http://localhost:4200/0211-01d1 => squad 2 will be first)
 
 # Boilerplate
