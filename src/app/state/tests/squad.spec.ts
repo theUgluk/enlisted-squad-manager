@@ -1,11 +1,14 @@
-import {NgxsModule, Store} from "@ngxs/store";
 import {fakeAsync, flush, TestBed} from "@angular/core/testing";
-import {SquadState} from "../store/squad.state";
-import {SoldierState} from "../store/soldier.state";
+import {Actions, NgxsModule, ofActionDispatched, Store} from "@ngxs/store";
+import {Observable} from "rxjs";
 import {expect} from "vitest";
+
+import {Squad} from "../../models/squad.model";
+import {SoldierActions} from "../actions/soldierActions";
 import {SquadActions} from "../actions/squadActions";
 import {SquadStateModel} from "../models/squad.model";
-import {Squad} from "../../models/squad.model";
+import {SoldierState} from "../store/soldier.state";
+import {SquadState} from "../store/squad.state";
 
 const defaultState: SquadStateModel = {
   maxSquadId: 1,
@@ -44,11 +47,16 @@ describe("Squad", () => {
   }));
 
   it("deleting a squad should remove the squad from the state", fakeAsync(() => {
+    const actions$: Observable<any> = TestBed.get(Actions);
     store.dispatch(new SquadActions.AddSquad());
+    actions$.pipe(ofActionDispatched(SoldierActions.DeleteSoldiersForSquad)).subscribe((calledAction) => {
+      expect(calledAction.squadId).toBe(1);
+    });
     store.dispatch(new SquadActions.DeleteSquad(1));
     store.select(SquadState.getSquads).subscribe(squads => {
-      expect(squads[0].id).toBe(2); //@TODO should be 1
+      expect(squads[0].id).toBe(2);
       expect(maxSquadIdCorrect(store.snapshot().squad.maxSquadId, squads)).toBe(true);
+
     });
     flush();
   }));

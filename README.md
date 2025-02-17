@@ -13,31 +13,34 @@
 ### Write tests for state
 #### SoldierState
 ##### AddSoldier
-- Check if soldier gets added
-- Check if type is rifleman
-- Check if squad is correct
-- Check if soldierId is correct
++ Check if soldier gets added
++ Check if type is rifleman
++ Check if soldierId is correct
 #### DeleteSoldier
-- Check if soldier gets deleted
-- Check if no other soldiers are deleted
++ Check if soldier gets deleted
++ Check if no other soldiers are deleted
 #### DeleteSoldierForSquad 
-- Check if all soldiers from squad are deleted
-- Check if any other soldiers are deleted
++ Check if all soldiers from squad are deleted
++ Check if any other soldiers are deleted
 #### ChangeSoldierType
-- Check if soldier type has changed
-- Check if all other soldiers are unchanged
++ Check if soldier type has changed
++ Check if all other soldiers are unchanged
++ Check if all perks are unset
 ### SquadState
 #### AddSquad
-- Check if a new squad is created
-- Check if other squads are unchanged
-- Check if squadId is correct
++ Check if a new squad is created
++ Check if other squads are unchanged
++ Check if squadId is correct
 #### DeleteSquad
-- Check if squad is deleted
-- Check if deleteSoldierForSquad is called
-- Check if other squads are unchanged
++ Check if squad is deleted
++ Check if deleteSoldierForSquad is called
++ Check if other squads are unchanged
 #### SetSquad
 - Check if squad is added
 - Check if squadId is correct
+
+
+
 ## Nice-to-haves
 - Update perks when changing soldier type
 - Squads are shown in the order of url instead of order of ID (http://localhost:4200/0211-01d1 => squad 2 will be first)
