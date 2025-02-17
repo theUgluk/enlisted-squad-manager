@@ -34,7 +34,6 @@ describe("OverviewService", () => {
   // Dispatches AddSquad action to the store
   it("should dispatch AddSquad action to the store when addSquad is called", () => {
     const dispatchSpy = vi.spyOn(store, "dispatch");
-
     // Act
     service.addSquad();
     // Assert
@@ -69,7 +68,6 @@ describe("OverviewService", () => {
 
     // Act
     const result = service.squadList();
-
     const test = new Map<number, Squad>();
 
     // Assert
@@ -275,4 +273,20 @@ describe("OverviewService", () => {
     service.updateSoldierSignalList([]);
     expect(service.soldierList.size).toBe(0);
   });
+
+  /*
+  it("should change the soldier type in the state when the soldier type is changed", () => {
+    const storeMock = {
+      select: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
+      })
+    };
+
+    service = new OverviewFacadeService(storeMock as any);
+    service.changeSoldierType(0, 1);
+
+    console.log(store.snapshot());
+    //expect(store.snapshot())
+  })*/
+
 });
