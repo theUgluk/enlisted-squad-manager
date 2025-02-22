@@ -1,9 +1,12 @@
 # TODO
-- Default perks 
-- Encoding URL
+- Default perks
+- URL shortener implementation
++ Encoding URL
 
 ## Layout
-- 
+- Soldiers in list 
+- Selected perk layout
+- Header
 
 ## Functions
 - Update the soldier selector => new dropdown
