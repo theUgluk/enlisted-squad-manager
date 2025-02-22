@@ -1,11 +1,18 @@
 # TODO
 - Default perks
 - URL shortener implementation
-+ Encoding URL
+- Order of perks
+- Find a better way to display the soldierTypeLevel
+- Select the soldier after you change the soldierType/SoldierTypeLevel
+- Missing soldier icons
++ Swapped vitality and mobility perk calculation
++ No stamina regen perk
++ Disable select from perks
++ Incorrect medpack icon
 
 ## Layout
 - Soldiers in list 
-- Selected perk layout
++ Selected perk layout
 - Header
 
 ## Functions

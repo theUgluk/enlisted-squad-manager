@@ -1,13 +1,10 @@
 <div class="flex flex-row border-black border-2 p-2 gap-2" (click)="selectSoldier()">
-  <div class="flex-col">
-    <div>
     <app-soldier-type-selector
       [soldierTypeId]="soldierSignal().soldierTypeId"
       [soldierTypeLevel]="soldierSignal().soldierTypeLevel"
       (soldierTypeChange)="soldierTypeChange($event)"
       (soldierTypeLevelChange)="soldierTypeLevelChange($event)"
     ></app-soldier-type-selector>
-    </div>
     <div>
       <span
         [class.under]="isPerkPointsLowerThanMax('mobility')"
@@ -41,7 +38,6 @@
           *
         }
       </span>
-    </div>
   </div>
   <div>
     <button (click)="deleteSoldier(soldierId())">
