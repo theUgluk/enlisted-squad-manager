@@ -1,3 +1,41 @@
-:host * {
-  background-color: rgb(19, 24, 31);
+:host {
+  position: relative;
+  text-align: center;
+  *:not(img) {
+    background-color: rgb(19, 24, 31);
+  }
+  .typeIcon {
+    height: 3rem;
+  }
+  .dropdownContainer {
+    width: 12rem;
+    .menuItem {
+      &:hover {
+        background-color: lightgray;
+        color: #000;
+        img {
+          filter: invert(89%) sepia(0%) saturate(1089%) hue-rotate(138deg) brightness(90%) contrast(109%);
+        }
+        .soldierLevelSelector {
+          display: block;
+          color: lightgray;
+        }
+      }
+      .soldierLevelSelector {
+        left: 100%;
+        width: 8rem;
+        display: none;
+        .soldierTypeLevel:hover {
+          background-color: lightgray;
+          color: #000;
+        }
+      }
+      .menuIcons {
+        height: 2em;
+      }
+    }
+    &, & * {
+      z-index: 100;
+    }
+  }
 }

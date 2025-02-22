@@ -11,8 +11,8 @@ export const soldierTypes: soldierType[] = [
       [
         2,
         {
-          vitality: 8,
-          mobility: 4,
+          mobility: 8,
+          vitality: 4,
           handling: 6,
         }
       ]
@@ -23,38 +23,38 @@ export const soldierTypes: soldierType[] = [
     id: 2,
     name: "Assaulter",
     minLevel: 1,
-    maxLevel: 5,
+    maxLevel: 4,
     icon: "",
     perkPoints: new Map<number, perkPointsPerSoldierType>([
       [
         1,
         {
-          vitality: 6,
-          mobility: 4,
+          mobility: 6,
+          vitality: 4,
           handling: 5,
         }
       ],
       [
         2,
         {
-          vitality: 7,
-          mobility: 5,
+          mobility: 7,
+          vitality: 5,
           handling: 6,
         }
       ],
       [
         3,
         {
-          vitality: 8,
-          mobility: 6,
+          mobility: 8,
+          vitality: 6,
           handling: 7,
         }
       ],
       [
         4,
         {
-          vitality: 9,
-          mobility: 7,
+          mobility: 9,
+          vitality: 7,
           handling: 8,
         }
       ],
@@ -70,16 +70,16 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 2,
-          mobility: 6,
+          mobility: 2,
+          vitality: 6,
           handling: 7,
         }
       ],
       [
         2,
         {
-          vitality: 2,
-          mobility: 8,
+          mobility: 2,
+          vitality: 8,
           handling: 8,
         }
       ],
@@ -96,16 +96,16 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 5,
-          mobility: 6,
+          mobility: 5,
+          vitality: 6,
           handling: 4,
         }
       ],
       [
         2,
         {
-          vitality: 6,
-          mobility: 8,
+          vitality: 8,
+          mobility: 6,
           handling: 4,
         }
       ],
@@ -122,24 +122,24 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 4,
-          mobility: 6,
+          mobility: 4,
+          vitality: 6,
           handling: 5,
         }
       ],
       [
         2,
         {
-          vitality: 5,
-          mobility: 7,
+          mobility: 5,
+          vitality: 7,
           handling: 6,
         }
       ],
       [
         3,
         {
-          vitality: 5,
-          mobility: 9,
+          mobility: 5,
+          vitality: 9,
           handling: 7,
         }
       ],
@@ -156,16 +156,16 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 6,
-          mobility: 9,
+          mobility: 6,
+          vitality: 9,
           handling: 3,
         }
       ],
       [
         2,
         {
-          vitality: 6,
-          mobility: 11,
+          mobility: 6,
+          vitality: 11,
           handling: 4,
         }
       ],
@@ -181,8 +181,8 @@ export const soldierTypes: soldierType[] = [
       [
         2,
         {
-          vitality: 9,
-          mobility: 4,
+          mobility: 9,
+          vitality: 4,
           handling: 7,
         }
       ]
@@ -198,24 +198,24 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 4,
           mobility: 4,
+          vitality: 4,
           handling: 7,
         }
       ],
       [
         2,
         {
-          vitality: 4,
           mobility: 4,
+          vitality: 4,
           handling: 10,
         }
       ],
       [
         3,
         {
-          vitality: 5,
-          mobility: 6,
+          mobility: 5,
+          vitality: 6,
           handling: 10,
         }
       ],
@@ -231,8 +231,8 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 5,
-          mobility: 6,
+          mobility: 5,
+          vitality: 6,
           handling: 4,
         }
       ]
@@ -248,8 +248,8 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 3,
-          mobility: 6,
+          mobility: 3,
+          vitality: 6,
           handling: 6,
         }
       ]
@@ -265,16 +265,16 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 9,
-          mobility: 4,
+          mobility: 9,
+          vitality: 4,
           handling: 2,
         }
       ],
       [
         2,
         {
-          vitality: 10,
-          mobility: 6,
+          mobility: 10,
+          vitality: 6,
           handling: 2,
         }
       ],
@@ -290,8 +290,8 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 6,
-          mobility: 4,
+          mobility: 6,
+          vitality: 4,
           handling: 8,
         }
       ]
@@ -307,24 +307,24 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 5,
           mobility: 5,
+          vitality: 5,
           handling: 5,
         }
       ],
       [
         2,
         {
-          vitality: 6,
           mobility: 6,
+          vitality: 6,
           handling: 6,
         }
       ],
       [
         3,
         {
-          vitality: 7,
           mobility: 7,
+          vitality: 7,
           handling: 7,
         }
       ],
@@ -340,24 +340,24 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 6,
-          mobility: 2,
+          mobility: 6,
+          vitality: 2,
           handling: 7,
         }
       ],
       [
         2,
         {
-          vitality: 6,
-          mobility: 2,
+          mobility: 6,
+          vitality: 2,
           handling: 8,
         }
       ],
       [
         3,
         {
-          vitality: 6,
-          mobility: 2,
+          mobility: 6,
+          vitality: 2,
           handling: 10,
         }
       ],
@@ -373,24 +373,24 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 7,
-          mobility: 2,
+          mobility: 7,
+          vitality: 2,
           handling: 6,
         }
       ],
       [
         2,
         {
-          vitality: 9,
-          mobility: 2,
+          mobility: 9,
+          vitality: 2,
           handling: 7,
         }
       ],
       [
         3,
         {
-          vitality: 11,
-          mobility: 2,
+          mobility: 11,
+          vitality: 2,
           handling: 8,
         }
       ],
@@ -407,24 +407,24 @@ export const soldierTypes: soldierType[] = [
       [
         1,
         {
-          vitality: 4,
-          mobility: 5,
+          mobility: 4,
+          vitality: 5,
           handling: 6,
         }
       ],
       [
         2,
         {
-          vitality: 5,
-          mobility: 6,
+          mobility: 5,
+          vitality: 6,
           handling: 7,
         }
       ],
       [
         3,
         {
-          vitality: 5,
-          mobility: 7,
+          mobility: 5,
+          vitality: 7,
           handling: 9,
         }
       ],

@@ -1,10 +1,10 @@
 import {
   Component,
-  computed,
+  computed, ElementRef,
   EventEmitter,
   input,
-  Output,
-  Signal,
+  Output, Renderer2,   Signal, signal,
+  ViewChild,
 } from "@angular/core";
 import {FormsModule} from "@angular/forms";
 
@@ -21,6 +21,23 @@ import {soldierType} from "../../models/class.model";
   styleUrl: "./soldier-type-selector.component.scss"
 })
 export class SoldierTypeSelectorComponent {
+  @ViewChild("dropdownContainer") menu: ElementRef | undefined;
+  @ViewChild("toggleBtn") toggleButton: ElementRef | undefined;
+  constructor(private renderer: Renderer2) {
+
+    this.renderer.listen("window", "click", (e:Event)=> {
+      /**
+       * Only run when toggleButton is not clicked
+       * If we don't check this, all clicks (even on the toggle button) gets into this
+       * section which in the result we might never see the menu open!
+       * And the menu itself is checked here, and it's where we check just outside of
+       * the menu and button the condition abbove must close the menu
+       */
+      if(e.target !== this.toggleButton?.nativeElement && e.target!==this.menu?.nativeElement){
+        this.showDropdown.set(false);
+      }
+    });
+  }
   soldierTypeId = input<number | undefined>();
 
   soldierTypeLevel = input<number | undefined>();
@@ -29,21 +46,24 @@ export class SoldierTypeSelectorComponent {
 
   @Output() soldierTypeLevelChange = new EventEmitter<number>();
 
+  public showDropdown = signal(false);
+
   public selectedSoldierType: Signal<soldierType | undefined> = computed<soldierType | undefined>(
     () => soldierTypes
       .find(soldierTypeInput => soldierTypeInput.id === this.soldierTypeId())
   );
 
-  public changeSoldierType(event: any) {
-    if(event.target?.value) {
-      this.soldierTypeChange.emit(parseInt(event.target.value));
-    }
+  public changeSoldierTypeAndLevel(newSoldierTypeId: number, newSoldierTypeLevel: number): void {
+    this.changeSoldierType(newSoldierTypeId);
+    this.changeSoldierTypeLevel(newSoldierTypeLevel);
   }
 
-  public changeSoldierTypeLevel(event: any): void {
-    if(event.target?.value) {
-      this.soldierTypeLevelChange.emit(parseInt(event.target.value));
-    }
+  public changeSoldierType(newSoldierTypeId: number) {
+    this.soldierTypeChange.emit(newSoldierTypeId);
+  }
+
+  public changeSoldierTypeLevel(newSoldierLevel: number): void {
+    this.soldierTypeLevelChange.emit(newSoldierLevel);
   }
 
   public createLevelsArray(minLevel: number | undefined, maxLevel: number | undefined): number[]{

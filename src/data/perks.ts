@@ -152,7 +152,7 @@ export const perks: IPerk[] = [
     include: true,
     class: [4],
     icon: "faster_building_speed_icon.svg",
-    level: 2,
+    level: 3,
   },
   {
     // apc, tankers, pilots, rider
@@ -305,7 +305,7 @@ export const perks: IPerk[] = [
     type: 1,
     cost: 1,
     maxLevel: 3,
-    text: (amount: number) => `+${Math.ceil(33.33 * amount)}% Stamina regeneration speed`,
+    text: (amount: number) => `+${Math.ceil(33.33 * amount)}% Breath holding time while aiming`,
     step: 33.33,
     include: false,
     class: [],
@@ -372,7 +372,7 @@ export const perks: IPerk[] = [
     step: 100,
     include: false,
     class: [],
-    icon: "hp_boost_icon.svg",
+    icon: "heal_effectivity_icon.svg",
     level: 2,
   },
   {
@@ -679,11 +679,23 @@ export const perks: IPerk[] = [
     type: 0,
     cost: 16,
     maxLevel: 1,
-    text: (amount: number) => `+${15 * amount}% Sprint speed`,
-    step: 15,
+    text: (amount: number) => `+${100 * amount}% Stamina regeneration speed`,
+    step: 100,
     include: false,
     class: [],
     icon: "sprint_speed_icon.svg",
     level: 3,
+  },
+  {
+    id: 52,
+    type: 1,
+    cost: 1,
+    maxLevel: 1,
+    text: (amount: number) => `+${15 * amount}% Stamina regeneration speed`,
+    step: 15,
+    include: false,
+    class: [],
+    icon: "stamina_regeneration_icon.svg",
+    level: 1,
   }
 ];
