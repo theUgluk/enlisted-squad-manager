@@ -6,4 +6,5 @@ export interface soldierType {
   minLevel: number;
   maxLevel: number;
   perkPoints: Map<number, perkPointsPerSoldierType>;
+  icon: string;
 }
