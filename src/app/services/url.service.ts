@@ -42,7 +42,7 @@ export class UrlService {
   public initialLoad(){
     //Annoyingly JSLZ uses +, which isn't url safe >:(
     const uri = JSLZString.decompressFromEncodedURIComponent(
-      this.location.path().substring(1, this.location.path().length).replaceAll('%2B', '+')
+      this.location.path().substring(1, this.location.path().length).replaceAll("%2B", "+")
     );
     if(uri && uri.length > 0) {
       const soldierHashes = uri.split("-")
