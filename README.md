@@ -6,6 +6,8 @@
 - Select the soldier after you change the soldierType/SoldierTypeLevel
 - Tank more repairs in kit is replaced with more mortar ammo ?!?!? 
 - Add paratroopers
+- Size of squad buttons
+- Dynamic squad icons 
 
 ## Layout
 - Soldiers in list 
