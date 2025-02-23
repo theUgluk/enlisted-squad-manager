@@ -4,15 +4,11 @@
 - Order of perks
 - Find a better way to display the soldierTypeLevel
 - Select the soldier after you change the soldierType/SoldierTypeLevel
-- Missing soldier icons
-+ Swapped vitality and mobility perk calculation
-+ No stamina regen perk
-+ Disable select from perks
-+ Incorrect medpack icon
+- Tank more repairs in kit is replaced with more mortar ammo ?!?!? 
+- Add paratroopers
 
 ## Layout
 - Soldiers in list 
-+ Selected perk layout
 - Header
 
 ## Functions
