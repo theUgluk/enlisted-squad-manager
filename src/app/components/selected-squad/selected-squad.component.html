@@ -3,8 +3,8 @@
     @for (soldier of overviewFacade.soldierForSquad(overviewFacade.selectedSquadId()); track soldier.id){
       <app-soldier class="hover:cursor-pointer hover:bg-gray-500" [soldierId]="soldier.id"></app-soldier>
     }
+    <div (click)="createNewSoldier()">
+      Add soldier
+    </div>
   }
-  <div (click)="createNewSoldier()">
-    Add soldier
-  </div>
 </div>

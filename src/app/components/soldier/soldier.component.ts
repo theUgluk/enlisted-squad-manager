@@ -1,3 +1,4 @@
+import {NgClass} from "@angular/common";
 import {Component, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Soldier} from "../../models/soldier.model";
@@ -9,6 +10,7 @@ import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selec
   standalone: true,
   imports: [
     SoldierTypeSelectorComponent,
+    NgClass,
   ],
   templateUrl: "./soldier.component.html",
   styleUrl: "./soldier.component.scss"
