@@ -1,16 +1,14 @@
-import {AsyncPipe} from "@angular/common";
+import {NgClass} from "@angular/common";
 import {Component, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Squad} from "../../models/squad.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
-import {SoldierComponent} from "../soldier/soldier.component";
 
 @Component({
   selector: "app-squad",
   standalone: true,
   imports: [
-    AsyncPipe,
-    SoldierComponent
+    NgClass
   ],
   templateUrl: "./squad.component.html",
   styleUrl: "./squad.component.scss"
@@ -25,6 +23,7 @@ export class SquadComponent implements OnInit {
   }
 
   public selectSquad(){
+    this.overviewFacade.selectedSoldierId.set(null);
     this.overviewFacade.selectedSquadId.set(this.squadId());
   }
 }

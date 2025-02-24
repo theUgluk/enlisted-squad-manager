@@ -1,4 +1,8 @@
-<div class="flex flex-row border-black border-2 p-2 gap-2" (click)="selectSoldier()">
+<div
+  [ngClass]="soldierId() === overviewFacade.selectedSoldierId() ? 'selected': ''"
+  class="flex flex-row border-black border-2 p-2 gap-2"
+  (click)="selectSoldier()"
+>
     <app-soldier-type-selector
       [soldierTypeId]="soldierSignal().soldierTypeId"
       [soldierTypeLevel]="soldierSignal().soldierTypeLevel"
@@ -6,7 +10,7 @@
       (soldierTypeLevelChange)="soldierTypeLevelChange($event)"
     ></app-soldier-type-selector>
     <div>
-      <span
+      <div
         [class.under]="isPerkPointsLowerThanMax('mobility')"
         [class.equal]="isPerkPointsEqualToMax('mobility')"
         [class.higher]="isPerkPointsHigherThanMax('mobility')"
@@ -15,9 +19,8 @@
         @if(isPerkPointsEqualToMax('mobility')){
           *
         }
-      </span>
-      -
-      <span
+      </div>
+      <div
         [class.under]="isPerkPointsLowerThanMax('vitality')"
         [class.equal]="isPerkPointsEqualToMax('vitality')"
         [class.higher]="isPerkPointsHigherThanMax('vitality')"
@@ -26,9 +29,8 @@
         @if(isPerkPointsEqualToMax('vitality')){
           *
         }
-      </span>
-      -
-      <span
+      </div>
+      <div
         [class.under]="isPerkPointsLowerThanMax('handling')"
         [class.equal]="isPerkPointsEqualToMax('handling')"
         [class.higher]="isPerkPointsHigherThanMax('handling')"
@@ -37,7 +39,7 @@
         @if(isPerkPointsEqualToMax('handling')){
           *
         }
-      </span>
+      </div>
   </div>
   <div>
     <button (click)="deleteSoldier(soldierId())">

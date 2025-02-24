@@ -20,6 +20,8 @@ export class OverviewFacadeService {
 
   public squadList: WritableSignal<Map<number, Squad>> = signal(new Map<number, Squad>());
 
+  private newSquadCreated = false;
+
   public squadSignalList: Map<number, WritableSignal<Squad>> = new Map<number, WritableSignal<Squad>>();
 
   public soldierList: Map<number, Soldier> = new Map<number, Soldier>();
@@ -38,6 +40,7 @@ export class OverviewFacadeService {
 
   public updateSquadSignalList(squads: Squad[]): void {
     let markForCheck = false;
+    let doesSelectedSquadExist = this.selectedSquadId() === 0;
     const newSquadIds = squads.map((x) => x.id);
     this.getSquadIds()
       .filter((x) => !newSquadIds.includes(x))
@@ -46,6 +49,9 @@ export class OverviewFacadeService {
         this.squadSignalList.delete(id);
       });
     squads.map(squad => {
+      if(squad.id === this.selectedSquadId()){
+        doesSelectedSquadExist = true;
+      }
       if(!this.squadSignalList.has(squad.id)) {
         this.squadSignalList.set(squad.id, signal(squad));
         this.squadList.update(val => {
@@ -59,7 +65,24 @@ export class OverviewFacadeService {
           this.squadSignalList.get(squad.id)?.set(squad);
         }
       }
-    })
+    });
+    if(doesSelectedSquadExist && newSquadIds.length > 0) {
+      // if we just created a squad we want to select it immeadiatly, otherwise we want to select the first squad
+      if(this.newSquadCreated){
+        this.newSquadCreated = false;
+        this.selectedSquadId.set(newSquadIds.reduce((prev, curr) => {
+          return prev > curr ? prev : curr;
+        }));
+      } else {
+        this.selectedSquadId.set(newSquadIds.reduce((prev, curr) => {
+          return prev < curr ? prev : curr;
+        }));
+      }
+    } else if(!doesSelectedSquadExist) {
+      this.selectedSquadId.set(0);
+      this.selectedSoldierId.set(null);
+    }
+
     if(markForCheck){
       const map = new Map<number, Squad>();
       this.getSquadIds().forEach(squadId => {
@@ -116,6 +139,7 @@ export class OverviewFacadeService {
   }
 
   public addSquad(){
+    this.newSquadCreated = true;
     this._store.dispatch(new SquadActions.AddSquad());
   }
 
@@ -124,9 +148,6 @@ export class OverviewFacadeService {
   }
 
   public deleteSquad(squadId: number): void {
-    if(this.selectedSquadId() === squadId){
-      this.selectedSquadId.set(0);
-    }
     this._store.dispatch(new SquadActions.DeleteSquad(squadId));
   }
 
@@ -135,6 +156,7 @@ export class OverviewFacadeService {
     this._store.dispatch(new SoldierActions.ChangeSoldierType(soldierId, soldierTypeId));
   }
   public changeSoldierTypeLevel(soldierId: number, soldierTypeLevel: number){
+    this.selectedSoldierId.set(null);
     this._store.dispatch(new SoldierActions.ChangeSoldierTypeLevel(soldierId, soldierTypeLevel))
   }
 
