@@ -6,7 +6,6 @@ import {OverviewFacadeService} from "../../services/overview-facade.service";
 
 @Component({
   selector: "app-squad",
-  standalone: true,
   imports: [
     NgClass
   ],

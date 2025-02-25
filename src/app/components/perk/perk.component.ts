@@ -4,7 +4,6 @@ import {IPerk} from "../../models/perk.model";
 
 @Component({
   selector: "app-perk",
-  standalone: true,
   imports: [],
   templateUrl: "./perk.component.html",
   styleUrl: "./perk.component.scss"
