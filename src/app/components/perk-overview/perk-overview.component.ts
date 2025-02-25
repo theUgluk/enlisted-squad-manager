@@ -9,7 +9,6 @@ import {SelectedPerkComponent} from "../selected-perk/selected-perk.component";
 
 @Component({
   selector: "app-perk-overview",
-  standalone: true,
   imports: [
     PerkComponent,
     SelectedPerkComponent

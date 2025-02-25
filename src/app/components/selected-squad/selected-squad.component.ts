@@ -5,7 +5,6 @@ import {SoldierComponent} from "../soldier/soldier.component";
 
 @Component({
   selector: "app-selected-squad",
-  standalone: true,
   imports: [
     SoldierComponent
   ],

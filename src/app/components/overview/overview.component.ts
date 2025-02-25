@@ -7,7 +7,6 @@ import {SquadComponent} from "../squad/squad.component";
 
 @Component({
   selector: "app-overview",
-  standalone: true,
   imports: [
     SquadComponent,
     SelectedSquadComponent,

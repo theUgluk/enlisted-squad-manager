@@ -13,7 +13,6 @@ import {soldierType} from "../../models/class.model";
 
 @Component({
   selector: "app-soldier-type-selector",
-  standalone: true,
   imports: [
     FormsModule
   ],
