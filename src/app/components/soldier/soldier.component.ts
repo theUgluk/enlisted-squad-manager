@@ -7,7 +7,6 @@ import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selec
 
 @Component({
   selector: "app-soldier",
-  standalone: true,
   imports: [
     SoldierTypeSelectorComponent,
     NgClass,
