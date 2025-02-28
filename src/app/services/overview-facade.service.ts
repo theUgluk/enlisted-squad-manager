@@ -9,6 +9,8 @@ import {SoldierState} from "../state/store/soldier.state";
 import {SquadState} from "../state/store/squad.state";
 import AddPerkToSoldier = SoldierActions.AddPerkToSoldier;
 import RemovePerkFromSoldier = SoldierActions.RemovePerkFromSoldier;
+import {SystemState} from "../state/store/system.state";
+import {SystemActions} from "../state/actions/systemActions";
 
 @Injectable({
   providedIn: "root"
@@ -16,7 +18,7 @@ import RemovePerkFromSoldier = SoldierActions.RemovePerkFromSoldier;
 export class OverviewFacadeService {
   public selectedSquadId: WritableSignal<number> = signal(0);
 
-  public selectedSoldierId: WritableSignal<number | null> = signal(null);
+  public selectedSoldierId = this._store.selectSignal(SystemState.getSelectedSoldierId);
 
   public squadList: WritableSignal<Map<number, Squad>> = signal(new Map<number, Squad>());
 
@@ -80,7 +82,6 @@ export class OverviewFacadeService {
       }
     } else if(!doesSelectedSquadExist) {
       this.selectedSquadId.set(0);
-      this.selectedSoldierId.set(null);
     }
 
     if(markForCheck){
@@ -101,6 +102,7 @@ export class OverviewFacadeService {
   }
 
   public deleteSoldier(soldierId: number){
+    this._store.dispatch(new SystemActions.SelectSoldier(null));
     this._store.dispatch(new SoldierActions.DeleteSoldier(soldierId));
   }
 
@@ -152,11 +154,9 @@ export class OverviewFacadeService {
   }
 
   public changeSoldierType(soldierId: number, soldierTypeId: number){
-    this.selectedSoldierId.set(null);
     this._store.dispatch(new SoldierActions.ChangeSoldierType(soldierId, soldierTypeId));
   }
   public changeSoldierTypeLevel(soldierId: number, soldierTypeLevel: number){
-    this.selectedSoldierId.set(null);
     this._store.dispatch(new SoldierActions.ChangeSoldierTypeLevel(soldierId, soldierTypeLevel))
   }
 

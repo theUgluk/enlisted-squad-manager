@@ -4,6 +4,7 @@ import {Component, input, OnInit, WritableSignal} from "@angular/core";
 import {Soldier} from "../../models/soldier.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
 import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selector.component";
+import {SystemService} from "../../services/system.service";
 
 @Component({
   selector: "app-soldier",
@@ -16,7 +17,7 @@ import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selec
 })
 
 export class SoldierComponent implements OnInit {
-  constructor(public overviewFacade: OverviewFacadeService) {
+  constructor(public overviewFacade: OverviewFacadeService, public systemService: SystemService) {
   }
 
   soldierId = input.required<number>();
@@ -40,7 +41,7 @@ export class SoldierComponent implements OnInit {
   }
 
   public selectSoldier() {
-    this.overviewFacade.selectedSoldierId.set(this.soldierId());
+    this.systemService.setSelectedSoldierId(this.soldierId());
   }
 
   public isPerkPointsLowerThanMax(type: "mobility" | "vitality" | "handling"): boolean {

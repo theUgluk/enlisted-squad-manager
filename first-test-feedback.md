@@ -15,6 +15,7 @@
 - Smaller/more meaningful squad squares
 - Indicator you can select level of soldier in the dropdown
 	- Make dropdown more obvious (different colour? Border)
+-Slide in squad menu
 
 # Features
 - moving around soldiers

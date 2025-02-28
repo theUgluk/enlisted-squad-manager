@@ -6,6 +6,7 @@ import {Soldier} from "../../models/soldier.model";
 import { OverviewFacadeService } from "../../services/overview-facade.service";
 import {PerkComponent} from "../perk/perk.component";
 import {SelectedPerkComponent} from "../selected-perk/selected-perk.component";
+import {SystemService} from "../../services/system.service";
 
 @Component({
   selector: "app-perk-overview",
@@ -20,15 +21,18 @@ export class PerkOverviewComponent {
 
   public soldierSignal = signal<Soldier | null>(null);
 
-  constructor(public overviewFacade: OverviewFacadeService) {
+  constructor(public overviewFacade: OverviewFacadeService, public systemService: SystemService) {
     effect(() => {
-      const soldierSignal = this.overviewFacade.soldierSignalList.get(this.selectedSoldierId());
-      if(soldierSignal) {
-        this.soldierSignal.set(soldierSignal());
-        this.maxMobility.set(soldierSignal().maxMobility);
-        this.maxVitality.set(soldierSignal().maxVitality);
-        this.maxHandling.set(soldierSignal().maxHandling);
-        this.possiblePerks.set(this.getPossiblePerks(soldierSignal().soldierTypeId));
+      const selectedSoldierId = this.systemService.selectedSoldierId;
+      if(selectedSoldierId() !== null) {
+        const soldierSignal = this.overviewFacade.soldierSignalList.get(<number>selectedSoldierId());
+        if (soldierSignal) {
+          this.soldierSignal.set(soldierSignal());
+          this.maxMobility.set(soldierSignal().maxMobility);
+          this.maxVitality.set(soldierSignal().maxVitality);
+          this.maxHandling.set(soldierSignal().maxHandling);
+          this.possiblePerks.set(this.getPossiblePerks(soldierSignal().soldierTypeId));
+        }
       }
     },
     {
@@ -44,8 +48,6 @@ export class PerkOverviewComponent {
   public levelsArray: number[] = [1, 2, 3];
 
   public perkTypeArray: number[] = [0, 1, 2];
-
-  selectedSoldierId = input.required<number>();
 
   selectedPerkId: WritableSignal<number | null> = signal(null);
 
@@ -84,7 +86,7 @@ export class PerkOverviewComponent {
   }
 
   public selectedAmountForPerk(perkId: number | null): number{
-    return this.overviewFacade.soldierList.get(this.selectedSoldierId())?.
+    return this.overviewFacade.soldierList.get(<number>this.systemService.selectedSoldierId())?.
       perks?.find(perk => perk.perkId === perkId)?.amount || 0;
   }
 }

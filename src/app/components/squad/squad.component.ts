@@ -22,7 +22,6 @@ export class SquadComponent implements OnInit {
   }
 
   public selectSquad(){
-    this.overviewFacade.selectedSoldierId.set(null);
     this.overviewFacade.selectedSquadId.set(this.squadId());
   }
 }
