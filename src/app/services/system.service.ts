@@ -1,10 +1,11 @@
-import {Injectable, Signal} from '@angular/core';
+import {Injectable, Signal} from "@angular/core";
 import {Store} from "@ngxs/store";
-import {SystemState} from "../state/store/system.state";
+
 import {SystemActions} from "../state/actions/systemActions";
+import {SystemState} from "../state/store/system.state";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SystemService {
   public selectedSoldierId: Signal<number | null>;
@@ -16,7 +17,6 @@ export class SystemService {
   }
 
   public setSelectedSoldierId(id: number) {
-    console.log('selectSoldierID: ', id);
     this._store.dispatch(new SystemActions.SelectSoldier(id));
   }
 

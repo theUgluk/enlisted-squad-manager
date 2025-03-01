@@ -3,8 +3,8 @@ import {Component, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Soldier} from "../../models/soldier.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
-import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selector.component";
 import {SystemService} from "../../services/system.service";
+import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selector.component";
 
 @Component({
   selector: "app-soldier",

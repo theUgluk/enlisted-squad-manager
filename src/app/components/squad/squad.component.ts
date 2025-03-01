@@ -29,6 +29,6 @@ export class SquadComponent implements OnInit {
   public deleteSquad(event: Event) {
     event.stopPropagation();
     this.systemService.unsetSquadIfSelectedSquadId(this.squadId());
-     this.overviewFacade.deleteSquad(this.squadId());
+    this.overviewFacade.deleteSquad(this.squadId());
   }
 }

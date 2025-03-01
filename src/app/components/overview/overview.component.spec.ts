@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import {provideStore} from "@ngxs/store";
 
-import {SquadState} from "../../state/store/squad.state";
-import { OverviewComponent } from "./overview.component";
 import {SoldierState} from "../../state/store/soldier.state";
+import {SquadState} from "../../state/store/squad.state";
 import {SystemState} from "../../state/store/system.state";
+import { OverviewComponent } from "./overview.component";
 
 describe("OverviewComponent", () => {
   let component: OverviewComponent;

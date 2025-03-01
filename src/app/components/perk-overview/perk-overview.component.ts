@@ -1,12 +1,12 @@
-import { Component, effect, input, signal, WritableSignal } from "@angular/core";
+import { Component, effect, signal, WritableSignal } from "@angular/core";
 
 import { perks } from "../../../data/perks";
 import {IPerk} from "../../models/perk.model";
 import {Soldier} from "../../models/soldier.model";
 import { OverviewFacadeService } from "../../services/overview-facade.service";
+import {SystemService} from "../../services/system.service";
 import {PerkComponent} from "../perk/perk.component";
 import {SelectedPerkComponent} from "../selected-perk/selected-perk.component";
-import {SystemService} from "../../services/system.service";
 
 @Component({
   selector: "app-perk-overview",

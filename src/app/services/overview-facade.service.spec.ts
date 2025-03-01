@@ -8,8 +8,8 @@ import {Squad} from "../models/squad.model";
 import {SquadActions} from "../state/actions/squadActions";
 import {SoldierState} from "../state/store/soldier.state";
 import {SquadState} from "../state/store/squad.state";
-import { OverviewFacadeService } from "./overview-facade.service";
 import {SystemState} from "../state/store/system.state";
+import { OverviewFacadeService } from "./overview-facade.service";
 
 describe("OverviewService", () => {
   let service: OverviewFacadeService;

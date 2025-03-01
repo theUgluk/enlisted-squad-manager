@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
 
 import {OverviewFacadeService} from "../../services/overview-facade.service";
-import {SoldierComponent} from "../soldier/soldier.component";
 import {SystemService} from "../../services/system.service";
+import {SoldierComponent} from "../soldier/soldier.component";
 
 @Component({
   selector: "app-selected-squad",

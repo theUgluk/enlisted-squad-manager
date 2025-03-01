@@ -1,10 +1,10 @@
 import {Component} from "@angular/core";
 
 import {OverviewFacadeService} from "../../services/overview-facade.service";
+import {SystemService} from "../../services/system.service";
 import {PerkOverviewComponent} from "../perk-overview/perk-overview.component";
 import {SelectedSquadComponent} from "../selected-squad/selected-squad.component";
 import {SquadComponent} from "../squad/squad.component";
-import {SystemService} from "../../services/system.service";
 
 @Component({
   selector: "app-overview",

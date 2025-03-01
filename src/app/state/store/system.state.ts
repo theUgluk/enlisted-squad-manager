@@ -1,7 +1,8 @@
-import { SystemModel } from "../models/system.model";
-import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
+import {Action, Selector, State, StateContext} from "@ngxs/store";
+
 import {SystemActions} from "../actions/systemActions";
+import { SystemModel } from "../models/system.model";
 import SelectSoldier = SystemActions.SelectSoldier;
 import SelectSquad = SystemActions.SelectSquad;
 
