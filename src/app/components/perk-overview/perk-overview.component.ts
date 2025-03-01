@@ -1,9 +1,9 @@
-import {Component, computed, effect, signal, WritableSignal} from "@angular/core";
+import {Component, effect, signal, WritableSignal} from "@angular/core";
 
-import { perks } from "../../../data/perks";
 import {IPerk} from "../../models/perk.model";
 import {Soldier} from "../../models/soldier.model";
 import { OverviewFacadeService } from "../../services/overview-facade.service";
+import {PerkService} from "../../services/perk.service";
 import {SystemService} from "../../services/system.service";
 import {PerkComponent} from "../perk/perk.component";
 import {SelectedPerkComponent} from "../selected-perk/selected-perk.component";
@@ -21,15 +21,11 @@ export class PerkOverviewComponent {
 
   public soldierSignal!: WritableSignal<Soldier | null>;
 
-  public possiblePerks = computed(() => {
-    if(this.soldierSignal() !== null){
-      return this.getPossiblePerks(<number>this.soldierSignal()?.soldierTypeId);
-    } else {
-      return [];
-    }
-  })
-
-  constructor(public overviewFacade: OverviewFacadeService, public systemService: SystemService) {
+  constructor(
+    public overviewFacade: OverviewFacadeService,
+    public systemService: SystemService,
+    public perkService: PerkService
+  ) {
     effect(() => {
       if(
         this.systemService.selectedSoldierId() !== null
@@ -55,23 +51,11 @@ export class PerkOverviewComponent {
 
   selectedPerkId: WritableSignal<number | null> = signal(null);
 
-  public getPerksByTypeAndLevel(type: number, level: number): IPerk[] {
-    return this.getPerksByType(type).filter(perk => perk.level === level);
-  }
-
-  public getPerksByType(type: number): IPerk[] {
+  public getPerks(type?: number, level?: number): IPerk[] {
     if(this.soldierSignal() !== null){
-      const possiblePerks = this.getPossiblePerks((<Soldier>this.soldierSignal()).soldierTypeId);
-      return possiblePerks.filter(perk => perk.type === type);
+      return this.perkService.getPerks(<number>this.soldierSignal()?.id, type, level);
     }
     return [];
-  }
-
-  private getPossiblePerks(soldierTypeId: number): IPerk[] {
-    return perks.filter(perk => {
-      return (perk.include && perk.class.includes(soldierTypeId))
-        || (!perk.include && !perk.class.includes(soldierTypeId));
-    });
   }
 
   public perkClicked(perkId: number | null){
@@ -90,7 +74,7 @@ export class PerkOverviewComponent {
     }
   }
 
-  public selectedAmountForPerk(perkId: number | null): number{
+  public selectedAmountForPerk(perkId: number | null): number {
     return this.overviewFacade.soldierList.get(<number>this.systemService.selectedSoldierId())?.
       perks?.find(perk => perk.perkId === perkId)?.amount || 0;
   }
