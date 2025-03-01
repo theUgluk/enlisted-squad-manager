@@ -1,12 +1,8 @@
-- Redo whole soldier/squad selection cuz buggy behaviour
-  - REMOVE IT AAAALLLLL
-
 # Bugs
-- Deleted squad can still get soldiers added => Racho's repo
-- If you don't select the type of soldier class (e.g. Sniper 1, Sniper 2) it will only update the perk points if either add a new soldier, or switch between soldiers
+- Initial selection fix
+- set max perk point properly
+- Perks dont get unselected if you change soldier
 - Renumber squads
-- When deleting the selected squad, selected squad does not reflect and will pretend it still exists => signal doesnt update?!?!?!
-- Update angular
 
 # UI
 - Redo soldiers

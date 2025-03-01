@@ -1,4 +1,4 @@
-import { Component, effect, signal, WritableSignal } from "@angular/core";
+import {Component, computed, effect, signal, WritableSignal} from "@angular/core";
 
 import { perks } from "../../../data/perks";
 import {IPerk} from "../../models/perk.model";
@@ -19,24 +19,28 @@ import {SelectedPerkComponent} from "../selected-perk/selected-perk.component";
 })
 export class PerkOverviewComponent {
 
-  public soldierSignal = signal<Soldier | null>(null);
+  public soldierSignal!: WritableSignal<Soldier | null>;
+
+  public possiblePerks = computed(() => {
+    if(this.soldierSignal() !== null){
+      return this.getPossiblePerks(<number>this.soldierSignal()?.soldierTypeId);
+    } else {
+      return [];
+    }
+  })
 
   constructor(public overviewFacade: OverviewFacadeService, public systemService: SystemService) {
     effect(() => {
-      const selectedSoldierId = this.systemService.selectedSoldierId;
-      if(selectedSoldierId() !== null) {
-        const soldierSignal = this.overviewFacade.soldierSignalList.get(<number>selectedSoldierId());
-        if (soldierSignal) {
-          this.soldierSignal.set(soldierSignal());
-          this.maxMobility.set(soldierSignal().maxMobility);
-          this.maxVitality.set(soldierSignal().maxVitality);
-          this.maxHandling.set(soldierSignal().maxHandling);
-          this.possiblePerks.set(this.getPossiblePerks(soldierSignal().soldierTypeId));
-        }
+      if(
+        this.systemService.selectedSoldierId() !== null
+        && this.overviewFacade.soldierSignalList.has(<number>this.systemService.selectedSoldierId())
+      ){
+        this.soldierSignal = <WritableSignal<Soldier | null>>this.overviewFacade.soldierSignalList.get(
+          <number>this.systemService.selectedSoldierId()
+        );
+      } else {
+        this.soldierSignal = signal<Soldier | null>(null);
       }
-    },
-    {
-      allowSignalWrites: true,
     });
   }
 
@@ -51,15 +55,16 @@ export class PerkOverviewComponent {
 
   selectedPerkId: WritableSignal<number | null> = signal(null);
 
-  public possiblePerks: WritableSignal<IPerk[]> = signal([]);
-
   public getPerksByTypeAndLevel(type: number, level: number): IPerk[] {
     return this.getPerksByType(type).filter(perk => perk.level === level);
   }
 
   public getPerksByType(type: number): IPerk[] {
-    const possiblePerks = this.possiblePerks();
-    return possiblePerks.filter(perk => perk.type === type);
+    if(this.soldierSignal() !== null){
+      const possiblePerks = this.getPossiblePerks((<Soldier>this.soldierSignal()).soldierTypeId);
+      return possiblePerks.filter(perk => perk.type === type);
+    }
+    return [];
   }
 
   private getPossiblePerks(soldierTypeId: number): IPerk[] {
