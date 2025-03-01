@@ -11,10 +11,9 @@
     <app-selected-squad class="flex flex-grow"></app-selected-squad>
   </div>
   <div class="basis-5/6">
-    @if(overviewFacade.selectedSoldierId() !== null) {
+    @if(systemService.selectedSoldierId() !== null) {
       <app-perk-overview
         class="flex-row"
-        [selectedSoldierId]="overviewFacade.selectedSoldierId() || 0"
       ></app-perk-overview>
     }
   </div>

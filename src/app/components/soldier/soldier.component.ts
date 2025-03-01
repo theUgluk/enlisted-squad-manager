@@ -3,6 +3,7 @@ import {Component, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Soldier} from "../../models/soldier.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
+import {SystemService} from "../../services/system.service";
 import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selector.component";
 
 @Component({
@@ -16,7 +17,7 @@ import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selec
 })
 
 export class SoldierComponent implements OnInit {
-  constructor(public overviewFacade: OverviewFacadeService) {
+  constructor(public overviewFacade: OverviewFacadeService, public systemService: SystemService) {
   }
 
   soldierId = input.required<number>();
@@ -27,7 +28,9 @@ export class SoldierComponent implements OnInit {
     this.soldierSignal = <WritableSignal<Soldier>>this.overviewFacade.soldierSignalList.get(this.soldierId());
   }
 
-  public deleteSoldier(soldierId: number) {
+  public deleteSoldier(soldierId: number, event: Event) {
+    event.stopPropagation();
+    this.systemService.unsetSoldierIfSelectedSoldierId(soldierId);
     this.overviewFacade.deleteSoldier(soldierId);
   }
 
@@ -40,7 +43,7 @@ export class SoldierComponent implements OnInit {
   }
 
   public selectSoldier() {
-    this.overviewFacade.selectedSoldierId.set(this.soldierId());
+    this.systemService.setSelectedSoldierId(this.soldierId());
   }
 
   public isPerkPointsLowerThanMax(type: "mobility" | "vitality" | "handling"): boolean {
