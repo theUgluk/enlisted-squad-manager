@@ -1,5 +1,5 @@
 <div
-  [ngClass]="soldierId() === overviewFacade.selectedSoldierId() ? 'selected': ''"
+  [ngClass]="soldierId() === systemService.selectedSoldierId() ? 'selected': ''"
   class="flex flex-row border-black border-2 p-2 gap-2"
   (click)="selectSoldier()"
 >
@@ -42,7 +42,7 @@
       </div>
   </div>
   <div>
-    <button (click)="deleteSoldier(soldierId())">
+    <button (click)="deleteSoldier(soldierId(), $event)">
       x
     </button>
   </div>

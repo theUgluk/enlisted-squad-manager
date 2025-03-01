@@ -7,4 +7,12 @@ export namespace SystemActions {
       this.soldierId = soldierId;
     }
   }
+  export class SelectSquad{
+    static readonly type = "[Default] Select Squad";
+    public squadId: number | null;
+
+    constructor(squadId: number | null){
+      this.squadId = squadId;
+    }
+  }
 }

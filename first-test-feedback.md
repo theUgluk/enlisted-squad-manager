@@ -1,3 +1,6 @@
+- Redo whole soldier/squad selection cuz buggy behaviour
+  - REMOVE IT AAAALLLLL
+
 # Bugs
 - Deleted squad can still get soldiers added => Racho's repo
 - If you don't select the type of soldier class (e.g. Sniper 1, Sniper 2) it will only update the perk points if either add a new soldier, or switch between soldiers

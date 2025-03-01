@@ -3,6 +3,7 @@ import {Component, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Squad} from "../../models/squad.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
+import {SystemService} from "../../services/system.service";
 
 @Component({
   selector: "app-squad",
@@ -13,7 +14,7 @@ import {OverviewFacadeService} from "../../services/overview-facade.service";
   styleUrl: "./squad.component.scss"
 })
 export class SquadComponent implements OnInit {
-  constructor(public overviewFacade: OverviewFacadeService) {}
+  constructor(public overviewFacade: OverviewFacadeService, public systemService: SystemService) {}
   squadId = input.required<number>();
 
   public squadSignal!: WritableSignal<Squad>;
@@ -22,6 +23,12 @@ export class SquadComponent implements OnInit {
   }
 
   public selectSquad(){
-    this.overviewFacade.selectedSquadId.set(this.squadId());
+    this.systemService.setSelectedSquadId(this.squadId());
+  }
+
+  public deleteSquad(event: Event) {
+    event.stopPropagation();
+    this.systemService.unsetSquadIfSelectedSquadId(this.squadId());
+     this.overviewFacade.deleteSquad(this.squadId());
   }
 }

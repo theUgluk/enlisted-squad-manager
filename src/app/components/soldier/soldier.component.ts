@@ -28,7 +28,9 @@ export class SoldierComponent implements OnInit {
     this.soldierSignal = <WritableSignal<Soldier>>this.overviewFacade.soldierSignalList.get(this.soldierId());
   }
 
-  public deleteSoldier(soldierId: number) {
+  public deleteSoldier(soldierId: number, event: Event) {
+    event.stopPropagation();
+    this.systemService.unsetSoldierIfSelectedSoldierId(soldierId);
     this.overviewFacade.deleteSoldier(soldierId);
   }
 

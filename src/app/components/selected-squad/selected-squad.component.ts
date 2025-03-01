@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 
 import {OverviewFacadeService} from "../../services/overview-facade.service";
 import {SoldierComponent} from "../soldier/soldier.component";
+import {SystemService} from "../../services/system.service";
 
 @Component({
   selector: "app-selected-squad",
@@ -12,9 +13,12 @@ import {SoldierComponent} from "../soldier/soldier.component";
   styleUrl: "./selected-squad.component.scss"
 })
 export class SelectedSquadComponent {
-  constructor(public overviewFacade: OverviewFacadeService) {}
+  constructor(public overviewFacade: OverviewFacadeService, public systemService: SystemService) {}
 
   public createNewSoldier(){
-    this.overviewFacade.addSoldier(this.overviewFacade.selectedSquadId());
+    const selectedSquadId = this.systemService.selectedSquadId();
+    if(selectedSquadId !== null){
+      this.overviewFacade.addSoldier(selectedSquadId);
+    }
   }
 }
