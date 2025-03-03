@@ -92,8 +92,12 @@ export class Soldier {
     this.calculateHash();
   }
 
+  public getPerkPointsPerSoldierType() {
+    return this.getSoldierType().perkPoints.get(this.soldierTypeLevel);
+  }
+
   public getMaxPerkPoints(type: "mobility" | "vitality" | "handling"){
-    const perkPointsPerSoldierType = this.getSoldierType().perkPoints.get(this.soldierTypeLevel);
+    const perkPointsPerSoldierType = this.getPerkPointsPerSoldierType();
     if(perkPointsPerSoldierType){
       return perkPointsPerSoldierType[type] + 12;
     }

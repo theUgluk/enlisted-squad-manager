@@ -5,7 +5,11 @@
     </div>
     <div class="perk-amount">
       <span class="perk-amount-text select-none">
-        {{selectedAmountForPerk()}}/{{perk().maxLevel}}
+        @if(perk().default){
+          1/1
+        } @else {
+          {{selectedAmountForPerk()}}/{{perk().maxLevel}}
+        }
       </span>
     </div>
   </div>

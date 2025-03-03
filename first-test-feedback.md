@@ -3,6 +3,8 @@
 - Auto deploy
 
 # UI
+- Perks
+  - Indicate if higher lvl perks are unlocked
 - Popup system
 - Soldiers
 	- Action bar right side
@@ -12,10 +14,6 @@
       - Move down
       - Copy
     - Popup when deleting soldier
-- Perks
-	- Overview
-    - Adding the default perk
-    - Indicate if higher lvl perks are unlocked
 - Squads
 	- Smaller squad scared
 	- Indicator of type of squad
