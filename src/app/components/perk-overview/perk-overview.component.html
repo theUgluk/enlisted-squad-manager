@@ -1,4 +1,6 @@
 @if(soldierSignal()){
+
+  @let localSelectedPerk = selectedPerk();
   <div class="flex flex-row">
     <div class="w-5/6">
       <div class="grid grid-cols-3 gap-4">
@@ -33,9 +35,9 @@
                 @for(perk of getPerks(perkType, level); track
                 perk) {
                   <app-perk
-                    [isSelected]="perk.id === selectedPerkId()"
+                    [isSelected]="perk.id === selectedPerk()?.id"
                     (perkClicked)="perkClicked($event)"
-                    (perkRightClicked)="perkRightClicked(perk.id)"
+                    (perkRightClicked)="perkRightClicked(perk)"
                     [selectedAmountForPerk]="selectedAmountForPerk(perk.id)"
                     [perk]="perk"
                   ></app-perk>
@@ -47,10 +49,10 @@
       </div>
     </div>
     <div class="w-1/6">
-      @if(selectedPerkId() !== null) {
+      @if(localSelectedPerk !== null) {
         <app-selected-perk
-          [selectedPerkId]="selectedPerkId()"
-          [selectedAmountForPerk]="selectedAmountForPerk(selectedPerkId())"
+          [selectedPerk]="selectedPerk()"
+          [selectedAmountForPerk]="selectedAmountForPerk(localSelectedPerk.id)"
           (perkClicked)="perkClicked($event)"
           (perkRightClicked)="perkRightClicked($event)"
         ></app-selected-perk>

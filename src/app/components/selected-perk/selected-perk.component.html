@@ -1,43 +1,54 @@
+@let localSelectedPerk = selectedPerk();
+@if(localSelectedPerk){
 <div class="flex items-center flex-col mt-5 h-full">
   <div class="perk-icon">
     <app-perk
       [selectedAmountForPerk]="selectedAmountForPerk()"
-      [perk]="selectedPerk()"
+      [perk]="localSelectedPerk"
       [isSelected]="false"
      ></app-perk>
     <!-- current bonus -->
     @if( selectedAmountForPerk() > 0){
       <div class="perk-text pt-5">
-        {{ selectedPerk()?.text(selectedAmountForPerk()) }}
+        {{ localSelectedPerk.text(selectedAmountForPerk()) }}
       </div>
     }
-    <!-- next level -->
-    @if(selectedAmountForPerk() + 1 <= selectedPerk().maxLevel){
-      <div class="perk-text pt-5">
-        <div>
-          Next level:
+    @if(localSelectedPerk.default === undefined || localSelectedPerk?.default === false){
+      <!-- next level -->
+      @if(selectedAmountForPerk() + 1 <= localSelectedPerk.maxLevel){
+        <div class="perk-text pt-5">
+          <div>
+            Next level:
+          </div>
+          {{ localSelectedPerk.text(selectedAmountForPerk() + 1) }}
         </div>
-        {{ selectedPerk()?.text(selectedAmountForPerk() + 1) }}
+      }
+    } @else if(localSelectedPerk.default === true){
+      <div class="perk-text pt-5">
+        {{ localSelectedPerk.text(1) }}
       </div>
     }
   </div>
-  <div>
-    Cost: {{selectedPerk()?.cost}}
-  </div>
-  <div class="w-full flex justify-center bottom-0">
-    <button
-      class="p-1"
-      [disabled]="selectedAmountForPerk() <= 0"
-      (click)="perkRightClicked.emit(selectedPerkId())"
-    >
-      -1
-    </button>
-    <button
-      [disabled]="selectedAmountForPerk() >= selectedPerk().maxLevel"
-      class="p-1"
-      (click)="perkClicked.emit(selectedPerkId())"
-    >
-      +1
-    </button>
-  </div>
+  @if(localSelectedPerk.default === undefined || localSelectedPerk?.default === false){
+    <div>
+      Cost: {{localSelectedPerk.cost}}
+    </div>
+    <div class="w-full flex justify-center bottom-0">
+      <button
+        class="p-1"
+        [disabled]="selectedAmountForPerk() <= 0"
+        (click)="perkRightClicked.emit(localSelectedPerk)"
+      >
+        -1
+      </button>
+      <button
+        [disabled]="selectedAmountForPerk() >= localSelectedPerk.maxLevel"
+        class="p-1"
+        (click)="perkClicked.emit(selectedPerk())"
+      >
+        +1
+      </button>
+    </div>
+  }
 </div>
+}

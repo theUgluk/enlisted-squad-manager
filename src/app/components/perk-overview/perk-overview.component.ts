@@ -37,7 +37,7 @@ export class PerkOverviewComponent {
       } else {
         this.soldierSignal = signal<Soldier | null>(null);
       }
-      this.selectedPerkId.set(null);
+      this.selectedPerk.set(null);
     });
   }
 
@@ -46,28 +46,37 @@ export class PerkOverviewComponent {
 
   public perkTypeArray: number[] = [0, 1, 2];
 
-  selectedPerkId: WritableSignal<number | null> = signal(null);
+  selectedPerk: WritableSignal<IPerk | null> = signal(null);
 
   public getPerks(type?: number, level?: number): IPerk[] {
+    let result: IPerk[] = [];
     if(this.soldierSignal() !== null){
-      return this.perkService.getPerks(<number>this.soldierSignal()?.soldierTypeId, type, level);
+      result = this.perkService.getPerks(<number>this.soldierSignal()?.soldierTypeId, type, level);
     }
-    return [];
+    if(level === 1 && type !== undefined){
+      const perkPointsPerSoldierType = this.soldierSignal()?.getPerkPointsPerSoldierType();
+      if(perkPointsPerSoldierType !== undefined && perkPointsPerSoldierType.defaultPerk.type === type){
+        result = [perkPointsPerSoldierType.defaultPerk, ...result];
+      }
+    }
+    return result;
   }
 
-  public perkClicked(perkId: number | null){
-    if(perkId !== null) {
-      if (this.selectedPerkId() === null || this.selectedPerkId() !== perkId) {
-        this.selectedPerkId.set(perkId);
+  public perkClicked(perk: IPerk | null){
+    if(perk !== null) {
+      if (
+        this.selectedPerk() === null ||
+        this.selectedPerk()?.id !== perk.id) {
+        this.selectedPerk.set(perk);
       } else {
-        this.overviewFacade.addPerkToSelectedSoldier(perkId);
+        this.overviewFacade.addPerkToSelectedSoldier(perk.id);
       }
     }
   }
 
-  public perkRightClicked(perkId: number | null){
-    if(perkId !== null) {
-      this.overviewFacade.removePerkFromSelectedSoldier(perkId);
+  public perkRightClicked(perk: IPerk | null){
+    if(perk !== null) {
+      this.overviewFacade.removePerkFromSelectedSoldier(perk.id);
     }
   }
 

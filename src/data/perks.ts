@@ -282,7 +282,7 @@ export const perks: IPerk[] = [
   //Vitality
   {
     // Exclude tanker
-    id: 0,
+    id: 53,
     type: 1,
     cost: 16,
     maxLevel: 1,
