@@ -1,5 +1,4 @@
 @if(soldierSignal()){
-
   @let localSelectedPerk = selectedPerk();
   <div class="flex flex-row">
     <div class="w-5/6">
@@ -43,6 +42,19 @@
                   ></app-perk>
                 }
               </div>
+              @let localSoldier = soldierSignal();
+              @if(localSoldier && level === 1){
+                @let ppNeeded = perkService.pointsNeededForHigherLevel(localSoldier.perks);
+                @if(ppNeeded < 0){
+                  <div class="grid row-span-3 text-center">
+                    @if(perkType === 1){
+                      "Locked"
+                    } @else {
+                      &nbsp;
+                    }
+                  </div>
+                }
+              }
             }
           </div>
         }

@@ -36,4 +36,21 @@ export class PerkService {
         || (!perk.include && !perk.class.includes(soldierTypeId));
     });
   }
+
+  public pointsNeededForHigherLevel(soldierPerks: {perkId: number, amount: number}[]): number {
+    // Get the perks for level 1 => filter over the perks to see which ones are in lvl 1 =>
+    const levelOnePerks = this.filterPerksByLevel(this.getPerks(), 1);
+    const levelOnePerkIds = this.getPerkIdsFromPerkList(levelOnePerks);
+    let totalPoints = 0;
+    soldierPerks.filter(perk => levelOnePerkIds.includes(perk.perkId)).forEach(perk => {
+      const thisPerk = <IPerk>levelOnePerks.find(testPerk => testPerk.id === perk.perkId);
+      totalPoints += thisPerk.cost * perk.amount;
+    });
+
+    return totalPoints - 6;
+  }
+
+  private getPerkIdsFromPerkList(perkList: IPerk[]): number[] {
+    return perkList.map(perk => perk.id);
+  }
 }
