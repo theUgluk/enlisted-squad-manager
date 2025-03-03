@@ -7,7 +7,7 @@ import {IPerk} from "../models/perk.model";
   providedIn: "root"
 })
 export class PerkService {
-  public getPerks(soldierTypeId: number, type?: number, level?: number): IPerk[] {
+  public getPerks(soldierTypeId?: number, type?: number, level?: number): IPerk[] {
     let resultPerks: IPerk[] = [];
     resultPerks = this.getPerksBySoldierType(soldierTypeId);
     if(type !== undefined){
@@ -16,7 +16,7 @@ export class PerkService {
     if(level !== undefined){
       resultPerks = this.filterPerksByLevel(resultPerks, level);
     }
-    return resultPerks;
+    return resultPerks.sort((a, b) => a.order - b.order);
   }
 
   private filterPerksByLevel(unfilteredPerks: IPerk[], level: number): IPerk[] {
@@ -27,7 +27,10 @@ export class PerkService {
     return unfilteredPerks.filter(perk => perk.type === type);
   }
 
-  private getPerksBySoldierType(soldierTypeId: number): IPerk[] {
+  private getPerksBySoldierType(soldierTypeId?: number): IPerk[] {
+    if(soldierTypeId == undefined){
+      return perks;
+    }
     return perks.filter(perk => {
       return (perk.include && perk.class.includes(soldierTypeId))
         || (!perk.include && !perk.class.includes(soldierTypeId));

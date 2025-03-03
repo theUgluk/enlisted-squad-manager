@@ -9,4 +9,6 @@ export interface IPerk {
   class: number[];
   icon: string;
   level: number;
+  order: number;
+  default?: boolean;
 }
