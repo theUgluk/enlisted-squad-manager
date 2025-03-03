@@ -4,7 +4,7 @@
 
 # UI
 - Perks
-  - Indicate if higher lvl perks are unlocked
+  - get icon for locked perk tree 
 - Popup system
 - Soldiers
 	- Action bar right side
