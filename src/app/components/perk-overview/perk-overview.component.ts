@@ -37,12 +37,9 @@ export class PerkOverviewComponent {
       } else {
         this.soldierSignal = signal<Soldier | null>(null);
       }
+      this.selectedPerkId.set(null);
     });
   }
-
-  public maxMobility = signal(0);
-  public maxVitality = signal(0);
-  public maxHandling = signal(0);
 
   // Create an array so our HTML has a collection to loop over
   public levelsArray: number[] = [1, 2, 3];

@@ -6,25 +6,25 @@
           <img class="perk" src="/assets/images/perks/perk_speed.svg" />
           <div class="title">
             MOBILITY
-            <span class="amountMobility">{{maxMobility()}}</span>
+            <span class="amountMobility">{{soldierSignal()?.getMaxPerkPoints("mobility")}}</span>
           </div>
-          {{soldierSignal()?.getPerkPointsSpend()?.mobility}}@if(soldierSignal()?.getPerkPointsSpend()?.mobility === maxMobility()){*}
+          {{soldierSignal()?.getPerkPointsSpend()?.mobility}}@if(soldierSignal()?.getPerkPointsSpend()?.mobility === soldierSignal()?.getMaxPerkPoints("mobility")){*}
         </div>
         <div class="perk-1 perk-header">
           <img class="perk" src="/assets/images/perks/perk_vitality.svg" />
           <div class="title">
             VITALITY
-            <span class="amountVitality">{{maxVitality()}}</span>
+            <span class="amountVitality">{{soldierSignal()?.getMaxPerkPoints("vitality")}}</span>
           </div>
-          {{soldierSignal()?.getPerkPointsSpend()?.vitality}}@if(soldierSignal()?.getPerkPointsSpend()?.vitality === maxVitality()){*}
+          {{soldierSignal()?.getPerkPointsSpend()?.vitality}}@if(soldierSignal()?.getPerkPointsSpend()?.vitality === soldierSignal()?.getMaxPerkPoints("vitality")){*}
         </div>
         <div class="perk-2 perk-header">
           <img class="perk" src="/assets/images/perks/perk_battleskill.svg" />
           <div class="title">
             WEAPON
-            <span class="amountHandling">{{maxHandling()}}</span>
+            <span class="amountHandling">{{soldierSignal()?.getMaxPerkPoints("handling")}}</span>
           </div>
-          {{soldierSignal()?.getPerkPointsSpend()?.weaponHandling}}@if(soldierSignal()?.getPerkPointsSpend()?.weaponHandling === maxHandling()){*}
+          {{soldierSignal()?.getPerkPointsSpend()?.weaponHandling}}@if(soldierSignal()?.getPerkPointsSpend()?.weaponHandling === soldierSignal()?.getMaxPerkPoints("handling")){*}
         </div>
         @for(perkType of perkTypeArray; track perkType){
           <div class="perk-container grid-cols-1 gap-4">

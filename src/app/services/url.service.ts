@@ -7,6 +7,7 @@ import {BehaviorSubject} from "rxjs";
 import {Soldier} from "../models/soldier.model";
 import {SoldierActions} from "../state/actions/soldierActions";
 import {SquadActions} from "../state/actions/squadActions";
+import {SystemActions} from "../state/actions/systemActions";
 import {SoldierState} from "../state/store/soldier.state";
 import Util from "../util";
 
@@ -44,6 +45,7 @@ export class UrlService {
     const uri = JSLZString.decompressFromEncodedURIComponent(
       this.location.path().substring(1, this.location.path().length).replaceAll("%2B", "+")
     );
+    let lowestSquadId = 1;
     if(uri && uri.length > 0) {
       const soldierHashes = uri.split("-")
       // remove the version number
@@ -55,12 +57,14 @@ export class UrlService {
             soldiers.push(this.createSoldierFromHash(soldierHash));
           });
           this.store.dispatch(new SoldierActions.SetSoldier(soldiers));
+          lowestSquadId = Math.min(...this.squadIds);
           this.squadIds.forEach((squadId: number) => {
             this.store.dispatch(new SquadActions.SetSquad(squadId));
           })
         });
       }
     }
+    this.store.dispatch(new SystemActions.SelectSquad(lowestSquadId));
     this.initialLoaded.next(true);
   }
 
