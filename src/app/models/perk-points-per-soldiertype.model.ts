@@ -1,6 +1,6 @@
 import {IPerk} from "./perk.model";
 
-export interface perkPointsPerSoldierType {
+export interface PerkPointsPerSoldierType {
   vitality: number;
   mobility: number;
   handling: number;

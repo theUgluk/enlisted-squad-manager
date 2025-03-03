@@ -2,7 +2,7 @@
 /*eslint @typescript-eslint/no-unused-vars: 0*/
 import {soldierType} from "../app/models/class.model";
 import { IPerk } from "../app/models/perk.model";
-import {perkPointsPerSoldierType} from "../app/models/perk-points-per-soldiertype.model";
+import {PerkPointsPerSoldierType} from "../app/models/perk-points-per-soldiertype.model";
 
 export const soldierTypes: soldierType[] = [
   {
@@ -10,7 +10,7 @@ export const soldierTypes: soldierType[] = [
     name: "APC Driver",
     minLevel: 2,
     maxLevel: 2,
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         2,
         {
@@ -41,7 +41,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 4,
     icon: "assaulter.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -138,7 +138,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 2,
     icon: "launcher.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -192,7 +192,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 2,
     icon: "engineer.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -246,7 +246,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 3,
     icon: "pilot_fighter.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -322,7 +322,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 2,
     icon: "flametrooper.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -375,7 +375,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 2,
     maxLevel: 2,
     icon: "partisan.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         2,
         {
@@ -406,7 +406,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 3,
     icon: "machine_gun.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -481,7 +481,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 1,
     icon: "medic.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -512,7 +512,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 1,
     icon: "mortarman.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -544,7 +544,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 2,
     icon: "radioman.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -597,7 +597,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 1,
     icon: "biker.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -628,7 +628,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 3,
     icon: "rifle.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -703,7 +703,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 3,
     icon: "sniper.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -778,7 +778,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 3,
     icon: "driver_tank.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {
@@ -854,7 +854,7 @@ export const soldierTypes: soldierType[] = [
     minLevel: 1,
     maxLevel: 3,
     icon: "pilot_assaulter.svg",
-    perkPoints: new Map<number, perkPointsPerSoldierType>([
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
       [
         1,
         {

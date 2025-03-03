@@ -2,7 +2,7 @@ import { perks } from "../../data/perks";
 import { soldierTypes } from "../../data/soldierTypes";
 import Util from "../util";
 import {soldierType} from "./class.model";
-import {perkPointsPerSoldierType} from "./perk-points-per-soldiertype.model";
+import {PerkPointsPerSoldierType} from "./perk-points-per-soldiertype.model";
 
 export class Soldier {
   public id: number;
@@ -38,7 +38,7 @@ export class Soldier {
   }
 
   private calculateMaxPerkPoints(){
-    const perkPoints: perkPointsPerSoldierType = <perkPointsPerSoldierType>this.getSoldierType().perkPoints
+    const perkPoints: PerkPointsPerSoldierType = <PerkPointsPerSoldierType>this.getSoldierType().perkPoints
       .get(this.soldierTypeLevel);
     this.maxVitality = perkPoints.vitality + 12;
     this.maxHandling = perkPoints.handling + 12;
@@ -90,6 +90,14 @@ export class Soldier {
     this.soldierTypeLevel = level;
     this.calculateMaxPerkPoints();
     this.calculateHash();
+  }
+
+  public getMaxPerkPoints(type: "mobility" | "vitality" | "handling"){
+    const perkPointsPerSoldierType = this.getSoldierType().perkPoints.get(this.soldierTypeLevel);
+    if(perkPointsPerSoldierType){
+      return perkPointsPerSoldierType[type] + 12;
+    }
+    return 0;
   }
 
   public addPerk(perkId: number){
