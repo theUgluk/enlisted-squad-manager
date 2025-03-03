@@ -53,7 +53,7 @@ export class PerkOverviewComponent {
 
   public getPerks(type?: number, level?: number): IPerk[] {
     if(this.soldierSignal() !== null){
-      return this.perkService.getPerks(<number>this.soldierSignal()?.id, type, level);
+      return this.perkService.getPerks(<number>this.soldierSignal()?.soldierTypeId, type, level);
     }
     return [];
   }
