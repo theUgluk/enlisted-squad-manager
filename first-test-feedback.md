@@ -1,24 +1,30 @@
-# Bugs
-- Initial selection fix
-- set max perk point properly
-- Perks dont get unselected if you change soldier
-- Renumber squads
+# Todo
+## Admin
+- Auto deploy
+
+## Bugs
+- Initial selection mix
+- Set perk point over max points
+- Keeps perks selected when changing soldier
+- Sorting perks
+	- Decide order system
+	- Add parameter to perks
+	
 
 # UI
-- Redo soldiers
-	- Left: icon and level
-	- Center: (top to bottom): Perk Icon + number (coloured)
-	- Right: Actions (move up, move down, copy, delete)
-- Sorting of the orders
-- Indicator if the higher level perks are unlocked
-- Smaller/more meaningful squad squares
-- Indicator you can select level of soldier in the dropdown
-	- Make dropdown more obvious (different colour? Border)
--Slide in squad menu
+- Soldiers
+	- Action bar right side
+		- Add icons
+- Perks
+	- Overview
+		- Indicate if higher lvl perks are unlocked
+- Squads
+	- Smaller squad scared
+	- Indicator of type of squad
+	? Slide in squad menu
 
-# Features
-- moving around soldiers
-- moving around squads
-- Copy soldiers
-- Copy squads
-- Indicator of soldiers in squad?
+# Feature
+- Moving soldiers
+- Moving squads
+- Copy Soldier
+? Copy Squad

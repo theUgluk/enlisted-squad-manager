@@ -30,14 +30,14 @@
           <div class="perk-container grid-cols-1 gap-4">
             @for(level of levelsArray; track level) {
               <div class="grid grid-cols-3 gap-4 grid-rows-[repeat(3,_80px)] h-48">
-                @for(mobilityPerk of getPerksByTypeAndLevel(perkType, level); track
-                mobilityPerk) {
+                @for(perk of getPerks(perkType, level); track
+                perk) {
                   <app-perk
-                    [isSelected]="mobilityPerk.id === selectedPerkId()"
+                    [isSelected]="perk.id === selectedPerkId()"
                     (perkClicked)="perkClicked($event)"
-                    (perkRightClicked)="perkRightClicked(mobilityPerk.id)"
-                    [selectedAmountForPerk]="selectedAmountForPerk(mobilityPerk.id)"
-                    [perk]="mobilityPerk"
+                    (perkRightClicked)="perkRightClicked(perk.id)"
+                    [selectedAmountForPerk]="selectedAmountForPerk(perk.id)"
+                    [perk]="perk"
                   ></app-perk>
                 }
               </div>
