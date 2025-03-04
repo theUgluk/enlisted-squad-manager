@@ -3,7 +3,6 @@ import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { Store } from "@ngxs/store";
 import {BehaviorSubject} from "rxjs";
-
 import {UrlService} from "./services/url.service";
 
 @Component({
@@ -18,10 +17,10 @@ export class AppComponent {
 
   public initialLoaded: BehaviorSubject<boolean>;
 
+
   constructor(urlService: UrlService) {
     this.initialLoaded = urlService.initialLoaded;
     urlService.initialLoad();
-
   }
 
   protected readonly UrlService = UrlService;

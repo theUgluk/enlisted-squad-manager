@@ -2,13 +2,9 @@
 ## Admin
 - Auto deploy
 
-# Bugs
-- Version converter (ID ov Vitality changed)
-
 # UI
 - Perks
   - get icon for locked perk tree 
-- Popup system
 - Soldiers
 	- Select newly created soldier
 	- Action bar right side
@@ -17,7 +13,6 @@
       - Move up
       - Move down
       - Copy
-    - Popup when deleting soldier
 - Squads
 	- Select newly created squad
 	- Smaller squad square

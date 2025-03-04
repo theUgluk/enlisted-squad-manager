@@ -3,6 +3,7 @@ import {Component} from "@angular/core";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
 import {SystemService} from "../../services/system.service";
 import {PerkOverviewComponent} from "../perk-overview/perk-overview.component";
+import {PopupComponent} from "../popup/popup.component";
 import {SelectedSquadComponent} from "../selected-squad/selected-squad.component";
 import {SquadComponent} from "../squad/squad.component";
 
@@ -11,7 +12,8 @@ import {SquadComponent} from "../squad/squad.component";
   imports: [
     SquadComponent,
     SelectedSquadComponent,
-    PerkOverviewComponent
+    PerkOverviewComponent,
+    PopupComponent
   ],
   templateUrl: "./overview.component.html",
   styleUrl: "./overview.component.scss"
