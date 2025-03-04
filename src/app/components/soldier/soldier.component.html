@@ -41,9 +41,21 @@
         }
       </div>
   </div>
-  <div>
-    <button (click)="deleteSoldier(soldierId(), $event)">
-      x
-    </button>
+  <div class="flex flex-col">
+    <div>
+      <button (click)="moveSoldierUp($event)">
+        U
+      </button>
+    </div>
+    <div>
+      <button (click)="moveSoldierDown($event)">
+        D
+      </button>
+    </div>
+    <div>
+      <button (click)="deleteSoldier(soldierId(), $event)">
+        x
+      </button>
+    </div>
   </div>
 </div>

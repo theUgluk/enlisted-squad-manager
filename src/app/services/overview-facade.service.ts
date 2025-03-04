@@ -151,4 +151,8 @@ export class OverviewFacadeService {
       this.addPerkToSoldier(perkId, soldierId);
     }
   }
+
+  public moveSoldierUp(soldierId: number){
+    this._store.dispatch(new SoldierActions.MoveSoldierUp(soldierId));
+  }
 }

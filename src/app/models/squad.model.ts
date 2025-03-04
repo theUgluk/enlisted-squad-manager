@@ -7,10 +7,6 @@ export class Squad {
     this.calculateHash();
   }
 
-  get arrayIndex(){
-    return this.id - 1;
-  }
-
   public tickCount(){
     this._count++;
     this.calculateHash();

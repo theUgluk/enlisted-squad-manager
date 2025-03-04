@@ -25,17 +25,26 @@ export class UrlService {
 
   private version = 2;
 
+  private encode = true;
+
   constructor(private store: Store, private location: Location) {
     this.initialLoaded.subscribe(loaded => {
       if (loaded) {
         this.store.select(SoldierState.getSoldiers).subscribe(soldiers => {
+          const sortedSoldiers = this.sortSoldiers(soldiers);
           this._url = `${this.version}-`;
-          this._url += this.getUrlFromSoldiers(soldiers);
-          this._url = JSLZString.compressToEncodedURIComponent(this._url);
+          this._url += this.getUrlFromSoldiers(sortedSoldiers);
+          if(this.encode) {
+            this._url = JSLZString.compressToEncodedURIComponent(this._url);
+          }
           this.location.replaceState("/" + this._url);
         });
       }
     });
+  }
+
+  public sortSoldiers(soldiers: Soldier[]): Soldier[] {
+    return soldiers.sort((a, b) => a.squadId - b.squadId);
   }
 
   private getUrlFromSoldiers(soldiers: Soldier[]): string {
@@ -48,9 +57,10 @@ export class UrlService {
 
   public initialLoad(){
     //Annoyingly JSLZ uses +, which isn't url safe >:(
-    const uri = JSLZString.decompressFromEncodedURIComponent(
-      this.location.path().substring(1, this.location.path().length).replaceAll("%2B", "+")
-    );
+    let uri = this.location.path().substring(1, this.location.path().length).replaceAll("%2B", "+");
+    if(this.encode){
+      uri = JSLZString.decompressFromEncodedURIComponent(uri);
+    }
     let lowestSquadId = 1;
     if(uri && uri.length > 0) {
       let soldierHashes = uri.split("-")

@@ -141,5 +141,29 @@ export class SoldierState {
       });
     }
   }
+
+  @Action(SoldierActions.MoveSoldierUp)
+  public moveSoldierUp(ctx: StateContext<SoldierStateModel>, action: SoldierActions.MoveSoldierUp) {
+    const state = ctx.getState();
+    const index = state.soldiers.findIndex(soldier => soldier.id === action.soldierId);
+    if(index > 0){
+      let soldiers = state.soldiers;
+      const soldier = state.soldiers[index];
+      let swapIndex = -1;
+      for(let i = index - 1; i>= 0; i--){
+        if(state.soldiers[i].squadId === soldier.squadId){
+          swapIndex = i;
+          break;
+        }
+      }
+      if(swapIndex != -1) {
+        [soldiers[index], soldiers[swapIndex]] = [state.soldiers[swapIndex], state.soldiers[index]];
+        ctx.setState({
+          ...ctx.getState(),
+          soldiers: soldiers
+        });
+      }
+    }
+  }
 }
 
