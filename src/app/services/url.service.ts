@@ -23,21 +23,27 @@ export class UrlService {
 
   public initialLoaded = new BehaviorSubject<boolean>(false);
 
-  private version = 1;
+  private version = 2;
 
   constructor(private store: Store, private location: Location) {
     this.initialLoaded.subscribe(loaded => {
       if (loaded) {
         this.store.select(SoldierState.getSoldiers).subscribe(soldiers => {
           this._url = `${this.version}-`;
-          soldiers.forEach(soldier => {
-            this._url += soldier.hash + "-";
-          })
-          this._url = JSLZString.compressToEncodedURIComponent(this._url.substring(0, this._url.length - 1));
+          this._url += this.getUrlFromSoldiers(soldiers);
+          this._url = JSLZString.compressToEncodedURIComponent(this._url);
           this.location.replaceState("/" + this._url);
         });
       }
     });
+  }
+
+  private getUrlFromSoldiers(soldiers: Soldier[]): string {
+    let url = "";
+    soldiers.forEach(soldier => {
+      url += soldier.hash + "-";
+    })
+    return url.substring(0, url.length - 1);
   }
 
   public initialLoad(){
@@ -47,9 +53,12 @@ export class UrlService {
     );
     let lowestSquadId = 1;
     if(uri && uri.length > 0) {
-      const soldierHashes = uri.split("-")
+      let soldierHashes = uri.split("-")
       // remove the version number
-      soldierHashes.shift();
+      const hashVersion = soldierHashes.shift();
+      if(hashVersion && Util.decodeNumber(hashVersion) < this.version) {
+        soldierHashes = this.convertHashFromVersion(soldierHashes, Util.decodeNumber(hashVersion));
+      }
       const soldiers: Soldier[] = []
       if (soldierHashes && soldierHashes.length > 0) {
         this.store.dispatch(new SquadActions.DeleteSquad(1)).subscribe(() => {
@@ -90,4 +99,26 @@ export class UrlService {
     });
     return new Soldier(soldierId, squadId, soldierTypeId, soldierTypeLevel, perks);
   }
+
+  private convertHashFromVersion(hash: string[], hashVersion: number): string[] {
+    let result = hash;
+    //let currentVersion = hashVersion;
+    if(hashVersion === 1){
+      result = this.convertOneToTwo(hash)
+      //currentVersion = 2;
+    }
+    return result
+  }
+
+  // Id of Vitality perk changed from 0 to 53
+  private convertOneToTwo(hash: string[]): string[] {
+    const soldiers: string[] = [];
+    hash.forEach((soldierHash: string) => {
+      // check the perks and change if necessary
+      const perkHash = soldierHash.substring(3);
+      soldiers.push(soldierHash.substring(0, 3) + perkHash.replaceAll("0", "r"));
+    });
+    return soldiers;
+  }
+
 }
