@@ -1,0 +1,20 @@
+@if(popupService.popupVisible()){
+  <div class="overlay">
+    <div class="popup">
+      <div class="popup-title">
+        {{popupService.popupTitle()}}
+      </div>
+      <div class="popup-content">
+        {{popupService.popupText()}}
+      </div>
+      <div class="popup-buttons">
+        <button (click)="cancel()">
+          Cancel
+        </button>
+        <button (click)="confirm()">
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+}

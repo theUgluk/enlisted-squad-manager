@@ -1,8 +1,9 @@
 import {NgClass} from "@angular/common";
-import {Component, input, OnInit, WritableSignal} from "@angular/core";
+import {Component, inject, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Soldier} from "../../models/soldier.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
+import {PopupService} from "../../services/popup.service";
 import {SystemService} from "../../services/system.service";
 import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selector.component";
 
@@ -20,6 +21,8 @@ export class SoldierComponent implements OnInit {
   constructor(public overviewFacade: OverviewFacadeService, public systemService: SystemService) {
   }
 
+  private popupService = inject(PopupService);
+
   soldierId = input.required<number>();
 
   public soldierSignal!: WritableSignal<Soldier>;
@@ -30,8 +33,10 @@ export class SoldierComponent implements OnInit {
 
   public deleteSoldier(soldierId: number, event: Event) {
     event.stopPropagation();
-    this.systemService.unsetSoldierIfSelectedSoldierId(soldierId);
-    this.overviewFacade.deleteSoldier(soldierId);
+    this.popupService.showPopupWithText("Are you sure you want to delete the soldier?", "Delete Soldier", () => {
+      this.systemService.unsetSoldierIfSelectedSoldierId(soldierId);
+      this.overviewFacade.deleteSoldier(soldierId);
+    })
   }
 
   public soldierTypeChange(value: number) {

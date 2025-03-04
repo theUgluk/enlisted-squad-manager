@@ -18,10 +18,10 @@ export class AppComponent {
 
   public initialLoaded: BehaviorSubject<boolean>;
 
+
   constructor(urlService: UrlService) {
     this.initialLoaded = urlService.initialLoaded;
     urlService.initialLoad();
-
   }
 
   protected readonly UrlService = UrlService;
