@@ -25,7 +25,7 @@ export class UrlService {
 
   private version = 2;
 
-  private encode = false;
+  private encode = true;
 
   constructor(private store: Store, private location: Location) {
     this.initialLoaded.subscribe(loaded => {

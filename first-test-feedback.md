@@ -23,8 +23,3 @@
 	- Github
 	- Twitch
   - Share button
-# Feature
-- Moving soldiers
-- Moving squads
-- Copy Soldier
-? Copy Squad
