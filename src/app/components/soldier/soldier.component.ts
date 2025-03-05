@@ -95,4 +95,9 @@ export class SoldierComponent implements OnInit {
     event.stopPropagation();
     this.overviewFacade.moveSoldierDown(this.soldierId());
   }
+
+  public copySoldier(event: Event): void {
+    event.stopPropagation();
+    this.popupService.showPopupForCopy(this.soldierId());
+  }
 }

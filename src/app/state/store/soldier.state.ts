@@ -26,7 +26,7 @@ export class SoldierState {
   }
 
   @Action(SoldierActions.AddSoldier)
-  public setBoolean(ctx: StateContext<SoldierStateModel>, action: SoldierActions.AddSoldier) {
+  public addSoldier(ctx: StateContext<SoldierStateModel>, action: SoldierActions.AddSoldier) {
     const newSoldierId = ctx.getState().maxSoldierId + 1;
     ctx.setState({
       ...ctx.getState(),
@@ -186,6 +186,30 @@ export class SoldierState {
         soldiers: soldiers
       });
     }
+  }
+
+  @Action(SoldierActions.CopySoldierToSquad)
+  public copySoldierToSquad(ctx: StateContext<SoldierStateModel>, action: SoldierActions.CopySoldierToSquad) {
+    const state = ctx.getState();
+    const soldierToCopy = state.soldiers.find(soldier => soldier.id === action.soldierId);
+    if(soldierToCopy) {
+      const newSoldier = new Soldier(
+        state.maxSoldierId + 1,
+        action.squadId,
+        soldierToCopy.soldierTypeId,
+        soldierToCopy.soldierTypeLevel,
+        soldierToCopy.perks
+      );
+      ctx.setState({
+        ...state,
+        maxSoldierId: state.maxSoldierId + 1,
+        soldiers: [
+          ...state.soldiers,
+          newSoldier,
+        ]
+      })
+    }
+
   }
 }
 
