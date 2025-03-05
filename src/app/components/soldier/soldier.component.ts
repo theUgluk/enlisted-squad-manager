@@ -93,6 +93,6 @@ export class SoldierComponent implements OnInit {
 
   public moveSoldierDown(event: Event): void {
     event.stopPropagation();
-    console.log('move down');
+    this.overviewFacade.moveSoldierDown(this.soldierId());
   }
 }

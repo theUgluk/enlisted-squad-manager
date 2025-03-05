@@ -25,22 +25,30 @@ export class UrlService {
 
   private version = 2;
 
-  private encode = true;
+  private encode = false;
 
   constructor(private store: Store, private location: Location) {
     this.initialLoaded.subscribe(loaded => {
       if (loaded) {
         this.store.select(SoldierState.getSoldiers).subscribe(soldiers => {
-          const sortedSoldiers = this.sortSoldiers(soldiers);
-          this._url = `${this.version}-`;
-          this._url += this.getUrlFromSoldiers(sortedSoldiers);
-          if(this.encode) {
-            this._url = JSLZString.compressToEncodedURIComponent(this._url);
-          }
-          this.location.replaceState("/" + this._url);
+          this.createUrl(soldiers);
         });
       }
     });
+  }
+
+  public createUrl(soldiers?: Soldier[]){
+    let soldierList = soldiers;
+    if(soldierList === undefined){
+      soldierList = this.store.selectSnapshot(SoldierState.getSoldiers)
+    }
+    const sortedSoldiers = this.sortSoldiers(soldierList);
+    this._url = `${this.version}-`;
+    this._url += this.getUrlFromSoldiers(sortedSoldiers);
+    if(this.encode) {
+      this._url = JSLZString.compressToEncodedURIComponent(this._url);
+    }
+    this.location.replaceState("/" + this._url);
   }
 
   public sortSoldiers(soldiers: Soldier[]): Soldier[] {

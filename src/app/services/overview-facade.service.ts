@@ -10,6 +10,8 @@ import {SquadState} from "../state/store/squad.state";
 import AddPerkToSoldier = SoldierActions.AddPerkToSoldier;
 import RemovePerkFromSoldier = SoldierActions.RemovePerkFromSoldier;
 import {SystemState} from "../state/store/system.state";
+import {SystemService} from "./system.service";
+import {UrlService} from "./url.service";
 
 @Injectable({
   providedIn: "root"
@@ -25,7 +27,13 @@ export class OverviewFacadeService {
 
   public soldierSignalList: Map<number, WritableSignal<Soldier>> = new Map<number, WritableSignal<Soldier>>();
 
-  constructor(private _store: Store) {
+  public forceReload = signal(1);
+
+  constructor(
+    private _store: Store,
+    private systemService: SystemService,
+    private urlService: UrlService,
+  ) {
     this._store.select(SquadState.getSquads).subscribe(squads => {
       this.updateSquadSignalList(squads);
     });
@@ -153,6 +161,28 @@ export class OverviewFacadeService {
   }
 
   public moveSoldierUp(soldierId: number){
+    this.systemService.unsetSoldierIfSelectedSoldierId(soldierId);
     this._store.dispatch(new SoldierActions.MoveSoldierUp(soldierId));
+    this.updateSoldierSignalList(this._store.selectSnapshot(SoldierState.getSoldiers));
+    this.urlService.createUrl();
+    const selectedSquad = this.systemService.selectedSquadId();
+    if(selectedSquad){
+      // Force the reload of the squad
+      this.systemService.unsetSquadIfSelectedSquadId(selectedSquad);
+      setTimeout(() => this.systemService.setSelectedSquadId(selectedSquad), 1);
+    }
+  }
+
+  public moveSoldierDown(soldierId: number){
+    this.systemService.unsetSoldierIfSelectedSoldierId(soldierId);
+    this._store.dispatch(new SoldierActions.MoveSoldierDown(soldierId))
+    this.updateSoldierSignalList(this._store.selectSnapshot(SoldierState.getSoldiers));
+    this.urlService.createUrl();
+    const selectedSquad = this.systemService.selectedSquadId();
+    if(selectedSquad){
+      // Force the reload of the squad
+      this.systemService.unsetSquadIfSelectedSquadId(selectedSquad);
+      setTimeout(() => this.systemService.setSelectedSquadId(selectedSquad), 1);
+    }
   }
 }

@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 
+import {Soldier} from "../../models/soldier.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
 import {SystemService} from "../../services/system.service";
 import {SoldierComponent} from "../soldier/soldier.component";
@@ -20,5 +21,13 @@ export class SelectedSquadComponent {
     if(selectedSquadId !== null){
       this.overviewFacade.addSoldier(selectedSquadId);
     }
+  }
+
+  public getOrderedSoldierList(): Soldier[]{
+    if(this.systemService.selectedSquadId() !== null) {
+      return this.overviewFacade.soldierForSquad(<number>this.systemService.selectedSquadId())
+        .sort((a, b) => a.id - b.id);
+    }
+    return [];
   }
 }
