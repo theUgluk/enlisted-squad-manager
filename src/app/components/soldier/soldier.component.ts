@@ -85,4 +85,14 @@ export class SoldierComponent implements OnInit {
         return this.soldierSignal().maxHandling - this.soldierSignal().getPerkPointsSpend().weaponHandling < 0;
     }
   }
+
+  public moveSoldierUp(event: Event): void {
+    event.stopPropagation();
+    this.overviewFacade.moveSoldierUp(this.soldierId());
+  }
+
+  public moveSoldierDown(event: Event): void {
+    event.stopPropagation();
+    this.overviewFacade.moveSoldierDown(this.soldierId());
+  }
 }
