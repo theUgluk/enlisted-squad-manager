@@ -185,4 +185,8 @@ export class OverviewFacadeService {
       setTimeout(() => this.systemService.setSelectedSquadId(selectedSquad), 1);
     }
   }
+
+  public copySoldierToSquad(soldierId: number, squadId: number){
+    this._store.dispatch(new SoldierActions.CopySoldierToSquad(soldierId, squadId));
+  }
 }

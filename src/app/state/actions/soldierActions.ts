@@ -98,4 +98,15 @@ export namespace SoldierActions {
       this.soldierId = soldierId;
     }
   }
+
+  export class CopySoldierToSquad {
+    static readonly type = "[Default] Copy Soldier To Squad";
+    soldierId: number | string;
+    squadId: number;
+
+    constructor(soldierId: number | string, squadId: number) {
+      this.soldierId = soldierId;
+      this.squadId = squadId;
+    }
+  }
 }
