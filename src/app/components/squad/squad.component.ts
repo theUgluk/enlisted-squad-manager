@@ -3,8 +3,8 @@ import {Component, inject, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Squad} from "../../models/squad.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
-import {SystemService} from "../../services/system.service";
 import { PopupService } from "../../services/popup.service";
+import {SystemService} from "../../services/system.service";
 
 @Component({
   selector: "app-squad",
