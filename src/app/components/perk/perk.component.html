@@ -6,7 +6,7 @@
     <div class="perk-amount">
       <span class="perk-amount-text select-none">
         @if(perk().default){
-          1/1
+          <img class="default-perk " src="../../../assets/images/checkmark.svg" />
         } @else {
           {{selectedAmountForPerk()}}/{{perk().maxLevel}}
         }

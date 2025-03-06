@@ -20,4 +20,15 @@
 .perk-container {
   background-color: rgb(56, 66, 77);
   padding: 1rem;
+  .perks-locked {
+    height: 2rem;
+    .locked-text {
+      height: 1.8rem;
+      margin: auto;
+      font-size: 1rem;
+      img {
+        height: 80%;
+      }
+    }
+  }
 }

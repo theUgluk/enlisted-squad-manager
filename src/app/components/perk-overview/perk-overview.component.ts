@@ -84,4 +84,6 @@ export class PerkOverviewComponent {
     return this.overviewFacade.soldierList.get(<number>this.systemService.selectedSoldierId())?.
       perks?.find(perk => perk.perkId === perkId)?.amount || 0;
   }
+
+  protected readonly Math = Math;
 }
