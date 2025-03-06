@@ -46,9 +46,14 @@
               @if(localSoldier && level === 1){
                 @let ppNeeded = perkService.pointsNeededForHigherLevel(localSoldier.perks);
                 @if(ppNeeded < 0){
-                  <div class="grid row-span-3 text-center">
+                  <div class="perks-locked select-none grid row-span-3 text-center">
                     @if(perkType === 1){
-                      "Locked"
+                      <div class="locked-text flex flex-row">
+                        <img src="assets/images/point_lock.svg" />
+                        <div>
+                          {{Math.abs(perkService.pointsNeededForHigherLevel(localSoldier.perks))}}
+                        </div>
+                      </div>
                     } @else {
                       &nbsp;
                     }

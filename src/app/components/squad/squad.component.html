@@ -1,4 +1,14 @@
-<div [ngClass]="this.systemService.selectedSquadId() === squadSignal().id ? 'selected' : ''" class="aspect-square border-2 border-black p-1 hover:cursor-pointer hover:bg-gray-500" (click)="selectSquad()">
-  Squad {{ squadSignal().id }}
-  <button (click)="deleteSquad($event)">Delete Squad</button>
+<div
+  [ngClass]="this.systemService.selectedSquadId() === squadSignal().id ? 'selected' : ''"
+  class="squad-list-container pl-1 pr-1 pt-4 pb-4 border-2 border-black p-1 hover:cursor-pointer hover:bg-gray-500 flex flex-row"
+  (click)="selectSquad()"
+>
+  <div class="w-10/12">
+    Squad {{ squadSignal().id }}
+  </div>
+  <div class="w-2/12 ml-auto">
+    <button (click)="deleteSquad($event)">
+      <img src="../../../assets/images/delete.svg" />
+    </button>
+  </div>
 </div>

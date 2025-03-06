@@ -4,18 +4,11 @@
 
 # UI
 - Perks
-  - get icon for locked perk tree 
+  - better styling for default perk
 - Soldiers
 	- Select newly created soldier
-	- Action bar right side
-    - Add icons
-      - Delete
-      - Move up
-      - Move down
-      - Copy
 - Squads
 	- Select newly created squad
-	- Smaller squad square
 	- Indicator of type of squad
 	? Slide in squad menu
 - Header

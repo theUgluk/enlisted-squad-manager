@@ -1,9 +1,10 @@
 import {NgClass} from "@angular/common";
-import {Component, input, OnInit, WritableSignal} from "@angular/core";
+import {Component, inject, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Squad} from "../../models/squad.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
 import {SystemService} from "../../services/system.service";
+import { PopupService } from "../../services/popup.service";
 
 @Component({
   selector: "app-squad",
@@ -15,6 +16,9 @@ import {SystemService} from "../../services/system.service";
 })
 export class SquadComponent implements OnInit {
   constructor(public overviewFacade: OverviewFacadeService, public systemService: SystemService) {}
+
+  private popupService = inject(PopupService);
+
   squadId = input.required<number>();
 
   public squadSignal!: WritableSignal<Squad>;
@@ -28,7 +32,9 @@ export class SquadComponent implements OnInit {
 
   public deleteSquad(event: Event) {
     event.stopPropagation();
-    this.systemService.unsetSquadIfSelectedSquadId(this.squadId());
-    this.overviewFacade.deleteSquad(this.squadId());
+    this.popupService.showPopupWithText("Are you sure you want to delete the squad?", "Delete Squad", () => {
+      this.systemService.unsetSquadIfSelectedSquadId(this.squadId());
+      this.overviewFacade.deleteSquad(this.squadId());
+    })
   }
 }
