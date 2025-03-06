@@ -540,7 +540,7 @@ export const perks: IPerk[] = [
     level: 1,
   },
   {
-    id: 53,
+    id: 54,
     type: 2,
     cost: 4,
     maxLevel: 2,

@@ -55,14 +55,17 @@ export class SoldierTypeSelectorComponent {
   public changeSoldierTypeAndLevel(newSoldierTypeId: number, newSoldierTypeLevel: number): void {
     this.changeSoldierType(newSoldierTypeId);
     this.changeSoldierTypeLevel(newSoldierTypeLevel);
+    this.showDropdown.set(false);
   }
 
   public changeSoldierType(newSoldierTypeId: number) {
     this.soldierTypeChange.emit(newSoldierTypeId);
+    this.showDropdown.set(false);
   }
 
   public changeSoldierTypeLevel(newSoldierLevel: number): void {
     this.soldierTypeLevelChange.emit(newSoldierLevel);
+    this.showDropdown.set(false);
   }
 
   public createLevelsArray(minLevel: number | undefined, maxLevel: number | undefined): number[]{

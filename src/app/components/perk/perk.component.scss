@@ -124,10 +124,20 @@
       }
     }
   }
-  .default-perk {
-    margin: 0;
-    padding: 0;
-    height: 13px;
-    display: inline;
+  .default {
+    .perk {
+      height: 50px;
+    }
+    .default-img {
+      margin: -5px 0 0;
+      padding: 0;
+      height: 17px;
+      display: inline;
+    }
+    &.selected {
+      .default-img {
+        filter: brightness(0) saturate(100%) invert(18%) sepia(13%) saturate(739%) hue-rotate(174deg) brightness(97%) contrast(89%);
+      }
+    }
   }
 }

@@ -9,7 +9,10 @@
      ></app-perk>
     <!-- current bonus -->
     @if( selectedAmountForPerk() > 0){
-      <div class="perk-text pt-5">
+      <div class="text-center pt-5">
+        Current level
+      </div>
+      <div class="perk-text pt-1">
         {{ localSelectedPerk.text(selectedAmountForPerk()) }}
       </div>
     }
@@ -17,8 +20,8 @@
       <!-- next level -->
       @if(selectedAmountForPerk() + 1 <= localSelectedPerk.maxLevel){
         <div class="perk-text pt-5">
-          <div>
-            Next level:
+          <div class="text-center">
+            Next level
           </div>
           {{ localSelectedPerk.text(selectedAmountForPerk() + 1) }}
         </div>
