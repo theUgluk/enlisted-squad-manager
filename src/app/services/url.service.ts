@@ -7,6 +7,7 @@ import {BehaviorSubject} from "rxjs";
 import {Soldier} from "../models/soldier.model";
 import {SoldierActions} from "../state/actions/soldierActions";
 import {SquadActions} from "../state/actions/squadActions";
+import {SystemActions} from "../state/actions/systemActions";
 import {SoldierState} from "../state/store/soldier.state";
 import Util from "../util";
 
@@ -22,32 +23,60 @@ export class UrlService {
 
   public initialLoaded = new BehaviorSubject<boolean>(false);
 
-  private version = 1;
+  private version = 2;
+
+  private encode = true;
 
   constructor(private store: Store, private location: Location) {
     this.initialLoaded.subscribe(loaded => {
       if (loaded) {
         this.store.select(SoldierState.getSoldiers).subscribe(soldiers => {
-          this._url = `${this.version}-`;
-          soldiers.forEach(soldier => {
-            this._url += soldier.hash + "-";
-          })
-          this._url = JSLZString.compressToEncodedURIComponent(this._url.substring(0, this._url.length - 1));
-          this.location.replaceState("/" + this._url);
+          this.createUrl(soldiers);
         });
       }
     });
   }
 
+  public createUrl(soldiers?: Soldier[]){
+    let soldierList = soldiers;
+    if(soldierList === undefined){
+      soldierList = this.store.selectSnapshot(SoldierState.getSoldiers)
+    }
+    const sortedSoldiers = this.sortSoldiers(soldierList);
+    this._url = `${this.version}-`;
+    this._url += this.getUrlFromSoldiers(sortedSoldiers);
+    if(this.encode) {
+      this._url = JSLZString.compressToEncodedURIComponent(this._url);
+    }
+    this.location.replaceState("/" + this._url);
+  }
+
+  public sortSoldiers(soldiers: Soldier[]): Soldier[] {
+    return soldiers.sort((a, b) => a.squadId - b.squadId);
+  }
+
+  private getUrlFromSoldiers(soldiers: Soldier[]): string {
+    let url = "";
+    soldiers.forEach(soldier => {
+      url += soldier.hash + "-";
+    })
+    return url.substring(0, url.length - 1);
+  }
+
   public initialLoad(){
     //Annoyingly JSLZ uses +, which isn't url safe >:(
-    const uri = JSLZString.decompressFromEncodedURIComponent(
-      this.location.path().substring(1, this.location.path().length).replaceAll("%2B", "+")
-    );
+    let uri = this.location.path().substring(1, this.location.path().length).replaceAll("%2B", "+");
+    if(this.encode){
+      uri = JSLZString.decompressFromEncodedURIComponent(uri);
+    }
+    let lowestSquadId = 1;
     if(uri && uri.length > 0) {
-      const soldierHashes = uri.split("-")
+      let soldierHashes = uri.split("-")
       // remove the version number
-      soldierHashes.shift();
+      const hashVersion = soldierHashes.shift();
+      if(hashVersion && Util.decodeNumber(hashVersion) < this.version) {
+        soldierHashes = this.convertHashFromVersion(soldierHashes, Util.decodeNumber(hashVersion));
+      }
       const soldiers: Soldier[] = []
       if (soldierHashes && soldierHashes.length > 0) {
         this.store.dispatch(new SquadActions.DeleteSquad(1)).subscribe(() => {
@@ -55,12 +84,14 @@ export class UrlService {
             soldiers.push(this.createSoldierFromHash(soldierHash));
           });
           this.store.dispatch(new SoldierActions.SetSoldier(soldiers));
+          lowestSquadId = Math.min(...this.squadIds);
           this.squadIds.forEach((squadId: number) => {
             this.store.dispatch(new SquadActions.SetSquad(squadId));
           })
         });
       }
     }
+    this.store.dispatch(new SystemActions.SelectSquad(lowestSquadId));
     this.initialLoaded.next(true);
   }
 
@@ -86,4 +117,26 @@ export class UrlService {
     });
     return new Soldier(soldierId, squadId, soldierTypeId, soldierTypeLevel, perks);
   }
+
+  private convertHashFromVersion(hash: string[], hashVersion: number): string[] {
+    let result = hash;
+    //let currentVersion = hashVersion;
+    if(hashVersion === 1){
+      result = this.convertOneToTwo(hash)
+      //currentVersion = 2;
+    }
+    return result
+  }
+
+  // Id of Vitality perk changed from 0 to 54
+  private convertOneToTwo(hash: string[]): string[] {
+    const soldiers: string[] = [];
+    hash.forEach((soldierHash: string) => {
+      // check the perks and change if necessary
+      const perkHash = soldierHash.substring(3);
+      soldiers.push(soldierHash.substring(0, 3) + perkHash.replaceAll("0", "q"));
+    });
+    return soldiers;
+  }
+
 }

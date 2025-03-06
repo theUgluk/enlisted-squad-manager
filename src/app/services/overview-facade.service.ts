@@ -9,14 +9,15 @@ import {SoldierState} from "../state/store/soldier.state";
 import {SquadState} from "../state/store/squad.state";
 import AddPerkToSoldier = SoldierActions.AddPerkToSoldier;
 import RemovePerkFromSoldier = SoldierActions.RemovePerkFromSoldier;
+import {SystemState} from "../state/store/system.state";
+import {SystemService} from "./system.service";
+import {UrlService} from "./url.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class OverviewFacadeService {
-  public selectedSquadId: WritableSignal<number> = signal(0);
-
-  public selectedSoldierId: WritableSignal<number | null> = signal(null);
+  private selectedSoldierId = this._store.selectSignal(SystemState.getSelectedSoldierId);
 
   public squadList: WritableSignal<Map<number, Squad>> = signal(new Map<number, Squad>());
 
@@ -26,7 +27,13 @@ export class OverviewFacadeService {
 
   public soldierSignalList: Map<number, WritableSignal<Soldier>> = new Map<number, WritableSignal<Soldier>>();
 
-  constructor(private _store: Store) {
+  public forceReload = signal(1);
+
+  constructor(
+    private _store: Store,
+    private systemService: SystemService,
+    private urlService: UrlService,
+  ) {
     this._store.select(SquadState.getSquads).subscribe(squads => {
       this.updateSquadSignalList(squads);
     });
@@ -59,7 +66,8 @@ export class OverviewFacadeService {
           this.squadSignalList.get(squad.id)?.set(squad);
         }
       }
-    })
+    });
+
     if(markForCheck){
       const map = new Map<number, Squad>();
       this.getSquadIds().forEach(squadId => {
@@ -124,14 +132,10 @@ export class OverviewFacadeService {
   }
 
   public deleteSquad(squadId: number): void {
-    if(this.selectedSquadId() === squadId){
-      this.selectedSquadId.set(0);
-    }
     this._store.dispatch(new SquadActions.DeleteSquad(squadId));
   }
 
   public changeSoldierType(soldierId: number, soldierTypeId: number){
-    this.selectedSoldierId.set(null);
     this._store.dispatch(new SoldierActions.ChangeSoldierType(soldierId, soldierTypeId));
   }
   public changeSoldierTypeLevel(soldierId: number, soldierTypeLevel: number){
@@ -154,5 +158,35 @@ export class OverviewFacadeService {
     if(soldierId !== null){
       this.addPerkToSoldier(perkId, soldierId);
     }
+  }
+
+  public moveSoldierUp(soldierId: number){
+    this.systemService.unsetSoldierIfSelectedSoldierId(soldierId);
+    this._store.dispatch(new SoldierActions.MoveSoldierUp(soldierId));
+    this.updateSoldierSignalList(this._store.selectSnapshot(SoldierState.getSoldiers));
+    this.urlService.createUrl();
+    const selectedSquad = this.systemService.selectedSquadId();
+    if(selectedSquad){
+      // Force the reload of the squad
+      this.systemService.unsetSquadIfSelectedSquadId(selectedSquad);
+      setTimeout(() => this.systemService.setSelectedSquadId(selectedSquad), 1);
+    }
+  }
+
+  public moveSoldierDown(soldierId: number){
+    this.systemService.unsetSoldierIfSelectedSoldierId(soldierId);
+    this._store.dispatch(new SoldierActions.MoveSoldierDown(soldierId))
+    this.updateSoldierSignalList(this._store.selectSnapshot(SoldierState.getSoldiers));
+    this.urlService.createUrl();
+    const selectedSquad = this.systemService.selectedSquadId();
+    if(selectedSquad){
+      // Force the reload of the squad
+      this.systemService.unsetSquadIfSelectedSquadId(selectedSquad);
+      setTimeout(() => this.systemService.setSelectedSquadId(selectedSquad), 1);
+    }
+  }
+
+  public copySoldierToSquad(soldierId: number, squadId: number){
+    this._store.dispatch(new SoldierActions.CopySoldierToSquad(soldierId, squadId));
   }
 }

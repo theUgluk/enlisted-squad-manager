@@ -1,22 +1,27 @@
-import {Component, input, OnInit, WritableSignal} from "@angular/core";
+import {NgClass} from "@angular/common";
+import {Component, inject, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Soldier} from "../../models/soldier.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
+import {PopupService} from "../../services/popup.service";
+import {SystemService} from "../../services/system.service";
 import {SoldierTypeSelectorComponent} from "../class-selector/soldier-type-selector.component";
 
 @Component({
   selector: "app-soldier",
-  standalone: true,
   imports: [
     SoldierTypeSelectorComponent,
+    NgClass,
   ],
   templateUrl: "./soldier.component.html",
   styleUrl: "./soldier.component.scss"
 })
 
 export class SoldierComponent implements OnInit {
-  constructor(public overviewFacade: OverviewFacadeService) {
+  constructor(public overviewFacade: OverviewFacadeService, public systemService: SystemService) {
   }
+
+  private popupService = inject(PopupService);
 
   soldierId = input.required<number>();
 
@@ -26,8 +31,12 @@ export class SoldierComponent implements OnInit {
     this.soldierSignal = <WritableSignal<Soldier>>this.overviewFacade.soldierSignalList.get(this.soldierId());
   }
 
-  public deleteSoldier(soldierId: number) {
-    this.overviewFacade.deleteSoldier(soldierId);
+  public deleteSoldier(soldierId: number, event: Event) {
+    event.stopPropagation();
+    this.popupService.showPopupWithText("Are you sure you want to delete the soldier?", "Delete Soldier", () => {
+      this.systemService.unsetSoldierIfSelectedSoldierId(soldierId);
+      this.overviewFacade.deleteSoldier(soldierId);
+    })
   }
 
   public soldierTypeChange(value: number) {
@@ -39,7 +48,7 @@ export class SoldierComponent implements OnInit {
   }
 
   public selectSoldier() {
-    this.overviewFacade.selectedSoldierId.set(this.soldierId());
+    this.systemService.setSelectedSoldierId(this.soldierId());
   }
 
   public isPerkPointsLowerThanMax(type: "mobility" | "vitality" | "handling"): boolean {
@@ -75,5 +84,20 @@ export class SoldierComponent implements OnInit {
       case "handling":
         return this.soldierSignal().maxHandling - this.soldierSignal().getPerkPointsSpend().weaponHandling < 0;
     }
+  }
+
+  public moveSoldierUp(event: Event): void {
+    event.stopPropagation();
+    this.overviewFacade.moveSoldierUp(this.soldierId());
+  }
+
+  public moveSoldierDown(event: Event): void {
+    event.stopPropagation();
+    this.overviewFacade.moveSoldierDown(this.soldierId());
+  }
+
+  public copySoldier(event: Event): void {
+    event.stopPropagation();
+    this.popupService.showPopupForCopy(this.soldierId());
   }
 }

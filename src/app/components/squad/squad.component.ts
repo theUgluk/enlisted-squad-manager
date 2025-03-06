@@ -1,22 +1,24 @@
-import {AsyncPipe} from "@angular/common";
-import {Component, input, OnInit, WritableSignal} from "@angular/core";
+import {NgClass} from "@angular/common";
+import {Component, inject, input, OnInit, WritableSignal} from "@angular/core";
 
 import {Squad} from "../../models/squad.model";
 import {OverviewFacadeService} from "../../services/overview-facade.service";
-import {SoldierComponent} from "../soldier/soldier.component";
+import { PopupService } from "../../services/popup.service";
+import {SystemService} from "../../services/system.service";
 
 @Component({
   selector: "app-squad",
-  standalone: true,
   imports: [
-    AsyncPipe,
-    SoldierComponent
+    NgClass
   ],
   templateUrl: "./squad.component.html",
   styleUrl: "./squad.component.scss"
 })
 export class SquadComponent implements OnInit {
-  constructor(public overviewFacade: OverviewFacadeService) {}
+  constructor(public overviewFacade: OverviewFacadeService, public systemService: SystemService) {}
+
+  private popupService = inject(PopupService);
+
   squadId = input.required<number>();
 
   public squadSignal!: WritableSignal<Squad>;
@@ -25,6 +27,14 @@ export class SquadComponent implements OnInit {
   }
 
   public selectSquad(){
-    this.overviewFacade.selectedSquadId.set(this.squadId());
+    this.systemService.setSelectedSquadId(this.squadId());
+  }
+
+  public deleteSquad(event: Event) {
+    event.stopPropagation();
+    this.popupService.showPopupWithText("Are you sure you want to delete the squad?", "Delete Squad", () => {
+      this.systemService.unsetSquadIfSelectedSquadId(this.squadId());
+      this.overviewFacade.deleteSquad(this.squadId());
+    })
   }
 }

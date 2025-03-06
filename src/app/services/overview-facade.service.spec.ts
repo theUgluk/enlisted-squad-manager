@@ -8,6 +8,7 @@ import {Squad} from "../models/squad.model";
 import {SquadActions} from "../state/actions/squadActions";
 import {SoldierState} from "../state/store/soldier.state";
 import {SquadState} from "../state/store/squad.state";
+import {SystemState} from "../state/store/system.state";
 import { OverviewFacadeService } from "./overview-facade.service";
 
 describe("OverviewService", () => {
@@ -17,7 +18,7 @@ describe("OverviewService", () => {
   beforeEach(() => {
     // setup state
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot([SquadState, SoldierState])],
+      imports: [NgxsModule.forRoot([SquadState, SoldierState, SystemState])],
     });
     store = TestBed.inject(Store);
     store.reset({
@@ -45,6 +46,9 @@ describe("OverviewService", () => {
     const storeMock = {
       select: vi.fn().mockReturnValue({
         subscribe: vi.fn()
+      }),
+      selectSignal: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
       })
     };
     service = new OverviewFacadeService(storeMock as any);
@@ -62,6 +66,9 @@ describe("OverviewService", () => {
     const storeMock = {
       select: vi.fn().mockReturnValue({
         subscribe: (callback) => callback([])
+      }),
+      selectSignal: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
       })
     };
     service = new OverviewFacadeService(storeMock as any);
@@ -80,6 +87,9 @@ describe("OverviewService", () => {
     const storeMock = {
       select: vi.fn().mockReturnValue({
         subscribe: (callback) => callback([])
+      }),
+      selectSignal: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
       })
     };
     service = new OverviewFacadeService(storeMock as any);
@@ -103,6 +113,9 @@ describe("OverviewService", () => {
     const storeMock = {
       select: vi.fn().mockReturnValue({
         subscribe: (callback) => callback([])
+      }),
+      selectSignal: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
       })
     };
     service = new OverviewFacadeService(storeMock as any);
@@ -119,6 +132,9 @@ describe("OverviewService", () => {
     const storeMock = {
       select: vi.fn().mockReturnValue({
         subscribe: (callback) => callback([])
+      }),
+      selectSignal: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
       })
     };
     service = new OverviewFacadeService(storeMock as any);
@@ -140,6 +156,9 @@ describe("OverviewService", () => {
     const storeMock = {
       select: vi.fn().mockReturnValue({
         subscribe: (callback) => callback([])
+      }),
+      selectSignal: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
       })
     };
     service = new OverviewFacadeService(storeMock as any);
@@ -163,7 +182,14 @@ describe("OverviewService", () => {
   // Handles empty squads array without errors
   it("should handle empty squads array without errors", () => {
     // Arrange
-    const storeMock = { select: vi.fn(() => ({ subscribe: vi.fn() })) };
+    const storeMock = {
+      select: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
+      }),
+      selectSignal: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
+      })
+    };
     service = new OverviewFacadeService(storeMock as any);
     const squads: Squad[] = [];
 
@@ -176,7 +202,14 @@ describe("OverviewService", () => {
 
   it("should update squadList correctly when squads get removed", () => {
     // Arrange
-    const storeMock = { select: vi.fn(() => ({ subscribe: vi.fn() })) };
+    const storeMock = {
+      select: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
+      }),
+      selectSignal: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
+      })
+    };
     service = new OverviewFacadeService(storeMock as any);
     const initialSquads = [new Squad(1), new Squad(2)];
     service.updateSquadSignalList(initialSquads);
@@ -197,6 +230,9 @@ describe("OverviewService", () => {
     // Arrange
     const storeMock = {
       select: vi.fn().mockReturnValue({
+        subscribe: (callback) => callback([])
+      }),
+      selectSignal: vi.fn().mockReturnValue({
         subscribe: vi.fn()
       })
     };
@@ -221,6 +257,9 @@ describe("OverviewService", () => {
     // Arrange
     const storeMock = {
       select: vi.fn().mockReturnValue({
+        subscribe: (callback) => callback([])
+      }),
+      selectSignal: vi.fn().mockReturnValue({
         subscribe: vi.fn()
       })
     };
@@ -242,6 +281,9 @@ describe("OverviewService", () => {
     // Arrange
     const storeMock = {
       select: vi.fn().mockReturnValue({
+        subscribe: vi.fn()
+      }),
+      selectSignal: vi.fn().mockReturnValue({
         subscribe: vi.fn()
       })
     };

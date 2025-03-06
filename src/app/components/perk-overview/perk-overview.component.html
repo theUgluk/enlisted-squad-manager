@@ -1,4 +1,5 @@
 @if(soldierSignal()){
+  @let localSelectedPerk = selectedPerk();
   <div class="flex flex-row">
     <div class="w-5/6">
       <div class="grid grid-cols-3 gap-4">
@@ -6,51 +7,69 @@
           <img class="perk" src="/assets/images/perks/perk_speed.svg" />
           <div class="title">
             MOBILITY
-            <span class="amountMobility">{{maxMobility()}}</span>
+            <span class="amountMobility">{{soldierSignal()?.getMaxPerkPoints("mobility")}}</span>
           </div>
-          {{soldierSignal()?.getPerkPointsSpend()?.mobility}}@if(soldierSignal()?.getPerkPointsSpend()?.mobility === maxMobility()){*}
+          {{soldierSignal()?.getPerkPointsSpend()?.mobility}}@if(soldierSignal()?.getPerkPointsSpend()?.mobility === soldierSignal()?.getMaxPerkPoints("mobility")){*}
         </div>
         <div class="perk-1 perk-header">
           <img class="perk" src="/assets/images/perks/perk_vitality.svg" />
           <div class="title">
             VITALITY
-            <span class="amountVitality">{{maxVitality()}}</span>
+            <span class="amountVitality">{{soldierSignal()?.getMaxPerkPoints("vitality")}}</span>
           </div>
-          {{soldierSignal()?.getPerkPointsSpend()?.vitality}}@if(soldierSignal()?.getPerkPointsSpend()?.vitality === maxVitality()){*}
+          {{soldierSignal()?.getPerkPointsSpend()?.vitality}}@if(soldierSignal()?.getPerkPointsSpend()?.vitality === soldierSignal()?.getMaxPerkPoints("vitality")){*}
         </div>
         <div class="perk-2 perk-header">
           <img class="perk" src="/assets/images/perks/perk_battleskill.svg" />
           <div class="title">
             WEAPON
-            <span class="amountHandling">{{maxHandling()}}</span>
+            <span class="amountHandling">{{soldierSignal()?.getMaxPerkPoints("handling")}}</span>
           </div>
-          {{soldierSignal()?.getPerkPointsSpend()?.weaponHandling}}@if(soldierSignal()?.getPerkPointsSpend()?.weaponHandling === maxHandling()){*}
+          {{soldierSignal()?.getPerkPointsSpend()?.weaponHandling}}@if(soldierSignal()?.getPerkPointsSpend()?.weaponHandling === soldierSignal()?.getMaxPerkPoints("handling")){*}
         </div>
         @for(perkType of perkTypeArray; track perkType){
           <div class="perk-container grid-cols-1 gap-4">
             @for(level of levelsArray; track level) {
               <div class="grid grid-cols-3 gap-4 grid-rows-[repeat(3,_80px)] h-48">
-                @for(mobilityPerk of getPerksByTypeAndLevel(perkType, level); track
-                mobilityPerk) {
+                @for(perk of getPerks(perkType, level); track
+                perk) {
                   <app-perk
-                    [isSelected]="mobilityPerk.id === selectedPerkId()"
+                    [isSelected]="perk.id === selectedPerk()?.id"
                     (perkClicked)="perkClicked($event)"
-                    (perkRightClicked)="perkRightClicked(mobilityPerk.id)"
-                    [selectedAmountForPerk]="selectedAmountForPerk(mobilityPerk.id)"
-                    [perk]="mobilityPerk"
+                    (perkRightClicked)="perkRightClicked(perk)"
+                    [selectedAmountForPerk]="selectedAmountForPerk(perk.id)"
+                    [perk]="perk"
                   ></app-perk>
                 }
               </div>
+              @let localSoldier = soldierSignal();
+              @if(localSoldier && level === 1){
+                @let ppNeeded = perkService.pointsNeededForHigherLevel(localSoldier.perks);
+                @if(ppNeeded < 0){
+                  <div class="perks-locked select-none grid row-span-3 text-center">
+                    @if(perkType === 1){
+                      <div class="locked-text flex flex-row">
+                        <img src="assets/images/point_lock.svg" />
+                        <div>
+                          {{Math.abs(perkService.pointsNeededForHigherLevel(localSoldier.perks))}}
+                        </div>
+                      </div>
+                    } @else {
+                      &nbsp;
+                    }
+                  </div>
+                }
+              }
             }
           </div>
         }
       </div>
     </div>
     <div class="w-1/6">
-      @if(selectedPerkId() !== null) {
+      @if(localSelectedPerk !== null) {
         <app-selected-perk
-          [selectedPerkId]="selectedPerkId()"
-          [selectedAmountForPerk]="selectedAmountForPerk(selectedPerkId())"
+          [selectedPerk]="selectedPerk()"
+          [selectedAmountForPerk]="selectedAmountForPerk(localSelectedPerk.id)"
           (perkClicked)="perkClicked($event)"
           (perkRightClicked)="perkRightClicked($event)"
         ></app-selected-perk>

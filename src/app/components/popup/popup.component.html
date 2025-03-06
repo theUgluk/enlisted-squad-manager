@@ -1,0 +1,34 @@
+@if(popupService.popupVisible()){
+  <div class="overlay">
+    <div class="popup">
+      <div class="popup-title">
+        {{popupService.popupTitle()}}
+      </div>
+      <div class="popup-content">
+        @if(popupService.popupTypeText()){
+          {{popupService.popupText()}}
+        } @else {
+          <div>
+            Select squad to copy to:
+          </div>
+          @for(squad of getSquadList(); track squad.id){
+          <div>
+            <input type="radio" name="squad{{squad.id}}" [value]="squad.id" [(ngModel)]="selectedSquad" />
+            <label for="squad{{squad.id}}">
+              Squad {{squad.id}}
+            </label>
+          </div>
+          }
+        }
+      </div>
+      <div class="popup-buttons">
+        <button (click)="cancel()">
+          Cancel
+        </button>
+        <button (click)="confirm()">
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+}

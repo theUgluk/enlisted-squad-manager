@@ -81,4 +81,32 @@ export namespace SoldierActions {
     }
   }
 
+  export class MoveSoldierUp {
+    static readonly type = "[Default] Move Soldier Up";
+    soldierId: number;
+
+    constructor(soldierId: number) {
+      this.soldierId = soldierId;
+    }
+  }
+
+  export class MoveSoldierDown {
+    static readonly type = "[Default] Move Soldier End";
+    soldierId: number;
+
+    constructor(soldierId: number) {
+      this.soldierId = soldierId;
+    }
+  }
+
+  export class CopySoldierToSquad {
+    static readonly type = "[Default] Copy Soldier To Squad";
+    soldierId: number | string;
+    squadId: number;
+
+    constructor(soldierId: number | string, squadId: number) {
+      this.soldierId = soldierId;
+      this.squadId = squadId;
+    }
+  }
 }

@@ -1,11 +1,15 @@
-<div (contextmenu)="rmb($event)" (click)="click()" class="perk-main w-full perk-{{perk().type}} {{extraClasses}}">
+<div (contextmenu)="rmb($event)" (click)="click()" [ngClass]="perk().default ? 'default' : ''" class="perk-main w-full perk-{{perk().type}} {{extraClasses}}">
   <div class="perk-inner">
     <div class="perk-icon">
       <img class="perk" src="/assets/images/perks/{{perk().icon}}" />
     </div>
     <div class="perk-amount">
       <span class="perk-amount-text select-none">
-        {{selectedAmountForPerk()}}/{{perk().maxLevel}}
+        @if(perk().default){
+          <img class="default-img perk perk-{{perk().type}}" src="../../../assets/images/checkmark.svg" />
+        } @else {
+          {{selectedAmountForPerk()}}/{{perk().maxLevel}}
+        }
       </span>
     </div>
   </div>

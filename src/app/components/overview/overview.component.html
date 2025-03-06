@@ -1,3 +1,32 @@
+<nav class="w-full flex flex-row p-1 justify-between items-center">
+  <div class="ml-0">
+    <h1>
+      TheUgluk's Enlisted Squad Manager
+    </h1>
+  </div>
+  <div class="flex flex-row gap-6">
+    <div>
+      <a href="https://ko-fi.com/ugluk" target="_blank">
+        <img src="assets/images/header-icons/kofi.svg" />
+      </a>
+    </div>
+    <div>
+      <a href="https://discord.gg/3FWedUgxEF" target="_blank">
+        <img src="../../../assets/images/header-icons/discord.svg" />
+      </a>
+    </div>
+    <div>
+      <a href="https://www.twitch.tv/theugluk" target="_blank">
+        <img src="assets/images/header-icons/twitch.svg" />
+      </a>
+    </div>
+    <div>
+      <a href="https://github.com/theUgluk/enlisted-squad-manager" target="_blank">
+        <img src="assets/images/header-icons/github.svg" />
+      </a>
+    </div>
+  </div>
+</nav>
 <div class="flex flex-row m-4 gap-x-2">
   <div class="flex flex-col basis-1/12 gap-y-3">
     @for(squadId of overviewFacade.getSquadIds(); track squadId) {
@@ -11,11 +40,11 @@
     <app-selected-squad class="flex flex-grow"></app-selected-squad>
   </div>
   <div class="basis-5/6">
-    @if(overviewFacade.selectedSoldierId() !== null) {
+    @if(systemService.selectedSoldierId() !== null) {
       <app-perk-overview
         class="flex-row"
-        [selectedSoldierId]="overviewFacade.selectedSoldierId() || 0"
       ></app-perk-overview>
     }
   </div>
 </div>
+<app-popup></app-popup>

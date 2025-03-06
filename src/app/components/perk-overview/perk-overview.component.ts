@@ -1,15 +1,15 @@
-import { Component, effect, input, signal, WritableSignal } from "@angular/core";
+import {Component, effect, signal, WritableSignal} from "@angular/core";
 
-import { perks } from "../../../data/perks";
 import {IPerk} from "../../models/perk.model";
 import {Soldier} from "../../models/soldier.model";
 import { OverviewFacadeService } from "../../services/overview-facade.service";
+import {PerkService} from "../../services/perk.service";
+import {SystemService} from "../../services/system.service";
 import {PerkComponent} from "../perk/perk.component";
 import {SelectedPerkComponent} from "../selected-perk/selected-perk.component";
 
 @Component({
   selector: "app-perk-overview",
-  standalone: true,
   imports: [
     PerkComponent,
     SelectedPerkComponent
@@ -19,73 +19,71 @@ import {SelectedPerkComponent} from "../selected-perk/selected-perk.component";
 })
 export class PerkOverviewComponent {
 
-  public soldierSignal = signal<Soldier | null>(null);
+  public soldierSignal!: WritableSignal<Soldier | null>;
 
-  constructor(public overviewFacade: OverviewFacadeService) {
+  constructor(
+    public overviewFacade: OverviewFacadeService,
+    public systemService: SystemService,
+    public perkService: PerkService
+  ) {
     effect(() => {
-      const soldierSignal = this.overviewFacade.soldierSignalList.get(this.selectedSoldierId());
-      if(soldierSignal) {
-        this.soldierSignal.set(soldierSignal());
-        this.maxMobility.set(soldierSignal().maxMobility);
-        this.maxVitality.set(soldierSignal().maxVitality);
-        this.maxHandling.set(soldierSignal().maxHandling);
-        this.possiblePerks.set(this.getPossiblePerks(soldierSignal().soldierTypeId));
+      if(
+        this.systemService.selectedSoldierId() !== null
+        && this.overviewFacade.soldierSignalList.has(<number>this.systemService.selectedSoldierId())
+      ){
+        this.soldierSignal = <WritableSignal<Soldier | null>>this.overviewFacade.soldierSignalList.get(
+          <number>this.systemService.selectedSoldierId()
+        );
+      } else {
+        this.soldierSignal = signal<Soldier | null>(null);
       }
-    },
-    {
-      allowSignalWrites: true,
+      this.selectedPerk.set(null);
     });
   }
-
-  public maxMobility = signal(0);
-  public maxVitality = signal(0);
-  public maxHandling = signal(0);
 
   // Create an array so our HTML has a collection to loop over
   public levelsArray: number[] = [1, 2, 3];
 
   public perkTypeArray: number[] = [0, 1, 2];
 
-  selectedSoldierId = input.required<number>();
+  selectedPerk: WritableSignal<IPerk | null> = signal(null);
 
-  selectedPerkId: WritableSignal<number | null> = signal(null);
-
-  public possiblePerks: WritableSignal<IPerk[]> = signal([]);
-
-  public getPerksByTypeAndLevel(type: number, level: number): IPerk[] {
-    return this.getPerksByType(type).filter(perk => perk.level === level);
+  public getPerks(type?: number, level?: number): IPerk[] {
+    let result: IPerk[] = [];
+    if(this.soldierSignal() !== null){
+      result = this.perkService.getPerks(<number>this.soldierSignal()?.soldierTypeId, type, level);
+    }
+    if(level === 1 && type !== undefined){
+      const perkPointsPerSoldierType = this.soldierSignal()?.getPerkPointsPerSoldierType();
+      if(perkPointsPerSoldierType !== undefined && perkPointsPerSoldierType.defaultPerk.type === type){
+        result = [perkPointsPerSoldierType.defaultPerk, ...result];
+      }
+    }
+    return result;
   }
 
-  public getPerksByType(type: number): IPerk[] {
-    const possiblePerks = this.possiblePerks();
-    return possiblePerks.filter(perk => perk.type === type);
-  }
-
-  private getPossiblePerks(soldierTypeId: number): IPerk[] {
-    return perks.filter(perk => {
-      return (perk.include && perk.class.includes(soldierTypeId))
-        || (!perk.include && !perk.class.includes(soldierTypeId));
-    });
-  }
-
-  public perkClicked(perkId: number | null){
-    if(perkId !== null) {
-      if (this.selectedPerkId() === null || this.selectedPerkId() !== perkId) {
-        this.selectedPerkId.set(perkId);
+  public perkClicked(perk: IPerk | null){
+    if(perk !== null) {
+      if (
+        this.selectedPerk() === null ||
+        this.selectedPerk()?.id !== perk.id) {
+        this.selectedPerk.set(perk);
       } else {
-        this.overviewFacade.addPerkToSelectedSoldier(perkId);
+        this.overviewFacade.addPerkToSelectedSoldier(perk.id);
       }
     }
   }
 
-  public perkRightClicked(perkId: number | null){
-    if(perkId !== null) {
-      this.overviewFacade.removePerkFromSelectedSoldier(perkId);
+  public perkRightClicked(perk: IPerk | null){
+    if(perk !== null) {
+      this.overviewFacade.removePerkFromSelectedSoldier(perk.id);
     }
   }
 
-  public selectedAmountForPerk(perkId: number | null): number{
-    return this.overviewFacade.soldierList.get(this.selectedSoldierId())?.
+  public selectedAmountForPerk(perkId: number | null): number {
+    return this.overviewFacade.soldierList.get(<number>this.systemService.selectedSoldierId())?.
       perks?.find(perk => perk.perkId === perkId)?.amount || 0;
   }
+
+  protected readonly Math = Math;
 }

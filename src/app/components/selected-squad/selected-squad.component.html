@@ -1,10 +1,11 @@
 <div class="flex flex-col gap-2">
-  @if(overviewFacade.selectedSquadId() > 0){
-    @for (soldier of overviewFacade.soldierForSquad(overviewFacade.selectedSquadId()); track soldier.id){
+  @let selectedSquadId = systemService.selectedSquadId();
+  @if(selectedSquadId !== null){
+    @for (soldier of getOrderedSoldierList(); track soldier){
       <app-soldier class="hover:cursor-pointer hover:bg-gray-500" [soldierId]="soldier.id"></app-soldier>
     }
+    <div (click)="createNewSoldier()">
+      Add soldier
+    </div>
   }
-  <div (click)="createNewSoldier()">
-    Add soldier
-  </div>
 </div>

@@ -1,0 +1,33 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  z-index: 200;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  .popup {
+    position: absolute;
+    background-color: black;
+    width: 60%;
+    height: 50%;
+    top: 15%;
+    left: 20%;
+    padding: 20px;
+    .popup-content {
+      height: 80%;
+    }
+    .popup-buttons {
+      height: 20%;
+      text-align: right;
+      button {
+        height: 90%;
+        border: 2px solid gray;
+        width: 15%;
+        margin: 0 5px;
+        &:hover{
+          background-color: gray;
+        }
+      }
+    }
+  }
+}

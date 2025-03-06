@@ -55,8 +55,13 @@ export class SquadState {
   }
   @Action(SetSquad)
   public setSquad(ctx: StateContext<SquadStateModel>, action: SetSquad) {
+    let { maxSquadId } = ctx.getState();
+    if(action.squadId > maxSquadId) {
+      maxSquadId = action.squadId;
+    }
     ctx.setState({
       ...ctx.getState(),
+      maxSquadId: maxSquadId,
       squads: [
         ...ctx.getState().squads,
         new Squad(action.squadId)
