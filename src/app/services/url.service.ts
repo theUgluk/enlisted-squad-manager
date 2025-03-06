@@ -128,13 +128,13 @@ export class UrlService {
     return result
   }
 
-  // Id of Vitality perk changed from 0 to 53
+  // Id of Vitality perk changed from 0 to 54
   private convertOneToTwo(hash: string[]): string[] {
     const soldiers: string[] = [];
     hash.forEach((soldierHash: string) => {
       // check the perks and change if necessary
       const perkHash = soldierHash.substring(3);
-      soldiers.push(soldierHash.substring(0, 3) + perkHash.replaceAll("0", "r"));
+      soldiers.push(soldierHash.substring(0, 3) + perkHash.replaceAll("0", "q"));
     });
     return soldiers;
   }

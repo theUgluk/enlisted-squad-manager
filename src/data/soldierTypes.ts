@@ -79,7 +79,7 @@ export const soldierTypes: soldierType[] = [
             step: 35,
             include: true,
             class: [],
-            icon: "perk_vitality.svg",
+            icon: "perk_speed.svg",
             level: 1,
             default: true,
             order: 0,
@@ -353,7 +353,7 @@ export const soldierTypes: soldierType[] = [
           handling: 4,
           defaultPerk: {
             id: 0,
-            type: 0,
+            type: 1,
             cost: 0,
             maxLevel: 1,
             text: (amount: number ) => "+12.3% vitality",

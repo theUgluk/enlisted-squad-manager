@@ -1,10 +1,13 @@
+import {NgClass} from "@angular/common";
 import {ChangeDetectorRef, Component, effect, EventEmitter, input, Output} from "@angular/core";
 
 import {IPerk} from "../../models/perk.model";
 
 @Component({
   selector: "app-perk",
-  imports: [],
+  imports: [
+    NgClass
+  ],
   templateUrl: "./perk.component.html",
   styleUrl: "./perk.component.scss"
 })
