@@ -922,5 +922,36 @@ export const soldierTypes: soldierType[] = [
         }
       ],
     ]),
+  },
+  {
+    id: 17,
+    name: "Paratrooper",
+    minLevel: 1,
+    maxLevel: 1,
+    icon: "paratrooper.svg",
+    perkPoints: new Map<number, PerkPointsPerSoldierType>([
+      [
+        1,
+        {
+          mobility: 4,
+          vitality: 7,
+          handling: 4,
+          defaultPerk: {
+            id: 0,
+            type: 1,
+            cost: 0,
+            maxLevel: 1,
+            text: (amount: number ) => "+35% Stamina",
+            step: 5,
+            include: true,
+            class: [],
+            icon: "perk_vitality.svg",
+            level: 1,
+            default: true,
+            order: 0,
+          } as IPerk
+        }
+      ]
+    ])
   }
 ]
