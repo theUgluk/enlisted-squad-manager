@@ -26,6 +26,11 @@ export class SquadComponent implements OnInit {
 
   private popupService = inject(PopupService);
 
+  // Priority list of soldier type IDs whose icons should be used if present
+  private readonly prioritySoldierTypeIds = [1, 5, 6, 7, 10, 12, 15, 16, 17];
+
+  private readonly defaultIconUri = "rifle.svg";
+
   squadId = input.required<number>();
 
   public squadSignal!: WritableSignal<Squad>;
@@ -75,5 +80,41 @@ export class SquadComponent implements OnInit {
       );
       this.systemService.setSelectedSquadId(squadIds[currentIndex + 1]);
     }
+  }
+
+  public getSquadIcon(): string {
+    const soldiers = this.overviewFacade.soldierForSquad(this.squadId());
+    if (soldiers.length === 0) return this.defaultIconUri;
+
+    // First check for priority soldier types
+    for (const priorityTypeId of this.prioritySoldierTypeIds) {
+      const prioritySoldier = soldiers.find(
+        (s) => s.soldierTypeId === priorityTypeId
+      );
+      if (prioritySoldier) {
+        return prioritySoldier.getSoldierType()?.icon || this.defaultIconUri;
+      }
+    }
+
+    // If no priority types found, use the most common type
+    const typeCounts = new Map<number, number>();
+    soldiers.forEach((soldier) => {
+      const typeId = soldier.soldierTypeId;
+      typeCounts.set(typeId, (typeCounts.get(typeId) || 0) + 1);
+    });
+
+    let mostCommonTypeId = -1;
+    let maxCount = 0;
+    typeCounts.forEach((count, typeId) => {
+      if (count > maxCount) {
+        maxCount = count;
+        mostCommonTypeId = typeId;
+      }
+    });
+
+    const mostCommonSoldier = soldiers.find(
+      (s) => s.soldierTypeId === mostCommonTypeId
+    );
+    return mostCommonSoldier?.getSoldierType()?.icon || this.defaultIconUri;
   }
 }
