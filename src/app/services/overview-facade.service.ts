@@ -1,20 +1,20 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
-import { Store } from '@ngxs/store';
+import { Injectable, signal, WritableSignal } from "@angular/core";
+import { Store } from "@ngxs/store";
 
-import { Soldier } from '../models/soldier.model';
-import { Squad } from '../models/squad.model';
-import { SoldierActions } from '../state/actions/soldierActions';
-import { SquadActions } from '../state/actions/squadActions';
-import { SoldierState } from '../state/store/soldier.state';
-import { SquadState } from '../state/store/squad.state';
+import { Soldier } from "../models/soldier.model";
+import { Squad } from "../models/squad.model";
+import { SoldierActions } from "../state/actions/soldierActions";
+import { SquadActions } from "../state/actions/squadActions";
+import { SoldierState } from "../state/store/soldier.state";
+import { SquadState } from "../state/store/squad.state";
 import AddPerkToSoldier = SoldierActions.AddPerkToSoldier;
 import RemovePerkFromSoldier = SoldierActions.RemovePerkFromSoldier;
-import { SystemState } from '../state/store/system.state';
-import { SystemService } from './system.service';
-import { UrlService } from './url.service';
+import { SystemState } from "../state/store/system.state";
+import { SystemService } from "./system.service";
+import { UrlService } from "./url.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class OverviewFacadeService {
   private selectedSoldierId = this._store.selectSignal(

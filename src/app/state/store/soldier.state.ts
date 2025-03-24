@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Injectable } from "@angular/core";
+import { Action, Selector, State, StateContext } from "@ngxs/store";
 
-import { perks } from '../../../data/perks';
-import { Soldier } from '../../models/soldier.model';
-import { SoldierActions } from '../actions/soldierActions';
-import { SoldierStateModel } from '../models/soldier.model';
+import { perks } from "../../../data/perks";
+import { Soldier } from "../../models/soldier.model";
+import { SoldierActions } from "../actions/soldierActions";
+import { SoldierStateModel } from "../models/soldier.model";
 
 @State<SoldierStateModel>({
-  name: 'soldier',
+  name: "soldier",
   defaults: {
     maxSoldierId: 0,
     soldiers: [new Soldier(0, 1)],
