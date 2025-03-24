@@ -9,4 +9,5 @@
 - Squads
 	- Select newly created squad
 	- Indicator of type of squad
+	- Move squads
 	? Slide in squad menu
