@@ -1,46 +1,56 @@
-import {Injectable, signal, WritableSignal} from "@angular/core";
-import {Store} from "@ngxs/store";
+import { Injectable, signal, WritableSignal } from '@angular/core';
+import { Store } from '@ngxs/store';
 
-import {Soldier} from "../models/soldier.model";
-import {Squad} from "../models/squad.model";
-import {SoldierActions} from "../state/actions/soldierActions";
-import {SquadActions} from "../state/actions/squadActions";
-import {SoldierState} from "../state/store/soldier.state";
-import {SquadState} from "../state/store/squad.state";
+import { Soldier } from '../models/soldier.model';
+import { Squad } from '../models/squad.model';
+import { SoldierActions } from '../state/actions/soldierActions';
+import { SquadActions } from '../state/actions/squadActions';
+import { SoldierState } from '../state/store/soldier.state';
+import { SquadState } from '../state/store/squad.state';
 import AddPerkToSoldier = SoldierActions.AddPerkToSoldier;
 import RemovePerkFromSoldier = SoldierActions.RemovePerkFromSoldier;
-import {SystemState} from "../state/store/system.state";
-import {SystemService} from "./system.service";
-import {UrlService} from "./url.service";
+import { SystemState } from '../state/store/system.state';
+import { SystemService } from './system.service';
+import { UrlService } from './url.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class OverviewFacadeService {
-  private selectedSoldierId = this._store.selectSignal(SystemState.getSelectedSoldierId);
+  private selectedSoldierId = this._store.selectSignal(
+    SystemState.getSelectedSoldierId
+  );
 
-  public squadList: WritableSignal<Map<number, Squad>> = signal(new Map<number, Squad>());
+  public squadList: WritableSignal<Map<number, Squad>> = signal(
+    new Map<number, Squad>()
+  );
 
-  public squadSignalList: Map<number, WritableSignal<Squad>> = new Map<number, WritableSignal<Squad>>();
+  public squadSignalList: Map<number, WritableSignal<Squad>> = new Map<
+    number,
+    WritableSignal<Squad>
+  >();
 
   public soldierList: Map<number, Soldier> = new Map<number, Soldier>();
 
-  public soldierSignalList: Map<number, WritableSignal<Soldier>> = new Map<number, WritableSignal<Soldier>>();
+  public soldierSignalList: Map<number, WritableSignal<Soldier>> = new Map<
+    number,
+    WritableSignal<Soldier>
+  >();
 
   public forceReload = signal(1);
 
   constructor(
     private _store: Store,
     private systemService: SystemService,
-    private urlService: UrlService,
+    private urlService: UrlService
   ) {
-    this._store.select(SquadState.getSquads).subscribe(squads => {
+    this._store.select(SquadState.getSquads).subscribe((squads) => {
       this.updateSquadSignalList(squads);
     });
 
-    this._store.select(SoldierState.getSoldiers).subscribe(soldiers => {
+    this._store.select(SoldierState.getSoldiers).subscribe((soldiers) => {
       this.updateSoldierSignalList(soldiers);
-    })
+    });
   }
 
   public updateSquadSignalList(squads: Squad[]): void {
@@ -52,47 +62,47 @@ export class OverviewFacadeService {
         this.squadList().delete(id);
         this.squadSignalList.delete(id);
       });
-    squads.map(squad => {
-      if(!this.squadSignalList.has(squad.id)) {
+    squads.map((squad) => {
+      if (!this.squadSignalList.has(squad.id)) {
         this.squadSignalList.set(squad.id, signal(squad));
-        this.squadList.update(val => {
+        this.squadList.update((val) => {
           val.set(squad.id, squad);
           return val;
         });
         markForCheck = true;
       } else {
-        if(squad.hash !== this.squadList().get(squad.id)?.hash){
+        if (squad.hash !== this.squadList().get(squad.id)?.hash) {
           this.squadList().set(squad.id, squad);
           this.squadSignalList.get(squad.id)?.set(squad);
         }
       }
     });
 
-    if(markForCheck){
+    if (markForCheck) {
       const map = new Map<number, Squad>();
-      this.getSquadIds().forEach(squadId => {
+      this.getSquadIds().forEach((squadId) => {
         map.set(squadId, <Squad>this.squadList().get(squadId));
       });
       this.squadList.set(map);
     }
   }
 
-  public getSquadIds(){
+  public getSquadIds() {
     return Array.from(this.squadList().keys());
   }
 
-  public getSoldierIds(){
+  public getSoldierIds() {
     return Array.from(this.soldierList.keys());
   }
 
-  public deleteSoldier(soldierId: number){
+  public deleteSoldier(soldierId: number) {
     this._store.dispatch(new SoldierActions.DeleteSoldier(soldierId));
   }
 
   public soldierForSquad(squadId: number): Soldier[] {
     const soldiers: Soldier[] = [];
-    this.getSoldierIds().forEach(soldierId => {
-      if(this.soldierList.get(soldierId)?.squadId === squadId){
+    this.getSoldierIds().forEach((soldierId) => {
+      if (this.soldierList.get(soldierId)?.squadId === squadId) {
         soldiers.push(<Soldier>this.soldierList.get(soldierId));
       }
     });
@@ -100,14 +110,17 @@ export class OverviewFacadeService {
   }
 
   public updateSoldierSignalList(soldiers: Soldier[]): void {
-    soldiers.forEach(soldier => {
-      if(!this.soldierSignalList.has(soldier.id) && this.squadList().has(soldier.squadId)){
+    soldiers.forEach((soldier) => {
+      if (
+        !this.soldierSignalList.has(soldier.id) &&
+        this.squadList().has(soldier.squadId)
+      ) {
         this.soldierList.set(soldier.id, soldier);
         this.soldierSignalList.set(soldier.id, signal(soldier));
-        const squad = <Squad>this.squadList().get(soldier.squadId)
+        const squad = <Squad>this.squadList().get(soldier.squadId);
         this.squadSignalList.get(soldier.squadId)?.set(squad);
       } else {
-        if(soldier.hash !== this.soldierList.get(soldier.id)?.hash){
+        if (soldier.hash !== this.soldierList.get(soldier.id)?.hash) {
           this.soldierList.set(soldier.id, soldier);
           this.soldierSignalList.get(soldier.id)?.set(soldier);
         }
@@ -115,15 +128,17 @@ export class OverviewFacadeService {
     });
 
     // Delete soldiers from maps if they are no longer in the state
-    const accurateSoldierIds = soldiers.map(el => el.id);
-    const soldierIdsToDelete = this.getSoldierIds().filter(soldierId => !accurateSoldierIds.includes(soldierId));
+    const accurateSoldierIds = soldiers.map((el) => el.id);
+    const soldierIdsToDelete = this.getSoldierIds().filter(
+      (soldierId) => !accurateSoldierIds.includes(soldierId)
+    );
     soldierIdsToDelete.forEach((soldierId) => {
       this.soldierSignalList.delete(soldierId);
       this.soldierList.delete(soldierId);
-    })
+    });
   }
 
-  public addSquad(){
+  public addSquad() {
     this._store.dispatch(new SquadActions.AddSquad());
   }
 
@@ -135,58 +150,78 @@ export class OverviewFacadeService {
     this._store.dispatch(new SquadActions.DeleteSquad(squadId));
   }
 
-  public changeSoldierType(soldierId: number, soldierTypeId: number){
-    this._store.dispatch(new SoldierActions.ChangeSoldierType(soldierId, soldierTypeId));
+  public changeSoldierType(soldierId: number, soldierTypeId: number) {
+    this._store.dispatch(
+      new SoldierActions.ChangeSoldierType(soldierId, soldierTypeId)
+    );
   }
-  public changeSoldierTypeLevel(soldierId: number, soldierTypeLevel: number){
-    this._store.dispatch(new SoldierActions.ChangeSoldierTypeLevel(soldierId, soldierTypeLevel))
+  public changeSoldierTypeLevel(soldierId: number, soldierTypeLevel: number) {
+    this._store.dispatch(
+      new SoldierActions.ChangeSoldierTypeLevel(soldierId, soldierTypeLevel)
+    );
   }
 
-  public addPerkToSoldier(perkId: number, soldierId: number){
+  public addPerkToSoldier(perkId: number, soldierId: number) {
     this._store.dispatch(new AddPerkToSoldier(soldierId, perkId));
   }
 
-  public removePerkFromSelectedSoldier(perkId: number){
+  public removePerkFromSelectedSoldier(perkId: number) {
     const soldierId = this.selectedSoldierId();
-    if(soldierId !== null){
+    if (soldierId !== null) {
       this._store.dispatch(new RemovePerkFromSoldier(soldierId, perkId));
     }
   }
 
-  public addPerkToSelectedSoldier(perkId: number){
+  public addPerkToSelectedSoldier(perkId: number) {
     const soldierId = this.selectedSoldierId();
-    if(soldierId !== null){
+    if (soldierId !== null) {
       this.addPerkToSoldier(perkId, soldierId);
     }
   }
 
-  public moveSoldierUp(soldierId: number){
+  public moveSoldierUp(soldierId: number) {
     this.systemService.unsetSoldierIfSelectedSoldierId(soldierId);
     this._store.dispatch(new SoldierActions.MoveSoldierUp(soldierId));
-    this.updateSoldierSignalList(this._store.selectSnapshot(SoldierState.getSoldiers));
+    this.updateSoldierSignalList(
+      this._store.selectSnapshot(SoldierState.getSoldiers)
+    );
     this.urlService.createUrl();
     const selectedSquad = this.systemService.selectedSquadId();
-    if(selectedSquad){
+    if (selectedSquad) {
       // Force the reload of the squad
       this.systemService.unsetSquadIfSelectedSquadId(selectedSquad);
       setTimeout(() => this.systemService.setSelectedSquadId(selectedSquad), 1);
     }
   }
 
-  public moveSoldierDown(soldierId: number){
+  public moveSoldierDown(soldierId: number) {
     this.systemService.unsetSoldierIfSelectedSoldierId(soldierId);
-    this._store.dispatch(new SoldierActions.MoveSoldierDown(soldierId))
-    this.updateSoldierSignalList(this._store.selectSnapshot(SoldierState.getSoldiers));
+    this._store.dispatch(new SoldierActions.MoveSoldierDown(soldierId));
+    this.updateSoldierSignalList(
+      this._store.selectSnapshot(SoldierState.getSoldiers)
+    );
     this.urlService.createUrl();
     const selectedSquad = this.systemService.selectedSquadId();
-    if(selectedSquad){
+    if (selectedSquad) {
       // Force the reload of the squad
       this.systemService.unsetSquadIfSelectedSquadId(selectedSquad);
       setTimeout(() => this.systemService.setSelectedSquadId(selectedSquad), 1);
     }
   }
 
-  public copySoldierToSquad(soldierId: number, squadId: number){
-    this._store.dispatch(new SoldierActions.CopySoldierToSquad(soldierId, squadId));
+  public copySoldierToSquad(soldierId: number, squadId: number) {
+    this._store.dispatch(
+      new SoldierActions.CopySoldierToSquad(soldierId, squadId)
+    );
+  }
+
+  public swapSquadIds(firstSquadId: number, secondSquadId: number) {
+    this._store.dispatch(
+      new SoldierActions.SwapSquadIds(firstSquadId, secondSquadId)
+    );
+    this.updateSoldierSignalList(
+      this._store.selectSnapshot(SoldierState.getSoldiers)
+    );
+    this.urlService.createUrl();
   }
 }
