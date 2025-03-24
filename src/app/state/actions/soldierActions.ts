@@ -1,4 +1,4 @@
-import {Soldier} from "../../models/soldier.model";
+import { Soldier } from "../../models/soldier.model";
 
 export namespace SoldierActions {
   export class AddSoldier {
@@ -14,7 +14,7 @@ export namespace SoldierActions {
     static readonly type = "[Default] Delete Soldier";
     soldierId: number;
 
-    constructor(soldierId: number){
+    constructor(soldierId: number) {
       this.soldierId = soldierId;
     }
   }
@@ -107,6 +107,17 @@ export namespace SoldierActions {
     constructor(soldierId: number | string, squadId: number) {
       this.soldierId = soldierId;
       this.squadId = squadId;
+    }
+  }
+
+  export class SwapSquadIds {
+    static readonly type = "[Default] Swap Squad IDs";
+    firstSquadId: number;
+    secondSquadId: number;
+
+    constructor(firstSquadId: number, secondSquadId: number) {
+      this.firstSquadId = firstSquadId;
+      this.secondSquadId = secondSquadId;
     }
   }
 }
